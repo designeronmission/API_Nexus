@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Onboarding Portal | APINexus Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="assets/style.css">
+
+</head>
+<body>
+
+    <div class="broadcast-ribbon">
+        PRODUCTION GATEWAY SECURED: Enterprise Client Deployment Framework Active
+    </div>
+
+    <header class="site-header">
+        <div class="container header-wrapper">
+                          <div class="logo-block">
+                 <img src="images/logo-dark.svg" alt="logo" class="logo-main">
+                </div>
+            <div class="header-actions-deck">
+                <a href="login.html" class="nav-link">Already Registered?</a>
+                <a href="login.html" class="btn btn-secondary">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="onboarding-container">
+        
+        <div class="text-center" style="margin-bottom: 48px; text-align: center;">
+            <h1 style="font-size: 36px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em;">
+                Initialize Client Workspace
+            </h1>
+            <p style="color: var(--text-secondary); max-width: 580px; margin: 0 auto;">
+                Configure corporate identity contexts, provision third-party infrastructure arrays, and confirm system activation pricing.
+            </p>
+        </div>
+
+        <div class="timeline-indicator-track">
+            <div class="timeline-step-node active" id="timeStep1">
+                <div class="step-node-circle">1</div>
+                <div class="step-node-label">Identity</div>
+            </div>
+            <div class="timeline-step-node" id="timeStep2">
+                <div class="step-node-circle">2</div>
+                <div class="step-node-label">Services Matrix</div>
+            </div>
+            <div class="timeline-step-node" id="timeStep3">
+                <div class="step-node-circle">3</div>
+                <div class="step-node-label">Invoice Summary</div>
+            </div>
+        </div>
+
+        <form id="onboardingMasterForm" onsubmit="handleFormSubmission(event)">
+            
+            <!-- STEP 1: CORPORATE IDENTITY -->
+            <div class="quote-form-wrapper-modern step-window-card active" id="formStepWindow1">
+                <div class="form-section-block" style="margin-bottom: 24px;">
+                    <h3><span class="step-counter" style="background:var(--brand-primary); padding:2px 8px; border-radius:4px; margin-right:6px;">1</span> Corporate Profiles & Access Topology</h3>
+                    <p class="form-block-desc" style="color: var(--text-secondary); font-size:14px;">Configure target administrator operational keys and organizational breakdown anchors.</p>
+                </div>
+
+                <div class="quote-grid-layout">
+                    <div class="input-control-group">
+                        <label>Administrator Email</label>
+                        <input type="email" id="clientEmail" class="custom-input-element" placeholder="master@enterprise.com" required>
+                    </div>
+                    <div class="input-control-group"></div>
+
+                    <div class="input-control-group">
+                        <label>Access Password</label>
+                        <input type="password" id="clientPassword" class="custom-input-element" placeholder="••••••••" required>
+                    </div>
+                    <div class="input-control-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="clientConfirmPassword" class="custom-input-element" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="input-control-group" style="grid-column: span 2;">
+                        <label>Parent Company Legal Entity Name</label>
+                        <input type="text" id="parentCompany" class="custom-input-element" placeholder="e.g. Acme Corporations Inc." oninput="syncParentCompanyName()" required>
+                    </div>
+
+                    <div class="input-control-group" style="grid-column: span 2; margin-top: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label style="margin-bottom: 0;">Sub-Company Architecture Units</label>
+                            <button type="button" class="btn-action-small btn-add-item" onclick="addSubCompanyLineItem()">
+                                ➕ Add New Sub-Company
+                            </button>
+                        </div>
+                        
+                        <div class="subcompany-dynamic-container" id="subCompanyInputsWrapper">
+                            <div class="subcompany-line-row">
+                                <div class="input-inline-prefix-block">
+                                    <span class="inline-parent-tag" style="background: #1e1b4b; color: #a5b4fc;">[1st Primary Node]</span>
+                                    <input type="text" id="firstSubCompanyMirror" class="custom-input-element subcompany-value-item" placeholder="Enter parent entity name above..." readonly required>
+                                </div>
+                                <button type="button" class="btn-action-small btn-remove-item" style="opacity: 0.4; cursor: not-allowed;" disabled>Primary</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-nav-deck">
+                    <div></div>
+                    <button type="button" class="btn btn-primary" onclick="navigateToStep(2)">
+                        Proceed to API Selection &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: DYNAMIC CATEGORY DROPDOWN & CLICK TRIGGER TO NEXT SCREEN -->
+            <div class="quote-form-wrapper-modern step-window-card" id="formStepWindow2">
+                <div class="form-section-block" style="margin-bottom: 24px;">
+                    <h3><span class="step-counter" style="background:var(--brand-primary); padding:2px 8px; border-radius:4px; margin-right:6px;">2</span> Third-Party Service Selection Matrix</h3>
+                    <p class="form-block-desc" style="color: var(--text-secondary); font-size:14px;">Select an ecosystem service category to load accessible 3rd-party integration pipelines. <strong>Clicking an item instantly progresses to your final invoice summary.</strong></p>
+                </div>
+
+                <div class="input-control-group" style="margin-bottom: 20px;">
+                    <label style="margin-bottom: 6px;">1. Choose Category Ecosystem Context</label>
+                    <select id="serviceCategorySelect" class="custom-input-element" onchange="renderCategoryApis()">
+                        <option value="email">Email Service APIs</option>
+                        <option value="messaging">Messaging Service APIs</option>
+                        <option value="payments">Payment Gateway APIs</option>
+                        <option value="banking">Open Banking APIs</option>
+                        <option value="infra">Cloud Infrastructure APIs</option>
+                    </select>
+                </div>
+
+                <label style="font-size: 13px; font-weight:600; color:var(--text-secondary);">2. Choose Accessible 3rd-Party APIs (<span id="apiCounterText">0</span> available)</label>
+                
+                <!-- Dynamic Target Element for 3rd Party APIs Grid -->
+                <div class="api-selection-matrix" id="apiCardsContainer"></div>
+
+                <div class="form-nav-deck" style="margin-top: 40px;">
+                    <button type="button" class="btn btn-secondary" onclick="navigateToStep(1)">
+                        &larr; Back to Profile
+                    </button>
+                    <div></div>
+                </div>
+            </div>
+
+            <!-- STEP 3: INVOICE GENERATION SCREEN -->
+            <div class="quote-form-wrapper-modern step-window-card" id="formStepWindow3">
+                <div class="form-section-block">
+                    <h3><span class="step-counter">3</span> Pro-Forma Activation Invoice</h3>
+                    <p class="form-block-desc">Review your real-time itemized infrastructure allocation invoice statements below.</p>
+                </div>
+
+                <div class="invoice-card-wrapper">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+                        <div>
+                            <h2 style="font-size: 20px; font-weight: 800; color: #fff; text-transform: uppercase;">MARKETPLACE DEPLOYMENT INVOICE</h2>
+                            <p style="font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-top: 4px;">DOCUMENT #APINX-2026-NEXUS</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 11px; background:var(--brand-primary); padding:4px 8px; border-radius:4px; font-weight:bold;">AWAITING CONFIRMATION</span>
+                        </div>
+                    </div>
+
+                    <div class="invoice-metadata-grid">
+                        <div>
+                            <span style="display:block; color: var(--text-muted); font-size: 11px; text-transform: uppercase; font-weight:700; margin-bottom: 4px;">Billed Corporate Client Topology:</span>
+                            <strong id="invoiceParentName" style="color: var(--text-primary); font-size: 15px;">[Parent Entity]</strong><br>
+                            
+                            <div id="invoiceSubCompaniesContainer" style="margin-top: 8px; display:flex; flex-direction:column; gap:4px;">
+                                <span style="color: var(--text-secondary);">[Sub-Company Division Namespace]</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="display:block; color: var(--text-muted); font-size: 11px; text-transform: uppercase; font-weight:700;">Account Administrator Access:</span>
+                            <span id="invoiceAdminEmail" style="color: var(--text-secondary); font-family: 'JetBrains Mono', monospace;">-</span>
+                        </div>
+                    </div>
+
+                    <table class="compare-matrix-table" style="background: transparent;">
+                        <thead>
+                            <tr>
+                                <th>Provisioned Architecture Item</th>
+                                <th>Type Class</th>
+                                <th style="text-align: right;">Monthly Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoiceLineItemsTarget" style="border-bottom: 1.5px dashed grey;"></tbody>
+                        <tfoot>
+                            <tr style="font-weight: 700; font-size: 16px;">
+                                <td style="padding: 24px 12px 0; color: #fff;">Aggregate Subscription Commit</td>
+                                <td></td>
+                                <td id="invoiceCalculatedTotalDisplay" style="color: var(--accent-success); text-align: right; font-size: 20px; font-weight: 800; padding: 24px 12px 0;">
+                                    $0.00
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="form-nav-deck">
+                    <button type="button" class="btn btn-secondary" onclick="navigateToStep(2)">
+                        &larr; Modify Services
+                    </button>
+                    <button type="submit" class="btn btn-primary secure-submit-btn">
+                         Complete Activation & Proceed to Dashboard
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </main>
+
+    <script>
+        const PLATFORM_BASE_FEE = 10.00;
+        
+        // Static Mock Data Store containing the API selections separated by chosen categories
+        const API_REGISTRY = {
+            email: [
+                { id: 'sendgrid', title: 'SendGrid Mailbox', desc: 'Transactional delivery relays, templates setups, and engine domain verifications.', price: 15, tag: 'smtp-rest' },
+                { id: 'mailgun', title: 'Mailgun Transit', desc: 'High-volume outbound bulk infrastructure targeting direct queue lanes.', price: 12, tag: 'webhooks' }
+            ],
+            messaging: [
+                { id: 'twilio', title: 'Twilio Connect', desc: 'Global 2FA messaging matrix, standard SMS layouts, and mobile tracing nodes.', price: 25, tag: 'carrier-api' }
+            ],
+            payments: [
+                { id: 'stripe', title: 'Stripe Core', desc: 'Credit card networks processing, ledger modules, and direct client escrow accounts.', price: 45, tag: 'multi-currency' },
+                { id: 'adyen', title: 'Adyen Global', desc: 'Cross-border clearing engines specialized for alternative checkout localized modules.', price: 55, tag: 'enterprise-clearing' }
+            ],
+            banking: [
+                { id: 'plaid', title: 'Plaid Link', desc: 'Direct secure banking endpoint sync loops, data records ledger, and account telemetry.', price: 35, tag: 'oauth-2' }
+            ],
+            infra: [
+                { id: 'aws', title: 'AWS S3 Engine', desc: 'Dynamic asset data bucket architectures and access authorization controls.', price: 60, tag: 'iam-storage' }
+            ]
+        };
+
+        // Variable holding user's selected item
+        let selectedApiInstance = null;
+
+        function syncParentCompanyName() {
+            const rawInput = document.getElementById('parentCompany').value;
+            const firstSubInput = document.getElementById('firstSubCompanyMirror');
+            firstSubInput.value = rawInput; 
+            
+            const fallbackText = rawInput.trim() !== "" ? rawInput : "Parent Company";
+            const dynamicLabels = document.querySelectorAll('.dynamic-parent-prefix-label');
+            dynamicLabels.forEach(label => {
+                label.innerText = `[${fallbackText}]`;
+            });
+        }
+
+        function addSubCompanyLineItem() {
+            const wrapper = document.getElementById('subCompanyInputsWrapper');
+            const parentValue = document.getElementById('parentCompany').value || "Parent Company";
+            
+            const lineRow = document.createElement('div');
+            lineRow.className = 'subcompany-line-row';
+            lineRow.innerHTML = `
+                <div class="input-inline-prefix-block">
+                    <span class="inline-parent-tag dynamic-parent-prefix-label">[${parentValue}]</span>
+                    <input type="text" class="custom-input-element subcompany-value-item" placeholder="Enter next unique subcompany branch name..." required>
+                </div>
+                <button type="button" class="btn-action-small btn-remove-item" onclick="this.parentElement.remove()">Remove</button>
+            `;
+            wrapper.appendChild(lineRow);
+        }
+
+        // Dynamic 3rd Party Api Rendering Engine based on Dropdown service selection
+        function renderCategoryApis() {
+            const category = document.getElementById('serviceCategorySelect').value;
+            const container = document.getElementById('apiCardsContainer');
+            const apis = API_REGISTRY[category] || [];
+            
+            document.getElementById('apiCounterText').innerText = apis.length;
+            container.innerHTML = "";
+
+            apis.forEach(api => {
+                const card = document.createElement('div');
+                card.className = "api-interactive-card";
+                card.onclick = () => selectApiAndAdvance(api);
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="api-card-header">
+                            <span class="api-card-title">${api.title}</span>
+                        </div>
+                        <p class="api-card-desc">${api.desc}</p>
+                    </div>
+                    <div class="api-card-footer">
+                        <span class="api-tag-badge">${api.tag}</span>
+                        <span class="api-rate-label">$${api.price.toFixed(2)}/mo</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Clicking on an API triggers configuration update and routes straight to Step 3
+        function selectApiAndAdvance(api) {
+            selectedApiInstance = api;
+            navigateToStep(3);
+        }
+
+        function navigateToStep(targetStep) {
+            if (targetStep === 2) {
+                const pass = document.getElementById('clientPassword').value;
+                const conf = document.getElementById('clientConfirmPassword').value;
+                if (!document.getElementById('clientEmail').value || !pass || !document.getElementById('parentCompany').value) {
+                    alert("Please complete the required corporate verification details in Step 1.");
+                    return;
+                }
+                if (pass !== conf) {
+                    alert("Configuration Error: Passwords do not match.");
+                    return;
+                }
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                const timeNode = document.getElementById(`timeStep${i}`);
+                const windowNode = document.getElementById(`formStepWindow${i}`);
+                
+                timeNode.classList.remove('active', 'completed');
+                windowNode.classList.remove('active');
+
+                if (i < targetStep) {
+                    timeNode.classList.add('completed');
+                } else if (i === targetStep) {
+                    timeNode.classList.add('active');
+                    windowNode.classList.add('active');
+                }
+            }
+
+            if (targetStep === 3) {
+                compileInvoiceStatement();
+            }
+        }
+
+        function compileInvoiceStatement() {
+            const parentNameInput = document.getElementById('parentCompany').value;
+            const adminEmailInput = document.getElementById('clientEmail').value;
+
+            document.getElementById('invoiceParentName').innerText = parentNameInput;
+            document.getElementById('invoiceAdminEmail').innerText = adminEmailInput;
+
+            const subCompanyInputs = document.querySelectorAll('.subcompany-value-item');
+            const subInvoiceContainer = document.getElementById('invoiceSubCompaniesContainer');
+            
+            let subCompaniesHTML = "";
+            subCompanyInputs.forEach((input, idx) => {
+                if(input.value.trim() !== "") {
+                    subCompaniesHTML += `<span style="color: var(--text-secondary); font-size:12px; display:block;">• Sub-Node #${idx + 1}: ${input.value}</span>`;
+                }
+            });
+            subInvoiceContainer.innerHTML = subCompaniesHTML;
+
+            const targetTableBody = document.getElementById('invoiceLineItemsTarget');
+            const totalDisplay = document.getElementById('invoiceCalculatedTotalDisplay');
+
+            let finalRunningTotal = PLATFORM_BASE_FEE;
+
+            let invoiceHTML = `
+                <tr>
+                    <td style="padding: 14px 12px;">APINexus Workspace License</td>
+                    <td style="color: var(--text-secondary);">API Nexus</td>
+                    <td style="text-align: right; font-weight: 600; color: var(--text-primary);">$${PLATFORM_BASE_FEE.toFixed(2)}</td>
+                </tr>
+            `;
+
+            if (selectedApiInstance) {
+                finalRunningTotal += selectedApiInstance.price;
+                invoiceHTML += `
+                    <tr>
+                        <td style="padding: 14px 12px;">Integrated Service Mesh: ${selectedApiInstance.title}</td>
+                        <td style="color: var(--text-secondary);">3rd-Party Proxy Endpoint</td>
+                        <td style="text-align: right; font-weight: 600; color: var(--text-primary);">$${selectedApiInstance.price.toFixed(2)}</td>
+                    </tr>
+                `;
+            }
+
+            targetTableBody.innerHTML = invoiceHTML;
+            totalDisplay.innerText = `$${finalRunningTotal.toFixed(2)} / mo`;
+        }
+
+        // Trigger foundational APIs on load
+        renderCategoryApis();
+
+        function handleFormSubmission(event) {
+            event.preventDefault();
+            alert("Subscription configuration authenticated successfully!");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiNexus — Mapped Architecture Matrices</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet"/>
+
+
+</head>
+<body>
+
+    <div class="broadcast-ribbon">
+        Architectural Core Update: Core abstraction mapping matrices are fully active across all 6 platform segments.
+    </div>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="brand-logo-block">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-circle-nodes"></i>
+                    </div>
+                    <div>
+                        <span class="brand-text-matrix">ApiNexus</span>
+                        <span class="brand-subtext">One Platform. Infinite Integrations.</span>
+                    </div>
+                </div>
+
+                <nav class="nav-links-shelf">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="#services" class="nav-link">API Verticals</a>
+                    <a href="#personas" class="nav-link">Target Personas</a>
+                    <a href="#lab" class="nav-link">Integration Sandbox</a>
+                    <a href="#" class="nav-link">Documents</a>
+                </nav>
+
+                <div class="header-actions-deck">
+                    <button id="masterThemeBtn" class="btn btn-secondary" style="padding: 10px 16px;">
+                        <i id="themeIconSlot" class="fa-solid fa-moon"></i>
+                        <span id="themeLabelText" style="margin-left: 6px; font-size: 12px;">Dark Mode</span>
+                    </button>
+                    <a href="#quote-desk" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Request
+                        Quote</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="margin-top: 60px;">
+        <div style="margin-bottom: 40px; text-align: center;">
+            <span class="badge-pill-micro">Requirement Routing</span>
+            <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin-top: 6px;" id="resultsTitleText">Real-time orchestration logs mapping query variables to live third-party routing endpoints.</h1>
+        </div>
+
+        <div style="background-color: var(--bg-surface-primary); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px 24px; display: flex; gap: 16px; align-items: center; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted); font-size: 18px;"></i>
+            <input type="text" id="liveResultsModifierInput" placeholder="Refine active architectural string query..." 
+                style="flex: 1; background: var(--bg-surface-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 12px 18px; border-radius: 8px; font-family: inherit; font-size: 14px; outline: none; transition: border-color 0.2s;" />
+        </div>
+
+        <div style="display: flex; gap: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 40px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <button class="search-category-tab active" onclick="switchDiscoveryCategory('all')">All Platform Nodes</button>
+            <button class="search-category-tab" onclick="switchDiscoveryCategory('email')">Email Service APIs</button>
+            <button class="search-category-tab" onclick="switchDiscoveryCategory('messaging')">Messaging Service APIs</button>
+            <button class="search-category-tab" onclick="switchDiscoveryCategory('payments')">Payment Gateways</button>
+            <button class="search-category-tab" onclick="switchDiscoveryCategory('banking')">Open Banking APIs</button>
+            <button class="search-category-tab" onclick="switchDiscoveryCategory('crm')">Customer CRMs</button>
+            <button class="search-category-tab" onclick="switchDiscoveryCategory('cloud')">Cloud Infrastructure</button>
+        </div>
+
+        <div id="resultsStreamWrapper"></div>
+
+        <div id="resultsEmptyStateView" style="display: none; text-align: center; padding: 80px 24px; border: 1px dashed var(--border-color); border-radius: 12px; background: rgba(11,15,23,0.3);">
+            <i class="fa-solid fa-diagram-project" style="font-size: 44px; color: var(--text-muted); margin-bottom: 16px;"></i>
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary);">No structural abstractions found</h3>
+            <p style="color: var(--text-secondary); font-size: 14px; max-width: 480px; margin: 8px auto 0 auto;">Modify your query keywords parameters or switch to an alternate architectural framework vertical tab.</p>
+        </div>
+    </main>
+
+    <footer class="master-footer-sheet">
+        <div class="container">
+            <div class="footer-flex-row">
+                <div>
+                    <strong>ApiNexus Architecture Ecosystem</strong>
+                    <p style="font-size: 12px; margin-top: 4px; color: var(--text-muted);">© 2026 ApiNexus Inc. All cryptographic pipelines initialized.</p>
+                </div>
+                <div class="footer-links-cluster">
+                    <a href="index.html" class="footer-link-node">Return to Dashboard</a>
+                    <a href="index.html#flow" class="footer-link-node">Platform Home</a>
+                    <a href="index.html#lab" class="footer-link-node">Console Lab</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Full expanded platform service infrastructure dataset matching all user data
+        const serviceNodeDataset = [
+            /* ================= EMAIL SERVICES ================= */
+            { id: 'sendgrid', name: 'SendGrid Engine', category: 'email', description: 'Transactional delivery structures, pipeline logs optimization, and metadata delivery validation frameworks.', keywords: ['sendgrid', 'email', 'transactional', 'smtp', 'delivery', 'logs'], score: '99.8%', latency: '14ms', uptime: '99.99%', icon: 'fa-envelope' },
+            { id: 'postmark', name: 'Postmark Matrix', category: 'email', description: 'Lightning-fast delivery validation arrays and pinpoint logging layers optimized specifically for core app operations.', keywords: ['postmark', 'email', 'transactional', 'delivery', 'smtp', 'metadata'], score: '99.5%', latency: '9ms', uptime: '99.995%', icon: 'fa-paper-plane' },
+            { id: 'mailgun', name: 'Mailgun Pipeline Node', category: 'email', description: 'Robust multi-tenant delivery pipelines, programmatic parsing loops, and bulk notification abstraction profiles.', keywords: ['mailgun', 'email', 'transactional', 'bulk', 'smtp', 'validation'], score: '98.9%', latency: '19ms', uptime: '99.94%', icon: 'fa-box-archive' },
+
+            /* ================= MESSAGING SERVICES ================= */
+            { id: 'twilio', name: 'Twilio Relay Hub', category: 'messaging', description: 'Global baseline SMS relays, cross-region WhatsApp business accounts, and multi-tier network text alerts.', keywords: ['twilio', 'sms', 'messaging', 'whatsapp', 'text', 'alerts'], score: '99.9%', latency: '38ms', uptime: '99.999%', icon: 'fa-comments' },
+            { id: 'sinch', name: 'Sinch Omni-Channel Vector', category: 'messaging', description: 'Direct carrier infrastructure configurations matching localized message routes, flash verification parameters, and cross-border numbers.', keywords: ['sinch', 'sms', 'messaging', 'whatsapp', 'alerts', 'verification'], score: '97.8%', latency: '45ms', uptime: '99.96%', icon: 'fa-message' },
+            { id: 'infobip', name: 'Infobip Enterprise Core', category: 'messaging', description: 'Enterprise-tier backup failovers across text messaging arrays, rich media communications, and automated geo-compliance channels.', keywords: ['infobip', 'sms', 'messaging', 'whatsapp', 'text', 'network'], score: '98.4%', latency: '52ms', uptime: '99.95%', icon: 'fa-satellite-dish' },
+
+            /* ================= PAYMENT GATEWAYS ================= */
+            { id: 'stripe', name: 'Stripe Global Ledger', category: 'payments', description: 'Secure global card processing systems, localized checkout matrices, and multi-tier membership tables.', keywords: ['stripe', 'payments', 'gateway', 'card', 'checkout', 'membership'], score: '99.9%', latency: '48ms', uptime: '99.999%', icon: 'fa-credit-card' },
+            { id: 'paypal', name: 'PayPal Commerce Abstraction', category: 'payments', description: 'Global user wallet interfaces, flexible authorization matrices, and hardware-secured checkout routes.', keywords: ['paypal', 'payments', 'gateway', 'checkout', 'wallet', 'membership'], score: '96.5%', latency: '94ms', uptime: '99.95%', icon: 'fa-wallet' },
+            { id: 'adyen', name: 'Adyen Settlement Node', category: 'payments', description: 'Unified multi-region bank acquisition structures, automated conversion models, and alternative asset checkout matrices.', keywords: ['adyen', 'payments', 'gateway', 'card', 'checkout', 'settlement'], score: '99.1%', latency: '61ms', uptime: '99.98%', icon: 'fa-building-columns' },
+
+            /* ================= OPEN BANKING APIs ================= */
+            { id: 'plaid', name: 'Plaid Sync Fabric', category: 'banking', description: 'Financial ledger synchronization sweeps, asset validation processing, and instant structural ACH rails.', keywords: ['plaid', 'banking', 'ach', 'financial', 'ledger', 'asset', 'validation'], score: '99.4%', latency: '120ms', uptime: '99.97%', icon: 'fa-link' },
+            { id: 'tink', name: 'Tink Open Framework', category: 'banking', description: 'Pan-European banking connection layouts, aggregated account analysis profiles, and payment initiation structures.', keywords: ['tink', 'banking', 'ach', 'financial', 'ledger', 'open banking'], score: '98.2%', latency: '145ms', uptime: '99.96%', icon: 'fa-shuffle' },
+            { id: 'yodlee', name: 'Yodlee Vault Broker', category: 'banking', description: 'Institutional-grade asset validation arrays, balance reconciliation pipelines, and broad investment statement sweeps.', keywords: ['yodlee', 'banking', 'financial', 'ledger', 'asset', 'sweeps'], score: '97.5%', latency: '190ms', uptime: '99.92%', icon: 'fa-vault' },
+
+            /* ================= CUSTOMER CRM APIs ================= */
+            { id: 'hubspot', name: 'HubSpot Lifecycle Engine', category: 'crm', description: 'Bi-directional profile state synchronization maps, lifecycle funnel tags, and workspace account data sweeps.', keywords: ['hubspot', 'crm', 'synchronization', 'funnel', 'lifecycle', 'data'], score: '99.2%', latency: '34ms', uptime: '99.98%', icon: 'fa-users-gear' },
+            { id: 'salesforce', name: 'Salesforce Core Matrix', category: 'crm', description: 'Extensible customer state mapping systems, macro automation vectors, and high-density corporate database sweeps.', keywords: ['salesforce', 'crm', 'synchronization', 'funnel', 'data', 'lifecycle'], score: '98.7%', latency: '75ms', uptime: '99.96%', icon: 'fa-cloud-meatball' },
+            { id: 'zoho', name: 'Zoho CRM Data Route', category: 'crm', description: 'Frictionless bi-directional accounts parsing tools, lead routing loops, and contextual workspace pipeline tracking.', keywords: ['zoho', 'crm', 'synchronization', 'funnel', 'tags', 'sweeps'], score: '97.9%', latency: '41ms', uptime: '99.95%', icon: 'fa-address-card' },
+
+            /* ================= CLOUD INFRASTRUCTURE ================= */
+            { id: 'aws', name: 'AWS Core Array', category: 'cloud', description: 'Server compute instance pooling sweeps, distributed storage bucket arrays, and virtualization routing nodes.', keywords: ['aws', 'cloud', 'compute', 'storage', 'infrastructure', 'bucket'], score: '99.9%', latency: '12ms', uptime: '99.999%', icon: 'fa-server' },
+            { id: 'gcp', name: 'Google Cloud Platform Node', category: 'cloud', description: 'Elastic computing infrastructure pools, globally distributed key-value storage grids, and low-latency network routers.', keywords: ['google cloud', 'gcp', 'cloud', 'compute', 'storage', 'infrastructure'], score: '99.7%', latency: '15ms', uptime: '99.995%', icon: 'fa-cloud' },
+            { id: 'digitalocean', name: 'DigitalOcean Droplet Pool', category: 'cloud', description: 'Simplified virtual hardware slicing, rapid droplet instance orchestration arrays, and high-speed network volume maps.', keywords: ['digitalocean', 'cloud', 'compute', 'storage', 'infrastructure', 'droplet'], score: '98.6%', latency: '22ms', uptime: '99.98%', icon: 'fa-water' }
+        ];
+
+        let activeCategoryFilterId = 'all';
+
+        function parseTargetSearchQueryParameter() {
+            const URLParameters = new URLSearchParams(window.location.search);
+            return URLParameters.get('query') || '';
+        }
+
+        function buildRenderedServicesListView() {
+            const targetOutputContainer = document.getElementById('resultsStreamWrapper');
+            const fallbackContainer = document.getElementById('resultsEmptyStateView');
+            const liveQueryString = document.getElementById('liveResultsModifierInput').value.trim().toLowerCase();
+
+            targetOutputContainer.innerHTML = '';
+
+            const processedCollectionFilterSet = serviceNodeDataset.filter(node => {
+                const isCategoryAligned = (activeCategoryFilterId === 'all' || node.category === activeCategoryFilterId);
+                let isTextAligned = true;
+
+                if (liveQueryString) {
+                    isTextAligned = node.name.toLowerCase().includes(liveQueryString) ||
+                                    node.description.toLowerCase().includes(liveQueryString) ||
+                                    node.keywords.some(tag => tag.includes(liveQueryString)) ||
+                                    node.category.toLowerCase().includes(liveQueryString);
+                }
+                return isCategoryAligned && isTextAligned;
+            });
+
+            if (processedCollectionFilterSet.length === 0) {
+                fallbackContainer.style.display = 'block';
+                return;
+            }
+
+            fallbackContainer.style.display = 'none';
+            processedCollectionFilterSet.forEach(api => {
+                const resultCard = document.createElement('div');
+                resultCard.className = 'router-result-card';
+                resultCard.innerHTML = `
+                    <div style="width: 48px; height: 48px; border-radius: 10px; background-color: var(--bg-surface-secondary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--brand-primary);">
+                        <i class="fa-solid ${api.icon}"></i>
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">${api.name}</h4>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background-color: rgba(168, 85, 247, 0.1); color: var(--accent-purple); padding: 2px 8px; border-radius: 4px; font-weight: 600;">
+                                ${api.score} System Score
+                            </span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; background-color: var(--bg-surface-tertiary); color: var(--text-secondary); padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">
+                                ${api.category}
+                            </span>
+                        </div>
+                        <p style="font-size: 13.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">${api.description}</p>
+                        <div class="router-result-card-metrics" style="display: flex; gap: 16px; margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--text-muted); flex-wrap: wrap;">
+                            <span><i class="fa-solid fa-gauge-high"></i> Latency: <strong style="color: var(--text-secondary);">${api.latency}</strong></span>
+                            <span><i class="fa-solid fa-circle-nodes"></i> SLA: <strong style="color: var(--text-secondary);">${api.uptime}</strong></span>
+                            <span><i class="fa-solid fa-square-terminal"></i> Status: <strong style="color: var(--accent-success);">Connected</strong></span>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="index.html#lab" class="btn btn-secondary" style="font-size: 12px; padding: 10px 16px; white-space: nowrap;">Execute Sandbox</a>
+                    </div>
+                `;
+                targetOutputContainer.appendChild(resultCard);
+            });
+        }
+
+        function switchDiscoveryCategory(targetCategory) {
+            activeCategoryFilterId = targetCategory;
+            document.querySelectorAll('.search-category-tab').forEach(tab => {
+                if(tab.getAttribute('onclick').includes(`'${targetCategory}'`)) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            buildRenderedServicesListView();
+        }
+
+        // Global Initialization Window Handlers
+        window.onload = () => {
+            const parsedTokenQuery = parseTargetSearchQueryParameter();
+            if (parsedTokenQuery) {
+                document.getElementById('liveResultsModifierInput').value = parsedTokenQuery;
+                document.getElementById('resultsTitleText').textContent = `Matches for "${parsedTokenQuery}"`;
+            }
+            
+            buildRenderedServicesListView();
+
+            // Setup real-time key capture on modification box input strings
+            document.getElementById('liveResultsModifierInput').addEventListener('input', () => {
+                const textValue = document.getElementById('liveResultsModifierInput').value.trim();
+                document.getElementById('resultsTitleText').textContent = textValue ? `Matches for "${textValue}"` : 'Mapped Core Matrices';
+                buildRenderedServicesListView();
+            });
+
+            // Production Sync theme color loop logic
+            const masterThemeBtn = document.getElementById('masterThemeBtn');
+            const themeIconSlot = document.getElementById('themeIconSlot');
+            const themeLabelText = document.getElementById('themeLabelText');
+
+            masterThemeBtn.addEventListener('click', () => {
+                const activeState = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', activeState);
+                
+                if (activeState === 'light') {
+                    themeIconSlot.className = 'fa-solid fa-sun';
+                    themeLabelText.textContent = 'Light IDE Mode';
+                } else {
+                    themeIconSlot.className = 'fa-solid fa-moon';
+                    themeLabelText.textContent = 'Dark IDE Mode';
+                }
+            });
+        };
+    </script>
+</body>
+</html>

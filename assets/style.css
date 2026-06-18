@@ -199,6 +199,24 @@
      font-size: 16px;
  }
 
+ /* Default state rules (Assuming Dark Theme is your baseline) */
+.logo-light-variant {
+    display: none !important;
+}
+.logo-dark-variant {
+    display: block;
+}
+
+/* Changes triggered when data-theme shifts to light */
+html[data-theme="light"] .logo-dark-variant {
+    display: none !important;
+}
+
+html[data-theme="light"] .logo-light-variant {
+    display: block !important;
+}
+
+
  .brand-text-matrix {
      font-weight: 700;
      font-size: 18px;
@@ -2206,3 +2224,5 @@
             from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+

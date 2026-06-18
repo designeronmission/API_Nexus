@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
     <title>Console Authentication | APINexus Marketplace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +18,6 @@
 
     <main class="login-main-container">
         <div class="login-card-shield">
-            
                 <div class="logo-block">
                  <img src="images/logo-dark.svg" alt="logo" class="logo-main">
                 </div>
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="input-control-group">
-                    <label for="adminPassword">Identity Access Token / Password</label>
+                    <label for="adminPassword">Password</label>
                     <div class="password-input-wrapper">
                         <input type="password" id="adminPassword" class="custom-input-element" placeholder="••••••••" required autocomplete="current-password">
                         <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()">SHOW</button>
@@ -40,13 +40,13 @@
                 <div class="login-utilities-row">
                     <label class="checkbox-container">
                         <input type="checkbox" id="rememberSession">
-                        <span>Keep node authenticated</span>
+                        <span>Keep authenticated</span>
                     </label>
-                    <a href="#forgot" class="portal-link" onclick="alert('Password resetting requires security coordinator master approval. Please check terminal root guides.')">Forgot Key?</a>
+                    <a href="#forgot" class="portal-link" onclick="alert('Password resetting requires security coordinator master approval. Please check terminal root guides.')">Forgot Password?</a>
                 </div>
 
                 <button type="submit" class="btn-auth-submit">
-                     Authenticate Security Identity
+                     Authenticate
                 </button>
 
                 <div class="register-prompt-footer">

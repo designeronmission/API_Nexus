@@ -111,7 +111,6 @@
      display: inline-flex;
      align-items: center;
      justify-content: center;
-     gap: 8px;
      font-weight: 600;
      font-size: 13.5px;
      padding: 12px 24px;
@@ -621,7 +620,7 @@ html[data-theme="light"] .logo-light-variant {
      border-radius: 20px;
      letter-spacing: 0.05em;
      display: inline-block;
-     margin-bottom: 16px;
+     
  }
 
  .section-header-block h2 {
@@ -2226,3 +2225,231 @@ html[data-theme="light"] .logo-light-variant {
         }
 
 
+
+
+        /* ==========================================================================
+   CROSS-VERTICAL ARCHITECTURE MATRICES & FUTURE CTA BUTTONS
+   ========================================================================== */
+.vertical-matrix-section {
+    position: relative;
+}
+
+.matrix-grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin-top: 60px;
+}
+
+.matrix-row-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+    background-color: var(--bg-surface-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    overflow: hidden;
+}
+
+/* Structural Column Settings */
+.matrix-col-legacy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border-color);
+    padding-right: 40px;
+}
+
+.matrix-col-unified {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    position: relative;
+}
+
+/* Typography & Labels */
+.matrix-column-title {
+    font-size: 22px;
+    margin-bottom: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.matrix-column-title i {
+    color: var(--text-secondary);
+}
+
+.unified-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.unified-description {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+/* Card Badge Overwrites */
+.legacy-badge {
+    margin-bottom: 24px;
+    width: fit-content;
+}
+
+.unified-badge {
+    background-color: rgba(168, 85, 247, 0.15);
+    color: var(--accent-purple);
+    width: fit-content;
+}
+
+/* Left Legacy Stack Framework */
+.legacy-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.legacy-provider-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-surface-secondary);
+    border: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-radius: 10px;
+}
+
+.provider-info-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.provider-info-group h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.meta-subtext {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.provider-metrics {
+    text-align: right;
+}
+
+.metric-primary {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.metric-secondary {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* Individual Brand Custom Logotypes */
+.provider-logo-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 14px;
+}
+.bg-sendgrid { background: #1a82e2; }
+.bg-postmark { background: #ff6e40; }
+.bg-twilio   { background: #f22f46; }
+.bg-sinch    { background: #000000; }
+.bg-stripe   { background: #635bff; }
+.bg-adyen    { background: #00ff66; color: #00112c; }
+.bg-plaid    { background: #000000; }
+.bg-finicity { background: #ffb300; }
+.bg-hubspot  { background: #ff7a59; }
+.bg-salesforce { background: #00a1e0; }
+.bg-aws      { background: #ff9900; font-size: 12px; }
+.bg-gcp      { background: #4285f4; font-size: 12px; }
+
+/* Grid Sub-metrics display box */
+.unified-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    background: var(--bg-surface-tertiary);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px dashed var(--border-color);
+    margin-bottom: 24px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.stat-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.unified-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Micro Inline Explore CTA Styling */
+.btn-matrix-explore {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+     background: #111724;
+    gap: 6px;
+    border-radius: 330px;
+    border: 1px solid #353535;
+     color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+    padding: 10px 30px;
+    margin-left: auto;
+}
+
+.btn-matrix-explore i {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.btn-matrix-explore:hover {
+    color: var(--text-primary);
+}
+
+.btn-matrix-explore:hover i {
+    transform: translateX(3px);
+}
+
+/* Color Tokens Helper Extensions */
+.text-success { color: var(--accent-success) !important; }
+.text-purple { color: var(--accent-purple) !important; }
+.text-brand { color: var(--brand-primary) !important; }
+.text-warning { color: #eab308 !important; }

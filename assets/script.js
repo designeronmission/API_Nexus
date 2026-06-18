@@ -118,19 +118,18 @@
                 configurationSystemState.activeTheme = "light";
                 htmlNodeTagElement.setAttribute('data-theme', 'light');
                 themeIconSlot.className = "fa-solid fa-sun";
-                themeLabelText.textContent = "Light Laboratory Mode";
+                themeLabelText.textContent = "";
             } else {
                 configurationSystemState.activeTheme = "dark";
                 htmlNodeTagElement.setAttribute('data-theme', 'dark');
                 themeIconSlot.className = "fa-solid fa-moon";
-                themeLabelText.textContent = "Dark Mode";
+                themeLabelText.textContent = "";
             }
         });
 
         // Target Persona Toggle Rendering Engine Loops
         const devBtn = document.getElementById('personaDevBtn');
         const pmBtn = document.getElementById('personaPmBtn');
-        const gridViewSlot = document.getElementById('personaDisplayGrid');
 
         function drawTargetPersonaLayoutView(personaKey) {
             configurationSystemState.activePersona = personaKey;
@@ -661,3 +660,185 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+
+
+  const PLATFORM_BASE_FEE = 10.00;
+        
+        // Static Mock Data Store containing the API selections separated by chosen categories
+        const API_REGISTRY = {
+            email: [
+                { id: 'sendgrid', title: 'SendGrid Mailbox', desc: 'Transactional delivery relays, templates setups, and engine domain verifications.', price: 15, tag: 'smtp-rest' },
+                { id: 'mailgun', title: 'Mailgun Transit', desc: 'High-volume outbound bulk infrastructure targeting direct queue lanes.', price: 12, tag: 'webhooks' }
+            ],
+            messaging: [
+                { id: 'twilio', title: 'Twilio Connect', desc: 'Global 2FA messaging matrix, standard SMS layouts, and mobile tracing nodes.', price: 25, tag: 'carrier-api' }
+            ],
+            payments: [
+                { id: 'stripe', title: 'Stripe Core', desc: 'Credit card networks processing, ledger modules, and direct client escrow accounts.', price: 45, tag: 'multi-currency' },
+                { id: 'adyen', title: 'Adyen Global', desc: 'Cross-border clearing engines specialized for alternative checkout localized modules.', price: 55, tag: 'enterprise-clearing' }
+            ],
+            banking: [
+                { id: 'plaid', title: 'Plaid Link', desc: 'Direct secure banking endpoint sync loops, data records ledger, and account telemetry.', price: 35, tag: 'oauth-2' }
+            ],
+            infra: [
+                { id: 'aws', title: 'AWS S3 Engine', desc: 'Dynamic asset data bucket architectures and access authorization controls.', price: 60, tag: 'iam-storage' }
+            ]
+        };
+
+        // Variable holding user's selected item
+        let selectedApiInstance = null;
+
+        function syncParentCompanyName() {
+            const rawInput = document.getElementById('parentCompany').value;
+            const firstSubInput = document.getElementById('firstSubCompanyMirror');
+            firstSubInput.value = rawInput; 
+            
+            const fallbackText = rawInput.trim() !== "" ? rawInput : "Parent Company";
+            const dynamicLabels = document.querySelectorAll('.dynamic-parent-prefix-label');
+            dynamicLabels.forEach(label => {
+                label.innerText = `[${fallbackText}]`;
+            });
+        }
+
+        function addSubCompanyLineItem() {
+            const wrapper = document.getElementById('subCompanyInputsWrapper');
+            const parentValue = document.getElementById('parentCompany').value || "Parent Company";
+            
+            const lineRow = document.createElement('div');
+            lineRow.className = 'subcompany-line-row';
+            lineRow.innerHTML = `
+                <div class="input-inline-prefix-block">
+                    <span class="inline-parent-tag dynamic-parent-prefix-label">[${parentValue}]</span>
+                    <input type="text" class="custom-input-element subcompany-value-item" placeholder="Enter next unique subcompany branch name..." required>
+                </div>
+                <button type="button" class="btn-action-small btn-remove-item" onclick="this.parentElement.remove()">Remove</button>
+            `;
+            wrapper.appendChild(lineRow);
+        }
+
+        // Dynamic 3rd Party Api Rendering Engine based on Dropdown service selection
+        function renderCategoryApis() {
+            const category = document.getElementById('serviceCategorySelect').value;
+            const container = document.getElementById('apiCardsContainer');
+            const apis = API_REGISTRY[category] || [];
+            
+            document.getElementById('apiCounterText').innerText = apis.length;
+            container.innerHTML = "";
+
+            apis.forEach(api => {
+                const card = document.createElement('div');
+                card.className = "api-interactive-card";
+                card.onclick = () => selectApiAndAdvance(api);
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="api-card-header">
+                            <span class="api-card-title">${api.title}</span>
+                        </div>
+                        <p class="api-card-desc">${api.desc}</p>
+                    </div>
+                    <div class="api-card-footer">
+                        <span class="api-tag-badge">${api.tag}</span>
+                        <span class="api-rate-label">$${api.price.toFixed(2)}/mo</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Clicking on an API triggers configuration update and routes straight to Step 3
+        function selectApiAndAdvance(api) {
+            selectedApiInstance = api;
+            navigateToStep(3);
+        }
+
+        function navigateToStep(targetStep) {
+            if (targetStep === 2) {
+                const pass = document.getElementById('clientPassword').value;
+                const conf = document.getElementById('clientConfirmPassword').value;
+                if (!document.getElementById('clientEmail').value || !pass || !document.getElementById('parentCompany').value) {
+                    alert("Please complete the required corporate verification details in Step 1.");
+                    return;
+                }
+                if (pass !== conf) {
+                    alert("Configuration Error: Passwords do not match.");
+                    return;
+                }
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                const timeNode = document.getElementById(`timeStep${i}`);
+                const windowNode = document.getElementById(`formStepWindow${i}`);
+                
+                timeNode.classList.remove('active', 'completed');
+                windowNode.classList.remove('active');
+
+                if (i < targetStep) {
+                    timeNode.classList.add('completed');
+                } else if (i === targetStep) {
+                    timeNode.classList.add('active');
+                    windowNode.classList.add('active');
+                }
+            }
+
+            if (targetStep === 3) {
+                compileInvoiceStatement();
+            }
+        }
+
+        function compileInvoiceStatement() {
+            const parentNameInput = document.getElementById('parentCompany').value;
+            const adminEmailInput = document.getElementById('clientEmail').value;
+
+            document.getElementById('invoiceParentName').innerText = parentNameInput;
+            document.getElementById('invoiceAdminEmail').innerText = adminEmailInput;
+
+            const subCompanyInputs = document.querySelectorAll('.subcompany-value-item');
+            const subInvoiceContainer = document.getElementById('invoiceSubCompaniesContainer');
+            
+            let subCompaniesHTML = "";
+            subCompanyInputs.forEach((input, idx) => {
+                if(input.value.trim() !== "") {
+                    subCompaniesHTML += `<span style="color: var(--text-secondary); font-size:12px; display:block;">• Sub-Node #${idx + 1}: ${input.value}</span>`;
+                }
+            });
+            subInvoiceContainer.innerHTML = subCompaniesHTML;
+
+            const targetTableBody = document.getElementById('invoiceLineItemsTarget');
+            const totalDisplay = document.getElementById('invoiceCalculatedTotalDisplay');
+
+            let finalRunningTotal = PLATFORM_BASE_FEE;
+
+            let invoiceHTML = `
+                <tr>
+                    <td style="padding: 14px 12px;">APINexus Workspace License</td>
+                    <td style="color: var(--text-secondary);">API Nexus</td>
+                    <td style="text-align: right; font-weight: 600; color: var(--text-primary);">$${PLATFORM_BASE_FEE.toFixed(2)}</td>
+                </tr>
+            `;
+
+            if (selectedApiInstance) {
+                finalRunningTotal += selectedApiInstance.price;
+                invoiceHTML += `
+                    <tr>
+                        <td style="padding: 14px 12px;">Integrated Service Mesh: ${selectedApiInstance.title}</td>
+                        <td style="color: var(--text-secondary);">3rd-Party Proxy Endpoint</td>
+                        <td style="text-align: right; font-weight: 600; color: var(--text-primary);">$${selectedApiInstance.price.toFixed(2)}</td>
+                    </tr>
+                `;
+            }
+
+            targetTableBody.innerHTML = invoiceHTML;
+            totalDisplay.innerText = `$${finalRunningTotal.toFixed(2)} / mo`;
+        }
+
+        // Trigger foundational APIs on load
+        renderCategoryApis();
+
+        function handleFormSubmission(event) {
+            event.preventDefault();
+            alert("Subscription configuration authenticated successfully!");
+            window.location.href = "login.html";
+        }

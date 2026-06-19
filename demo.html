@@ -1,327 +1,609 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
     <title>ApiNexus — Custom Enterprise Integration Orchestrator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+   <style>
+    /* ==========================================================================
+   1. ENTERPRISE DESIGN SYSTEM VARIABLES & THEMES PRESERVATION
+   ========================================================================== */
+:root[data-theme="dark"] {
+    --bg-global: #06080c;
+    --bg-surface-primary: #0b0f17;
+    --bg-surface-secondary: #111724;
+    --bg-surface-tertiary: #04060a;
+    --border-color: #192235;
+    --border-hover: #2a3754;
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #475569;
+
+    --brand-primary: #2563eb;
+    --brand-glow: rgba(37, 99, 235, 0.15);
+    --accent-success: #10b981;
+    --accent-purple: #a855f7;
+
+    --flow-node-bg: #111827;
+    --flow-center-glow: rgba(168, 85, 247, 0.2);
+
+    --matrix-row-bg: linear-gradient(90deg, rgba(15, 23, 42, 0.2) 0%, rgba(30, 41, 59, 0.1) 100%);
+    --matrix-row-hover: linear-gradient(90deg, rgba(15, 23, 42, 0.4) 0%, rgba(168, 85, 247, 0.04) 100%);
+    --matrix-vector-node-bg: #0f172a;
+    --matrix-glow-opacity-1: 0.04;
+    --matrix-glow-opacity-2: 0.06;
+}
+
+:root[data-theme="light"] {
+    --bg-global: #f8fafc;
+    --bg-surface-primary: #ffffff;
+    --bg-surface-secondary: #f1f5f9;
+    --bg-surface-tertiary: #e2e8f0;
+    --border-color: #cbd5e1;
+    --border-hover: #94a3b8;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+
+    --brand-primary: #1d4ed8;
+    --brand-glow: rgba(29, 78, 216, 0.08);
+    --accent-success: #059669;
+    --accent-purple: #7c3aed;
+
+    --flow-node-bg: #f1f5f9;
+    --flow-center-glow: rgba(124, 58, 237, 0.15);
+
+    --matrix-row-bg: linear-gradient(90deg, rgba(241, 245, 249, 0.6) 0%, rgba(226, 232, 240, 0.4) 100%);
+    --matrix-row-hover: linear-gradient(90deg, rgba(232, 240, 254, 0.8) 0%, rgba(124, 58, 237, 0.04) 100%);
+    --matrix-vector-node-bg: #ffffff;
+    --matrix-glow-opacity-1: 0.02;
+    --matrix-glow-opacity-2: 0.03;
+}
+
+/* Reset & Override Framework Settings onto Bootstrap Base elements */
+body {
+    background-color: var(--bg-global) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Base custom font helpers */
+.font-mono { font-family: 'JetBrains Mono', monospace !important; }
+.font-semibold { font-weight: 600 !important; }
+.font-medium { font-weight: 500 !important; }
+.fw-extrabold { font-weight: 800 !important; }
+.max-w-760 { max-width: 760px; }
+.brand-primary-text { color: var(--brand-primary); }
+
+/* Apply custom theme token parameters into native Bootstrap components */
+.text-primary { color: var(--text-primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.border { border-color: var(--border-color) !important; }
+
+/* Custom Button Token Mappings */
+.btn {
+    border-radius: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-primary {
+    background-color: var(--brand-primary) !important;
+    border: none !important;
+    box-shadow: 0 4px 12px var(--brand-glow);
+}
+.btn-primary:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+.btn-secondary {
+    background-color: var(--bg-surface-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.btn-secondary:hover {
+    border-color: var(--border-hover) !important;
+    background-color: var(--bg-surface-tertiary) !important;
+}
+
+/* Broadcast Ribbon design */
+.broadcast-ribbon {
+    background: linear-gradient(90deg, var(--brand-primary), #4f46e5);
+    color: #ffffff;
+    letter-spacing: 0.03em;
+}
+
+/* Site Header Nav Layer overrides */
+.site-header {
+    background-color: rgba(6, 8, 12, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+html[data-theme="light"] .site-header {
+    background-color: rgba(248, 250, 252, 0.85);
+}
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--brand-primary), #22d3ee);
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+}
+.brand-text-matrix {
+    font-size: 18px;
+    letter-spacing: -0.02em;
+}
+.brand-subtext {
+    font-size: 10px;
+    margin-top: -1px;
+}
+.nav-link {
+    font-size: 14px;
+    transition: color 0.2s;
+}
+.nav-link:hover, .nav-link:focus {
+    color: var(--brand-primary) !important;
+}
+
+/* Hero Section Elements */
+.hero-section {
+    padding-top: 140px;
+    padding-bottom: 120px;
+}
+.hero-animated-grid {
+    background-image:
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center top;
+    opacity: 0.25;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    animation: gridMove 24s linear infinite;
+    z-index: -2;
+}
+@keyframes gridMove {
+    0% { background-position: center 0px; }
+    100% { background-position: center 1000px; }
+}
+.hero-glow-backplate {
+    width: 700px;
+    height: 450px;
+    background: radial-gradient(circle, var(--brand-primary) 0%, var(--accent-purple) 100%);
+    opacity: 0.18;
+    filter: blur(140px);
+    z-index: -1;
+    animation: glowPulse 8s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; }
+    100% { transform: translate(-50%, -45%) scale(1.15); opacity: 0.22; }
+}
+.gradient-span {
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #22d3ee);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShine 4s linear infinite;
+}
+html[data-theme="light"] .gradient-span {
+    background: linear-gradient(90deg, #1d4ed8, #6d28d9, #0369a1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+@keyframes textShine { to { background-position: 200% center; } }
+
+/* Dashboard Showcase wrappers */
+.showcase-perspective-container { perspective: 1200px; }
+.showcase-window-wrapper { max-width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+
+
+
+/* Operational Evolution Value Grid Row Matrix */
+.paradigm-shift-container {
+    background: var(--bg-surface-tertiary);
+}
+.radial-glow-1 {
+    width: 600px; height: 600px; top: -10%; left: -10%; filter: blur(80px);
+    background: radial-gradient(circle, rgba(59, 130, 246, var(--matrix-glow-opacity-1)) 0%, transparent 70%);
+}
+.radial-glow-2 {
+    width: 600px; height: 600px; bottom: -10%; right: -10%; filter: blur(80px);
+    background: radial-gradient(circle, rgba(168, 85, 247, var(--matrix-glow-opacity-2)) 0%, transparent 70%);
+}
+.badge-pill-micro {
+    letter-spacing: 0.08em; background: var(--brand-glow); color: var(--brand-primary) !important; font-size: 11px;
+}
+.matrix-interactive-row {
+    background: var(--matrix-row-bg);
+    transition: all 0.3s ease;
+}
+.matrix-interactive-row:hover {
+    background: var(--matrix-row-hover);
+    border-color: var(--border-hover) !important;
+}
+.status-marker {
+    width: 40px; height: 40px; font-size: 16px;
+}
+.status-marker.friction {
+    background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.status-marker.solution {
+    background: rgba(16, 185, 129, 0.1); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.context-tag { font-size: 11px; color: var(--text-muted); }
+.nexus-tag { font-size: 11px; color: var(--brand-primary); }
+.vector-line { width: 2px; height: 100px; background: var(--border-color); }
+.vector-node {
+    width: 32px; height: 32px; background: var(--matrix-vector-node-bg); font-size: 12px; color: var(--text-secondary); transition: all 0.3s ease;
+}
+.matrix-interactive-row:hover .vector-node {
+    border-color: var(--accent-purple) !important; color: var(--accent-purple); transform: scale(1.1);
+}
+ 
+
+
+
+/* Network Flow Section Components */
+.flow-section { background: linear-gradient(180deg, transparent, var(--bg-surface-tertiary), transparent); }
+.flow-node-item { width: 110px; position: relative; }
+.flow-node-box {
+    width: 76px; height: 76px; background-color: var(--flow-node-bg); font-size: 24px; transition: all 0.3s ease;
+}
+.flow-node-item:hover .flow-node-box {
+    transform: translateY(-4px); border-color: var(--brand-primary) !important; box-shadow: 0 12px 30px var(--brand-glow);
+}
+.flow-metric-tag {
+    background: var(--bg-surface-secondary); font-size: 11px; white-space: nowrap; z-index: 5;
+    right: -95px; top: 20px;
+}
+.flow-node-item.custom-node-shift-right .flow-metric-tag,
+.col-md-4:last-of-type .flow-node-item .flow-metric-tag {
+    left: -105px; right: auto;
+}
+
+/* Colors for specific response nodes */
+.purple-node-border { border-color: var(--accent-purple) !important; color: var(--accent-purple); }
+.purple-tag { border-color: var(--accent-purple) !important; color: var(--accent-purple) !important; }
+.success-node-border { border-color: var(--accent-success) !important; color: var(--accent-success); }
+.success-tag { border-color: var(--accent-success) !important; color: var(--accent-success) !important; }
+.amber-node-border { border-color: #f59e0b !important; color: #f59e0b; }
+.amber-tag { border-color: #f59e0b !important; color: #f59e0b !important; }
+.cyan-node-border { border-color: #22d3ee !important; color: #22d3ee; }
+.cyan-tag { border-color: #22d3ee !important; color: #22d3ee !important; }
+
+/* Center Hub Architecture */
+.flow-center-hub { height: 400px; }
+.hub-ring { border-radius: 50%; border: 2px dashed var(--border-color); animation: spinClockwise 40s linear infinite; }
+.hub-ring.outer { width: 300px; height: 300px; }
+.hub-ring.mid { width: 220px; height: 220px; animation-direction: reverse; }
+.hub-core-sphere {
+    width: 110px; height: 110px; background: radial-gradient(circle, var(--accent-purple) 0%, var(--brand-primary) 100%);
+    font-size: 40px; box-shadow: 0 0 60px var(--flow-center-glow); animation: pulseSphere 3s ease-in-out infinite alternate;
+}
+@keyframes spinClockwise { to { transform: rotate(360deg); } }
+@keyframes pulseSphere {
+    0% { transform: scale(1); box-shadow: 0 0 40px var(--flow-center-glow); }
+    100% { transform: scale(1.06); box-shadow: 0 0 70px rgba(140, 50, 240, 0.4); }
+}
+
+/* Canvas SVG Lines Overlay Settings */
+.flow-line { fill: none; stroke-width: 2.5; stroke-linecap: round; opacity: 0.45; }
+.flow-line.incoming { stroke: url(#incomingGrad); stroke-dasharray: 8 6; animation: flowIn 30s linear infinite; }
+.flow-line.outgoing { stroke: url(#outgoingGrad); stroke-dasharray: 6 6; animation: flowOut 25s linear infinite; }
+@keyframes flowIn { to { stroke-dashoffset: 500; } }
+@keyframes flowOut { to { stroke-dashoffset: -500; } }
+
+/* Vertical Services Matrices Elements */
+.service-vector-card { background-color: var(--bg-surface-primary) !important; transition: all 0.2s ease; }
+.service-vector-card:hover { border-color: var(--border-hover) !important; transform: translateY(-2px); }
+.service-icon-frame { width: 44px; height: 44px; background-color: var(--bg-surface-secondary); color: var(--brand-primary); }
+.provider-micro-tag { color: var(--text-secondary); background-color: var(--bg-surface-secondary); font-size: 11px; }
+
+/* Fixed Scroll Top Launcher Styling Control Core */
+.universal-to-top-launcher {
+    bottom: 30px; right: 30px; width: 50px; height: 50px; font-size: 24px;
+    background-color: #ffffff; color: #333333; border-color: #cccccc !important; z-index: 999;
+}
+.universal-to-top-launcher:hover {
+    background-color: #0066cc; color: #ffffff; border-color: #0066cc !important;
+}
+
+/* Master Footer Elements */
+.master-footer-sheet { background-color: var(--bg-surface-primary); }
+
+/* ==========================================================================
+   2. CUSTOM COMPACT DISPLAY RESPONSIVE RECONCILIATIONS
+   ========================================================================== */
+
+@media (min-width: 768px) {
+    .row-reverse-md { flex-direction: row !important; }
+}
+
+@media (max-width: 991.98px) {
+    /* Responsive adjustment stack behaviors across rows */
+    .row-reverse-md { flex-direction: row-reverse !important; }
+    
+    /* Reposition custom node metric layouts gracefully on tablet grids */
+    .flow-node-item .flow-metric-tag {
+        position: relative !important; right: auto !important; left: auto !important; top: auto !important;
+        display: inline-block; margin-top: 6px;
+    }
+    .custom-node-shift-left, .custom-node-shift-right { transform: none !important; }
+    
+    .hero-section { padding-top: 100px; padding-bottom: 80px; }
+    .hero-section h1 { font-size: 38px; }
+    
+    .flow-center-hub { height: 320px; }
+    .hub-ring.outer { width: 250px; height: 250px; }
+    .hub-ring.mid { width: 180px; height: 180px; }
+}
+
+@media (max-width: 575.98px) {
+    .hero-section h1 { font-size: 32px; }
+    .universal-to-top-launcher { bottom: 20px; right: 20px; }
+}
+   </style>
 </head>
-
 <body>
-    <div class="broadcast-ribbon">
-        Architectural Core Update: Core abstraction mapping matrices are fully active across all 7 server domain
-        profiles.
-    </div>
-    <header class="site-header">
-        <div class="container">
-            <div class="header-wrapper">
-                <div class="logo-block">
-                    <img src="images/logo-dark.svg" alt="logo" class="logo-main logo-dark-variant">
-                    <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
-                </div>
 
-                <nav class="nav-links-shelf">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="#services" class="nav-link">API Verticals</a>
-                    <a href="#lab" class="nav-link">Integration Sandbox</a>
-                    <a href="#" class="nav-link">Documents</a>
-                    <a href="#quote-desk" class="nav-link">Request a Quote</a>
+    <div class="broadcast-ribbon text-center py-2 px-3 small font-medium">
+        Architectural Core Update: Core abstraction mapping matrices are fully active across all 7 server domain profiles.
+    </div>
+
+    <header class="navbar navbar-expand-lg site-header sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-3 m-0" href="#">
+                <div class="logo-icon d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-circle-nodes"></i>
+                </div>
+                <div>
+                    <span class="brand-text-matrix d-block fw-bold text-primary">ApiNexus</span>
+                    <span class="brand-subtext d-block text-secondary">One Platform. Infinite Integrations.</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler mobile-menu-toggle border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#apiNexusNavbar" aria-controls="apiNexusNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars text-primary"></i>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-lg-between mt-3 mt-lg-0" id="apiNexusNavbar">
+                <nav class="navbar-nav mx-auto gap-2 gap-lg-4 ps-lg-5">
+                    <a href="#flow" class="nav-link font-medium text-secondary">Token Matrix</a>
+                    <a href="#services" class="nav-link font-medium text-secondary">API Verticals</a>
+                    <a href="#personas" class="nav-link font-medium text-secondary">Target Personas</a>
+                    <a href="#lab" class="nav-link font-medium text-secondary">Integration Sandbox</a>
                 </nav>
 
-                <div class="header-actions-deck">
-                    <button id="masterThemeBtn" class="btn btn-secondary" style="padding: 10px 16px;">
+                <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 mt-3 mt-lg-0">
+                    <button id="masterThemeBtn" class="btn btn-secondary d-inline-flex align-items-center py-2 px-3 border">
                         <i id="themeIconSlot" class="fa-solid fa-moon"></i>
-                        <span id="themeLabelText" style="font-size: 12px;"></span>
+                        <span id="themeLabelText" class="ms-2 small">Dark Mode</span>
                     </button>
-                    <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign In</a>
+                    <a href="#quote-desk" class="btn btn-primary py-2 px-4 small fw-bold text-white">Request Quote</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="hero-section">
-        <div class="hero-animated-grid"></div>
-        <div class="hero-glow-backplate"></div>
+    <section class="hero-section text-center position-relative overflow-hidden">
+        <div class="hero-animated-grid position-absolute top-0 start-0 w-100 h-100"></div>
+        <div class="hero-glow-backplate position-absolute start-50 top-50 translate-middle rounded-circle pointer-events-none"></div>
+        <div class="container position-relative z-1">
+            <h1 class="display-4 fw-extrabold tracking-tight mb-4 text-primary">One Platform<br><span class="gradient-span">Infinite Integrations</span></h1>
+            <p class="lead text-secondary mx-auto mb-5 max-w-760">Stop wasting weeks researching APIs. Discover, compare, and implement third-party services in minutes through a single, secure hub.</p>
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                <a href="#lab" class="btn btn-primary py-3 px-4 fw-bold">Initialize Core Playground</a>
+                <a href="#services" class="btn btn-secondary py-3 px-4 fw-bold">Explore 7 Services Framework</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="showcase-section py-4 overflow-hidden">
         <div class="container">
-            <h1>One Platform<br><span>Infinite Integrations</span></h1>
-            <p>Stop wasting weeks researching APIs. Discover, compare, and implement third-party services in minutes
-                through a single, secure hub.</p>
-            <div class="hero-cta-group">
-                <a href="#lab" class="btn btn-primary">Initialize Core Playground</a>
-                <a href="#services" class="btn btn-secondary">Explore 7 Services Framework</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="showcase-section">
-        <div class="container">
-            <div class="showcase-perspective-container">
-                <div class="showcase-window-wrapper" id="parallaxDashboard">
-                    <img src="images/dashboard.png" alt="ApiNexus Dashboard Telemetry Overview"
-                        class="showcase-image-element">
+            <div class="showcase-perspective-container d-flex justify-content-center">
+                <div class="showcase-window-wrapper border rounded-3 overflow-hidden shadow-lg" id="parallaxDashboard">
+                    <img src="images/dashboard.png" alt="ApiNexus Dashboard Telemetry Overview" class="showcase-image-element img-fluid d-block">
                 </div>
             </div>
         </div>
     </section>
 
+    <section class="paradigm-shift-container position-relative overflow-hidden py-5">
+        <div class="radial-glow-1 position-absolute pointer-events-none"></div>
+        <div class="radial-glow-2 position-absolute pointer-events-none"></div>
 
-    <section id="api-search-engine" class="section-spacer"
-        style="border-top: 1px solid var(--border-color); position: relative; overflow: hidden;">
-        <div
-            style="position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, transparent 70%); top: 20%; right: -5%; pointer-events: none; filter: blur(60px);">
-        </div>
-
-        <div class="container">
-            <div class="section-header-block text-center" style="margin-bottom: 48px;">
-                <span class="badge-pill-micro">Instant Discovery Hub</span>
-                <h2>Search APIs by Your Requirement</h2>
-                <p>Describe what you need to build in natural language. Our routing core instantly maps your operational
-                    requirements to optimal third-party endpoints.</p>
+        <div class="container position-relative z-2 py-4">
+            <div class="section-header text-center mb-5">
+                <span class="badge-pill-micro px-3 py-2 rounded-pill font-semibold uppercase text-uppercase tracking-wider border">
+                    Operational Evolution
+                </span>
+                <h2 class="h1 fw-extrabold text-primary tracking-tight mt-3">The Problem vs. The ApiNexus Way</h2>
+                <p class="text-secondary mt-2 fs-6">Hover over each frictionless transformation vector below to see the architectural upgrade.</p>
             </div>
 
-            <div style="max-width: 960px; margin: 0 auto;">
-
-                <div
-                    style="background-color: var(--bg-surface-primary); border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-bottom: 32px;">
-                    <div style="position: relative; display: flex; align-items: center;">
-                        <i class="fa-solid fa-magnifying-glass"
-                            style="position: absolute; left: 20px; color: var(--text-secondary); font-size: 18px;"></i>
-                        <input type="text" id="apiRequirementSearchInput"
-                            placeholder="e.g., 'Low-latency global credit card checkout' or 'Send transactional verification emails'..."
-                            style="width: 100%; background-color: var(--bg-surface-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 10px; padding: 18px 20px 18px 54px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s;" />
-                        <button onclick="executeRequirementMappingRoute()" class="btn btn-primary"
-                            style="position: absolute; right: 8px; padding: 10px 20px; font-size: 13px; border-radius: 6px;">
-                            Map Endpoints
-                        </button>
-                    </div>
-
-                    <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
-                        <span
-                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">Popular
-                            Specs:</span>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('High-throughput global transactional billing checkout')">Global
-                            Billing</button>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('SMS OTP identity verification and fraud prevention tracking')">SMS
-                            Authentication</button>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('Scalable cloud object ledger logs warehouse storage')">Object
-                            Storage</button>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('Real-time semantic search language model prompt parsing')">AI
-                            Prompt Synthesis</button>
+            <div class="d-flex flex-column gap-3 mt-4">
+                <div class="matrix-interactive-row p-4 rounded-3 border">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="meta-content">
+                                <span class="context-tag d-block text-uppercase tracking-wider small font-semibold">Discovery Phase</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Search Google for endless hours</h4>
+                            </div>
+                            <div class="status-marker friction rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="vector-line position-absolute top-50 start-50 translate-middle-x"></div>
+                            <div class="vector-node rounded-circle border d-flex align-items-center justify-content-center position-relative z-2">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="status-marker solution rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="meta-content">
+                                <span class="nexus-tag d-block text-uppercase tracking-wider small font-semibold">Instantaneous</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Search one centralized marketplace</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="dynamicRouterDiscoveryGrid" style="display: flex; flex-direction: column; gap: 16px;">
-                </div>
-
-                <div id="routerEmptyStateFeedback"
-                    style="display: none; text-align: center; padding: 48px 24px; border: 1px dashed var(--border-color); border-radius: 12px; background-color: rgba(6,8,12,0.15);">
-                    <i class="fa-solid fa-bezier-curve"
-                        style="font-size: 32px; color: var(--text-muted); margin-bottom: 16px;"></i>
-                    <h4 style="font-size: 16px; font-weight: 600;">No perfect abstraction matrix match found</h4>
-                    <p
-                        style="font-size: 13px; color: var(--text-secondary); max-width: 420px; margin: 4px auto 0 auto;">
-                        Try restructuring your custom operational requirements string or check an alternate architecture
-                        horizontal tab panel.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section id="sovereignty" class="container">
-        <div class="compliance-backplate-box">
-            <div class="text-center" style="max-width: 720px; margin: 0 auto;">
-                <span class="badge-pill-micro"
-                    style="color: var(--accent-success); background-color: rgba(16,185,129,0.15)">Absolute Isolation
-                    Layers</span>
-                <h3 style="font-size: 28px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em;">Enterprise
-                    Isolation Compliance & <br> Data Rights Protection</h3>
-                <p style="color: var(--text-secondary); font-size: 14.5px;">All outbound parameters pass through
-                    localized validation environments. Hardware cryptographic tokens encapsulate private API headers to
-                    ensure strict data governance.</p>
-            </div>
-
-            <div class="badges-isometric-grid">
-                <div class="badge-trust-card">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <h4>SOC2 Type II Attested</h4>
-                    <p>Continuous infrastructure tracking</p>
-                </div>
-                <div class="badge-trust-card">
-                    <i class="fa-solid fa-passport" style="color: var(--accent-success);"></i>
-                    <h4>GDPR Compliance Core</h4>
-                    <p>Zero-retention log sweeping rules</p>
-                </div>
-                <div class="badge-trust-card">
-                    <i class="fa-solid fa-network-wired" style="color: #22d3ee;"></i>
-                    <h4>99.999% SLA Guarantee</h4>
-                    <p>Multi-zone load balancer structures</p>
-                </div>
-                <div class="badge-trust-card">
-                    <i class="fa-solid fa-key" style="color: var(--accent-purple);"></i>
-                    <h4>FIPS 140-2 Level 3</h4>
-                    <p>Hardware security module keys</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="container section-spacer">
-        <div class="section-header-block text-center">
-            <span class="badge-pill-micro">Orchestration Coverage Matrix</span>
-            <h2>Supported Core API Services Verticals</h2>
-            <p>Scale logic across multiple external providers without expanding structural code bases or dependency
-                configuration structures.</p>
-        </div>
-
-        <div class="services-grid-matrix">
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-envelope"></i></div>
-                    <h3>Email Service APIs</h3>
-                    <p>Transactional delivery structures, pipeline logs optimization, and metadata delivery validation
-                        frameworks.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">SendGrid</span><span
-                            class="provider-micro-tag">Postmark</span><span class="provider-micro-tag">Mailgun</span>
+                <div class="matrix-interactive-row p-4 rounded-3 border">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="meta-content">
+                                <span class="context-tag d-block text-uppercase tracking-wider small font-semibold">Procurement Cost</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Compare pricing across 10 tabs</h4>
+                            </div>
+                            <div class="status-marker friction rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="vector-line position-absolute top-50 start-50 translate-middle-x"></div>
+                            <div class="vector-node rounded-circle border d-flex align-items-center justify-content-center position-relative z-2">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="status-marker solution rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="meta-content">
+                                <span class="nexus-tag d-block text-uppercase tracking-wider small font-semibold">Data-Driven Matrix</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Side-by-side feature & cost metrics</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('email')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-comments"></i></div>
-                    <h3>Messaging Service APIs</h3>
-                    <p>Global baseline SMS relays, cross-region WhatsApp business accounts, and multi-tier network text
-                        alerts.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">Twilio</span><span class="provider-micro-tag">Sinch</span><span
-                            class="provider-micro-tag">Infobip</span>
+
+                <div class="matrix-interactive-row p-4 rounded-3 border">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="meta-content">
+                                <span class="context-tag d-block text-uppercase tracking-wider small font-semibold">Security Debt</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Juggle 5 different auth methods</h4>
+                            </div>
+                            <div class="status-marker friction rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="vector-line position-absolute top-50 start-50 translate-middle-x"></div>
+                            <div class="vector-node rounded-circle border d-flex align-items-center justify-content-center position-relative z-2">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="status-marker solution rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="meta-content">
+                                <span class="nexus-tag d-block text-uppercase tracking-wider small font-semibold">Unified Control</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Standardized secure guidelines</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('messaging')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-credit-card"></i></div>
-                    <h3>Payment Gateway APIs</h3>
-                    <p>Secure global card processing systems, localized checkout matrices, and multi-tier membership
-                        tables.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">Stripe</span><span
-                            class="provider-micro-tag">PayPal</span><span class="provider-micro-tag">Adyen</span>
+
+                <div class="matrix-interactive-row p-4 rounded-3 border">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="meta-content">
+                                <span class="context-tag d-block text-uppercase tracking-wider small font-semibold">Developer Overhead</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Code boilerplate from scratch</h4>
+                            </div>
+                            <div class="status-marker friction rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-code-branch"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="vector-line position-absolute top-50 start-50 translate-middle-x"></div>
+                            <div class="vector-node rounded-circle border d-flex align-items-center justify-content-center position-relative z-2">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="status-marker solution rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="meta-content">
+                                <span class="nexus-tag d-block text-uppercase tracking-wider small font-semibold">Production-Ready</span>
+                                <h4 class="h6 fw-bold text-primary mb-0 mt-1">Copy-and-paste absolute fragments</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('payments')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-building-columns"></i></div>
-                    <h3>Open Banking APIs</h3>
-                    <p>Financial ledger synchronization sweeps, asset validation processing, and instant structural ACH
-                        rails.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">Plaid</span><span class="provider-micro-tag">Tink</span><span
-                            class="provider-micro-tag">Yodlee</span>
-                    </div>
-                </div>
-                <button onclick="navigateToQuoteForm('banking')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-address-book"></i></div>
-                    <h3>Customer CRM APIs</h3>
-                    <p>Bi-directional profile state synchronization maps, lifecycle funnel tags, and workspace account
-                        data sweeps.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">HubSpot</span><span
-                            class="provider-micro-tag">Salesforce</span><span class="provider-micro-tag">Zoho CRM</span>
-                    </div>
-                </div>
-                <button onclick="navigateToQuoteForm('crm')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-cloud"></i></div>
-                    <h3>Cloud Infrastructure APIs</h3>
-                    <p>Server compute instance pooling sweeps, distributed storage bucket arrays, and virtualization
-                        routing nodes.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">AWS Core</span><span class="provider-micro-tag">Google
-                            Cloud</span><span class="provider-micro-tag">DigitalOcean</span>
-                    </div>
-                </div>
-                <button onclick="navigateToQuoteForm('cloud')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
-                    Quote</button>
             </div>
         </div>
     </section>
 
-    <section id="flow" class="flow-section section-spacer">
-        <div class="container">
-            <div class="section-header-block text-center">
-                <span class="badge-pill-micro">ApiNexus simplifies connectivity</span>
-                <h2>Centralized Hub for Integrations</h2>
-                <p>Instead of spending weeks studying massive documentation libraries and struggling with complex
-                    security setups, we do the heavy lifting for you. We design the infrastructure and give you clean
-                    scripts to drop right into your site.</p>
+    <section id="flow" class="flow-section py-5">
+        <div class="container py-4">
+            <div class="section-header-block text-center mx-auto mb-5">
+                <span class="badge-pill-micro px-3 py-2 rounded-pill font-semibold">Frictionless API Assistance</span>
+                <h2 class="h2 fw-bold text-primary mt-3">How We Engineer Your API Success</h2>
+                <p class="text-secondary mt-2 fs-6">Tell us what your application needs to do. We find the right third-party options, clear up the technical confusion, and deliver exact scripts ready for your system.</p>
             </div>
 
-            <div class="flow-diagram-container">
-                <div class="flow-column inputs">
-                    <div class="flow-node-item">
-                        <div class="flow-node-box"><i class="fa-solid fa-bullseye"></i></div>
-                        <span>Your Goals</span>
-                        <div class="flow-metric-tag">1. Define</div>
+            <div class="row align-items-center g-5 flow-diagram-row position-relative mt-5">
+                
+                <div class="col-12 col-md-4 d-flex flex-column align-items-center align-items-md-end gap-4 position-relative z-2">
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">Custom Needs</span>
+                        <div class="flow-metric-tag border rounded-pill px-3 py-1 font-mono small position-absolute">Your Goal</div>
                     </div>
-                    <div class="flow-node-item" style="right: 80px">
-                        <div class="flow-node-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <span>Feature Needs</span>
-                        <div class="flow-metric-tag">2. Match</div>
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center custom-node-shift-left">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">Feature Idea</span>
+                        <div class="flow-metric-tag border rounded-pill px-3 py-1 font-mono small position-absolute">No Code Yet</div>
                     </div>
-                    <div class="flow-node-item" style="right: 80px">
-                        <div class="flow-node-box"><i class="fa-solid fa-shuffle"></i></div>
-                        <span>Provider Audits</span>
-                        <div class="flow-metric-tag">3. Evaluate</div>
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center custom-node-shift-left">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">3rd-Party Request</span>
+                        <div class="flow-metric-tag border rounded-pill px-3 py-1 font-mono small position-absolute">Any Vendor</div>
                     </div>
-                    <div class="flow-node-item">
-                        <div class="flow-node-box"><i class="fa-solid fa-gears"></i></div>
-                        <span>Current Stack</span>
-                        <div class="flow-metric-tag">4. Connect</div>
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">System Setup</span>
+                        <div class="flow-metric-tag border rounded-pill px-3 py-1 font-mono small position-absolute">Current App</div>
                     </div>
                 </div>
 
-                <div class="flow-center-hub">
-                    <div class="hub-ring outer"></div>
-                    <div class="hub-ring mid"></div>
-                    <div class="hub-core-sphere">
-                        <i class="fa-solid fa-circle-nodes"></i>
+                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center position-relative py-4 py-md-0">
+                    <div class="flow-center-hub position-relative d-flex align-items-center justify-content-center w-100">
+                        <div class="hub-ring outer position-absolute border rounded-circle border-dashed"></div>
+                        <div class="hub-ring mid position-absolute border rounded-circle border-dashed"></div>
+                        <div class="hub-core-sphere rounded-circle d-flex align-items-center justify-content-center shadow text-white position-relative z-3">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
                     </div>
 
-                    <svg class="flow-connections-svg" viewBox="0 0 500 400" preserveAspectRatio="none">
+                    <svg class="flow-connections-svg d-none d-md-block position-absolute top-0 start-0 w-100 h-100 pointer-events-none" viewBox="0 0 500 400" preserveAspectRatio="none">
                         <defs>
                             <linearGradient id="incomingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" stop-color="var(--border-color)" stop-opacity="0.2" />
@@ -332,754 +614,168 @@
                                 <stop offset="100%" stop-color="var(--brand-primary)" />
                             </linearGradient>
                         </defs>
-                        <path class="flow-line incoming" d="M 120 40 C 200 40, 200 200, 250 200" />
-                        <path class="flow-line incoming" d="M 120 140 C 180 140, 200 200, 250 200" />
-                        <path class="flow-line incoming" d="M 120 240 C 180 240, 200 200, 250 200" />
-                        <path class="flow-line incoming" d="M 120 340 C 200 340, 200 200, 250 200" />
-                        <path class="flow-line outgoing" d="M 250 200 C 300 200, 300 40, 380 40" />
-                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 320 140, 380 140" />
-                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 320 240, 380 240" />
-                        <path class="flow-line outgoing" d="M 250 200 C 300 200, 300 340, 380 340" />
+                        <path class="flow-line incoming" d="M 50 40 C 150 40, 180 200, 250 200" />
+                        <path class="flow-line incoming" d="M 50 140 C 150 140, 180 200, 250 200" />
+                        <path class="flow-line incoming" d="M 50 240 C 150 240, 180 200, 250 200" />
+                        <path class="flow-line incoming" d="M 50 340 C 150 340, 180 200, 250 200" />
+                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 350 40, 450 40" />
+                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 350 140, 450 140" />
+                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 350 240, 450 240" />
+                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 350 340, 450 340" />
                     </svg>
                 </div>
 
-                <div class="flow-column outputs">
-                    <div class="flow-node-item">
-                        <div class="flow-node-box"
-                            style="border-color: var(--accent-purple); color: var(--accent-purple);"><i
-                                class="fa-solid fa-lightbulb"></i></div>
-                        <span>Perfect Vendor</span>
-                        <div class="flow-metric-tag"
-                            style="border-color: var(--accent-purple); color: var(--accent-purple);">Selected</div>
+                <div class="col-12 col-md-4 d-flex flex-column align-items-center align-items-md-start gap-4 position-relative z-2">
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm purple-node-border">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">Suggest API</span>
+                        <div class="flow-metric-tag purple-tag border rounded-pill px-3 py-1 font-mono small position-absolute">Ideal Match</div>
                     </div>
-                    <div class="flow-node-item" style="left: 80px">
-                        <div class="flow-node-box"
-                            style="border-color: var(--accent-success); color: var(--accent-success);"><i
-                                class="fa-solid fa-handshake-angle"></i></div>
-                        <span>Unified Token</span>
-                        <div class="flow-metric-tag"
-                            style="border-color: var(--accent-success); color: var(--accent-success);">Secure</div>
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center custom-node-shift-right">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm success-node-border">
+                            <i class="fa-solid fa-handshake-angle"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">Provide Tokens</span>
+                        <div class="flow-metric-tag success-tag border rounded-pill px-3 py-1 font-mono small position-absolute">Sourced</div>
                     </div>
-                    <div class="flow-node-item" style="left: 80px">
-                        <div class="flow-node-box" style="border-color: #f59e0b; color: #f59e0b;"><i
-                                class="fa-solid fa-book-open"></i></div>
-                        <span>Drop-In Scripts</span>
-                        <div class="flow-metric-tag" style="border-color: #f59e0b; color: #f59e0b;">Ready</div>
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center custom-node-shift-right">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm amber-node-border">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">How to Implement</span>
+                        <div class="flow-metric-tag amber-tag border rounded-pill px-3 py-1 font-mono small position-absolute">Step-by-Step</div>
                     </div>
-                    <div class="flow-node-item">
-                        <div class="flow-node-box" style="border-color: #22d3ee; color: #22d3ee;"><i
-                                class="fa-solid fa-circle-check"></i></div>
-                        <span>Live Tracking</span>
-                        <div class="flow-metric-tag" style="border-color: #22d3ee; color: #22d3ee;">Active</div>
+                    <div class="flow-node-item d-flex flex-column align-items-center text-center">
+                        <div class="flow-node-box border rounded-4 d-flex align-items-center justify-content-center shadow-sm cyan-node-border">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <span class="small fw-bold mt-2 text-secondary">Live Client</span>
+                        <div class="flow-metric-tag cyan-tag border rounded-pill px-3 py-1 font-mono small position-absolute">Complete</div>
                     </div>
+                </div>
+            </div>
+
+            <div class="row flow-bottom-captions border-top pt-5 mt-5 g-4 text-start">
+                <div class="col-12 col-md-6">
+                    <h3 class="h2 fw-bold tracking-tight text-primary">ApiNexus simplifies connectivity.</h3>
+                    <p class="font-mono small fw-bold text-uppercase tracking-wider mt-2 brand-primary-text">Centralized Hub for Integrations</p>
+                    <a href="#quote-desk" class="btn btn-primary py-2 px-4 mt-4 small fw-bold">Get Started with ApiNexus</a>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p class="fs-5 text-secondary mb-3">
+                        Instead of spending weeks studying massive documentation libraries and struggling with complex security setups, we do the heavy lifting for you. We design the infrastructure and give you clean scripts to drop right into your site.
+                    </p>
+                    <p class="small text-muted mb-0">
+                        We provide full guidance through authentication, custom endpoint mappings, real-time error logging, and performance automation frameworks built to scale your business.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-spacer vertical-matrix-section">
-        <div class="container">
-            <div class="section-header-block text-center">
-                <span class="badge-pill-micro">Infrastructure Topology</span>
-                <h2>Unified Abstraction Layer</h2>
-                <p>Standardizing fragmented protocol architectures into an isolated token transit bus across all core enterprise domains.</p>
-            </div>
-
-            <div class="matrix-grid-container">
-                
-                <div class="matrix-row-card">
-                    <div class="matrix-col-legacy">
-                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                        <h3 class="matrix-column-title">
-                            <i class="fa-solid fa-envelope"></i> Legacy Email Channels
-                        </h3>
-                        
-                        <div class="legacy-stack">
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-sendgrid">SG</div>
-                                    <div>
-                                        <h4>SendGrid Core</h4>
-                                        <span class="meta-subtext">Auth: API Key / OAuth2</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">$19.95/mo</span>
-                                    <span class="metric-secondary">~45m Setup</span>
-                                </div>
-                            </div>
-                            
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-postmark">PM</div>
-                                    <div>
-                                        <h4>Postmark Server</h4>
-                                        <span class="meta-subtext">Auth: Server Token</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">$15.00/mo</span>
-                                    <span class="metric-secondary">~30m Setup</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="matrix-col-unified">
-                        <div class="unified-card-header">
-                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                            <a href="details-email.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-
-                        <h3 class="unified-title">Abstracted Multi-Provider Email</h3>
-                        <p class="unified-description">
-                            ApiNexus eliminates distinct provider lock-in and syntax disparities. By abstracting transactional or marketing flows into a uniform token transit path, setups drop exponentially while reliability surges.
-                        </p>
-                        
-                        <div class="unified-stats-grid">
-                            <div class="stat-box">
-                                <span class="stat-label">Unified Key Access</span>
-                                <span class="stat-value text-success"><i class="fa-solid fa-key"></i> Single Unified Key</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">Average Setup Time</span>
-                                <span class="stat-value"><i class="fa-solid fa-bolt text-warning"></i> Less than 5 Mins</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="matrix-row-card">
-                    <div class="matrix-col-legacy">
-                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                        <h3 class="matrix-column-title">
-                            <i class="fa-solid fa-comments"></i> Fragmented SMS Hardware
-                        </h3>
-                        <div class="legacy-stack">
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-twilio">TW</div>
-                                    <div>
-                                        <h4>Twilio Core Engine</h4>
-                                        <span class="meta-subtext">Routing: Manual Fallbacks</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">100 RPS Limit</span>
-                                    <span class="metric-secondary">Dev Handled Fail</span>
-                                </div>
-                            </div>
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-sinch">SI</div>
-                                    <div>
-                                        <h4>Sinch Global Platform</h4>
-                                        <span class="meta-subtext">Routing: Carrier Bindings</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Configurable Base</span>
-                                    <span class="metric-secondary">Soft Fail Hook</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="matrix-col-unified">
-                        <div class="unified-card-header">
-                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                            <a href="details-messaging.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-
-                        <h3 class="unified-title">Telemetry Dynamic SMS Pipeline</h3>
-                        <p class="unified-description">
-                            ApiNexus unifies edge telecommunication pipes into an uncapped intelligent pool. Features smart global auto-routing arrays to prevent message delivery disruptions or hardware drops.
-                        </p>
-                        <div class="unified-stats-grid">
-                            <div class="stat-box">
-                                <span class="stat-label">Global Routing Core</span>
-                                <span class="stat-value text-brand"><i class="fa-solid fa-shuffle"></i> Dynamic Auto-Route</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">Fallback Contingency</span>
-                                <span class="stat-value text-success"><i class="fa-solid fa-shield-heart"></i> Instant Failover</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="matrix-row-card">
-                    <div class="matrix-col-legacy">
-                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                        <h3 class="matrix-column-title">
-                            <i class="fa-solid fa-credit-card"></i> Disparate Payment Ledgers
-                        </h3>
-                        <div class="legacy-stack">
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-stripe">ST</div>
-                                    <div>
-                                        <h4>Stripe Engine</h4>
-                                        <span class="meta-subtext">Auth: Secret Bearer Key</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Custom Webhooks</span>
-                                    <span class="metric-secondary">PCI Self-Assess</span>
-                                </div>
-                            </div>
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-adyen">AD</div>
-                                    <div>
-                                        <h4>Adyen Matrix</h4>
-                                        <span class="meta-subtext">Auth: Merchant Signature</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Heavy Contracts</span>
-                                    <span class="metric-secondary">Hardware Audits</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="matrix-col-unified">
-                        <div class="unified-card-header">
-                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                            <a href="details-payment.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-
-                        <h3 class="unified-title">Standardized Clearing Pipeline</h3>
-                        <p class="unified-description">
-                            Achieve automated multi-acquirer load balancing without structural modifications. Secure multi-region transactions natively inside an isolated cryptographic space.
-                        </p>
-                        <div class="unified-stats-grid">
-                            <div class="stat-box">
-                                <span class="stat-label">Acquirer Balancing</span>
-                                <span class="stat-value text-brand"><i class="fa-solid fa-scale-balanced"></i> Auto Load Balance</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">Compliance Layer</span>
-                                <span class="stat-value text-purple"><i class="fa-solid fa-vault"></i> FIPS Encrypted Vault</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="matrix-row-card">
-                    <div class="matrix-col-legacy">
-                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                        <h3 class="matrix-column-title">
-                            <i class="fa-solid fa-building-columns"></i> Fragmented Open Banking
-                        </h3>
-                        <div class="legacy-stack">
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-plaid">PL</div>
-                                    <div>
-                                        <h4>Plaid Network</h4>
-                                        <span class="meta-subtext">Auth: OAuth Redirect</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Poll Intervals</span>
-                                    <span class="metric-secondary">External KYC Loops</span>
-                                </div>
-                            </div>
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-finicity">FI</div>
-                                    <div>
-                                        <h4>Finicity Data</h4>
-                                        <span class="meta-subtext">Auth: Token Exchanges</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Scheduled Batch</span>
-                                    <span class="metric-secondary">Manual Doc Parse</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="matrix-col-unified">
-                        <div class="unified-card-header">
-                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                            <a href="details-banking.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-
-                        <h3 class="unified-title">Unified Streaming Ledger Kernel</h3>
-                        <p class="unified-description">
-                            ApiNexus unifies core bank ledgers using real-time streaming topologies rather than batch schedules, protected via direct hardware attestation vaults.
-                        </p>
-                        <div class="unified-stats-grid">
-                            <div class="stat-box">
-                                <span class="stat-label">Synchronicity Model</span>
-                                <span class="stat-value text-success"><i class="fa-solid fa-rotate"></i> Real-Time Streaming</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">Identity Attestation</span>
-                                <span class="stat-value"><i class="fa-solid fa-microchip"></i> Hardware Shielded</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="matrix-row-card">
-                    <div class="matrix-col-legacy">
-                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                        <h3 class="matrix-column-title">
-                            <i class="fa-solid fa-users-gear"></i> Fragmented Customer Objects
-                        </h3>
-                        <div class="legacy-stack">
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-hubspot">HS</div>
-                                    <div>
-                                        <h4>HubSpot Suite</h4>
-                                        <span class="meta-subtext">Auth: OAuth2 Suite</span>
-                                    </div>
-                                }
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Proprietary Schema</span>
-                                    <span class="metric-secondary">Strict Daily Limits</span>
-                                </div>
-                            </div>
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-salesforce">SF</div>
-                                    <div>
-                                        <h4>Salesforce Core</h4>
-                                        <span class="meta-subtext">Auth: Connected Apps</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Apex Object Matrix</span>
-                                    <span class="metric-secondary">Resource Locking</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="matrix-col-unified">
-                        <div class="unified-card-header">
-                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                            <a href="details-crm.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-
-                        <h3 class="unified-title">Atomic CRM Aggregator Layer</h3>
-                        <p class="unified-description">
-                            ApiNexus utilizes standardized, abstracted JSON mappings back-buffered by high-throughput edge cache arrays to isolate internal frameworks from standard multi-vendor rate throttles.
-                        </p>
-                        <div class="unified-stats-grid">
-                            <div class="stat-box">
-                                <span class="stat-label">Field Optimization</span>
-                                <span class="stat-value"><i class="fa-solid fa-code"></i> Abstract JSON Map</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">Sync Architecture</span>
-                                <span class="stat-value text-brand"><i class="fa-solid fa-cubes"></i> Atomic Loops</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="matrix-row-card">
-                    <div class="matrix-col-legacy">
-                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                        <h3 class="matrix-column-title">
-                            <i class="fa-solid fa-cloud"></i> Multi-Cloud Infrastructure
-                        </h3>
-                        <div class="legacy-stack">
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-aws">AWS</div>
-                                    <div>
-                                        <h4>AWS Infrastructure</h4>
-                                        <span class="meta-subtext">Auth: Access Key / Secret</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">IAM Identity Paths</span>
-                                    <span class="metric-secondary">Stack Lag: Mins</span>
-                                </div>
-                            </div>
-                            <div class="legacy-provider-card">
-                                <div class="provider-info-group">
-                                    <div class="provider-logo-avatar bg-gcp">GCP</div>
-                                    <div>
-                                        <h4>Google Cloud Engine</h4>
-                                        <span class="meta-subtext">Auth: JSON File Arrays</span>
-                                    </div>
-                                </div>
-                                <div class="provider-metrics">
-                                    <span class="metric-primary">Service Matrices</span>
-                                    <span class="metric-secondary">Container Latency</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="matrix-col-unified">
-                        <div class="unified-card-header">
-                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                            <a href="details-cloud.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-
-                        <h3 class="unified-title">Decoupled Cloud Core Layer</h3>
-                        <p class="unified-description">
-                            ApiNexus abstracts individual provider hypervisor setups into a single secure edge routing interface, reducing operational orchestration overheads down to millisecond timelines.
-                        </p>
-                        <div class="unified-stats-grid">
-                            <div class="stat-box">
-                                <span class="stat-label">Network Routing</span>
-                                <span class="stat-value text-brand"><i class="fa-solid fa-network-wired"></i> Optimized Edge Paths</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">Initialization Speed</span>
-                                <span class="stat-value text-success"><i class="fa-solid fa-gauge-high"></i> Sub-second Setup</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="lab" class="container section-spacer">
-        <div class="section-header-block text-center">
-            <span class="badge-pill-micro">Live Request Abstraction Desk</span>
-            <h2>Ecosystem Interconnection Core Studio</h2>
-            <p>Select an API vertical class. Watch the structural selection array parse options directly across all 21
-                system endpoints.</p>
+    <section id="services" class="container py-5 section-spacer">
+        <div class="section-header-block text-center mx-auto mb-5">
+            <span class="badge-pill-micro px-3 py-2 rounded-pill font-semibold">Orchestration Coverage Matrix</span>
+            <h2 class="h2 fw-bold text-primary mt-3">Supported Core API Services Verticals</h2>
+            <p class="text-secondary mt-2 fs-6">Scale logic across multiple external providers without expanding structural code bases or dependency configuration structures.</p>
         </div>
 
-        <div class="console-workspace-deck">
-            <div class="control-panel-box">
-                <div>
-                    <div class="input-control-group">
-                        <label>1. API Active Service Vertical Category</label>
-                        <select id="routeSelectField" class="custom-select-element">
-                            <option value="email"> Transactional Email Services</option>
-                            <option value="messaging"> Global Channel Messaging Alerts</option>
-                            <option value="payments"> Multi-Vendor Payment Gateways</option>
-                            <option value="banking"> Secure Open Banking Ledgers</option>
-                            <option value="crm"> Enterprise Customer CRM Suites</option>
-                            <option value="ai"> Distributed Neural AI Prompts</option>
-                            <option value="cloud"> Cloud Virtualization Clusters</option>
-                        </select>
-                    </div>
-
-                    <div class="input-control-group">
-                        <label>2. Downstream Provider Abstraction Target</label>
-                        <select id="downstreamDropdownField" class="custom-select-element"
-                            style="text-transform: capitalize;"></select>
-                    </div>
-
-                    <div class="input-control-group slider-wrapper-row">
-                        <div class="slider-labels-row">
-                            <span
-                                style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 11px;">Simulated
-                                Operation Velocity</span>
-                            <span id="sliderValueText"
-                                style="font-family: 'JetBrains Mono'; color: var(--brand-primary);">4,500 calls /
-                                min</span>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mt-4">
+            <div class="col d-flex">
+                <div class="service-vector-card border rounded-3 p-4 d-flex flex-column justify-content-between w-100 shadow-sm">
+                    <div class="mb-4">
+                        <div class="service-icon-frame rounded-3 d-flex align-items-center justify-content-center border shadow-sm mb-4">
+                            <i class="fa-solid fa-envelope"></i>
                         </div>
-                        <input type="range" id="volSimulationSlider" min="500" max="30000" step="500" value="4500"
-                            class="native-slider-bar">
+                        <h3 class="h6 fw-bold text-primary mb-2">Email Service APIs</h3>
+                        <p class="small text-secondary mb-3">Transactional delivery structures, pipeline logs optimization, and metadata delivery validation frameworks.</p>
+                        <div class="provider-tags-shelf d-flex flex-wrap gap-2 pt-3 border-top mt-3">
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">SendGrid</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Postmark</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Mailgun</span>
+                        </div>
                     </div>
+                    <button onclick="navigateToQuoteForm('email')" class="btn btn-secondary w-100 py-2 small border"><i class="fa-solid fa-arrow-down small"></i> Request Quote</button>
                 </div>
-
-                <button onclick="triggerExecutionSimulationTrace()" class="btn btn-primary"
-                    style="width: 100%; margin-top: 32px; letter-spacing: 0.02em; text-transform: uppercase; font-size: 12px; padding: 15px;">
-                    <i class="fa-solid fa-play" style="font-size: 10px;"></i> Dispatch Telemetry Transaction Sequence
-                </button>
             </div>
-
-            <div class="ide-terminal-window">
-                <div class="ide-header-tabs-bar">
-                    <div class="window-dots-cluster">
-                        <span class="dot-node red"></span><span class="dot-node amber"></span><span
-                            class="dot-node green"></span>
-                    </div>
-                    <div style="display: flex; gap: 16px; align-items: center;">
-                        <div class="stack-pill-switcher">
-                            <button onclick="updateActiveStackSlot('node')" id="stackBtnNode"
-                                class="stack-pill-btn active">Node.js</button>
-                            <button onclick="updateActiveStackSlot('python')" id="stackBtnPy"
-                                class="stack-pill-btn">Python</button>
+            <div class="col d-flex">
+                <div class="service-vector-card border rounded-3 p-4 d-flex flex-column justify-content-between w-100 shadow-sm">
+                    <div class="mb-4">
+                        <div class="service-icon-frame rounded-3 d-flex align-items-center justify-content-center border shadow-sm mb-4">
+                            <i class="fa-solid fa-comments"></i>
                         </div>
-                        <span id="extensionLabelSlot"
-                            style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-muted)">nexus_core.js</span>
+                        <h3 class="h6 fw-bold text-primary mb-2">Messaging Service APIs</h3>
+                        <p class="small text-secondary mb-3">Global baseline SMS relays, cross-region WhatsApp business accounts, and multi-tier network text alerts.</p>
+                        <div class="provider-tags-shelf d-flex flex-wrap gap-2 pt-3 border-top mt-3">
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Twilio</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Sinch</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Infobip</span>
+                        </div>
                     </div>
+                    <button onclick="navigateToQuoteForm('messaging')" class="btn btn-secondary w-100 py-2 small border"><i class="fa-solid fa-arrow-down small"></i> Request Quote</button>
                 </div>
-
-                <div class="ide-panes-split-grid">
-                    <div class="terminal-panel-pane upper">
-                        <div class="pane-descriptor-tag">// Instantiated Abstract Configuration Code Snippet Blueprint
-                            Layout</div>
-                        <pre id="codePayloadCanvas"
-                            style="color: var(--text-primary); line-height: 1.6; white-space: pre-wrap;"></pre>
-                    </div>
-                    <div class="terminal-panel-pane lower">
-                        <div class="pane-descriptor-tag">// Encrypted Edge Gateway Tunnel Verification Telemetry Streams
+            </div>
+            <div class="col d-flex">
+                <div class="service-vector-card border rounded-3 p-4 d-flex flex-column justify-content-between w-100 shadow-sm">
+                    <div class="mb-4">
+                        <div class="service-icon-frame rounded-3 d-flex align-items-center justify-content-center border shadow-sm mb-4">
+                            <i class="fa-solid fa-credit-card"></i>
                         </div>
-                        <pre id="telemetryTerminalLogs"
-                            class="log-stream-line">System gateway connection matrix structural layer authenticated. Select pipeline attributes and trigger runtime tracking algorithms...</pre>
+                        <h3 class="h6 fw-bold text-primary mb-2">Payment Gateway APIs</h3>
+                        <p class="small text-secondary mb-3">Secure global card processing systems, localized checkout matrices, and multi-tier membership tables.</p>
+                        <div class="provider-tags-shelf d-flex flex-wrap gap-2 pt-3 border-top mt-3">
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Stripe</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">PayPal</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Adyen</span>
+                        </div>
                     </div>
+                    <button onclick="navigateToQuoteForm('payments')" class="btn btn-secondary w-100 py-2 small border"><i class="fa-solid fa-arrow-down small"></i> Request Quote</button>
+                </div>
+            </div>
+            <div class="col d-flex">
+                <div class="service-vector-card border rounded-3 p-4 d-flex flex-column justify-content-between w-100 shadow-sm">
+                    <div class="mb-4">
+                        <div class="service-icon-frame rounded-3 d-flex align-items-center justify-content-center border shadow-sm mb-4">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <h3 class="h6 fw-bold text-primary mb-2">Open Banking APIs</h3>
+                        <p class="small text-secondary mb-3">Financial ledger synchronization sweeps, asset validation processing, and instant structural ACH rails.</p>
+                        <div class="provider-tags-shelf d-flex flex-wrap gap-2 pt-3 border-top mt-3">
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Plaid</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Tink</span>
+                            <span class="provider-micro-tag rounded px-2 py-1 font-mono">Yodlee</span>
+                        </div>
+                    </div>
+                    <button onclick="navigateToQuoteForm('banking')" class="btn btn-secondary w-100 py-2 small border"><i class="fa-solid fa-arrow-down small"></i> Request Quote</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <div id="verticalDetailModal" class="vertical-modal-overlay" style="display: none;">
-        <div class="vertical-modal-content">
-            <button class="modal-close-btn" onclick="closeVerticalDetail()"><i class="fa-solid fa-xmark"></i></button>
-            <div id="modalDynamicContent">
-            </div>
-        </div>
-    </div>
-
-    <section id="quote-desk" class="container section-spacer">
-        <div class="section-header-block text-center">
-            <span class="badge-pill-micro">Clear Pricing Estimates</span>
-            <h2>Custom Integration Architecture <br> Quote Desk</h2>
-            <p>Complete your environmental profile and target endpoints below. Our engine structures customized
-                abstraction routing fees specific to your cluster throughput constraints.</p>
-        </div>
-
-        <div class="quote-form-wrapper-modern">
-            <form id="activeQuoteForm" onsubmit="handleQuoteFormDispatch(event)" class="modern-split-form">
-
-                <div class="form-section-block">
-                    <h3><span class="step-counter">1</span> Corporate Account Profiling</h3>
-                    <p class="form-block-desc">Enter details regarding your business alignment metrics and operations
-                        hub identity.</p>
-
-                    <div class="input-control-group">
-                        <label> Corporate Entity Name</label>
-                        <input type="text" class="custom-input-element" placeholder="e.g., Aparajayah Technologies"
-                            required>
-                    </div>
-
-                    <div class="input-control-group">
-                        <label> Professional Ingest Email</label>
-                        <input type="email" class="custom-input-element" placeholder="architecture@company.com"
-                            required>
-                    </div>
-
-                    <div class="input-control-group">
-                        <label> Anticipated Monthly Production Volume</label>
-                        <select class="custom-select-element">
-                            <option value="small">&lt; 500,000 requests / month</option>
-                            <option value="medium">500,000 – 5,000,000 requests / month</option>
-                            <option value="large">5,000,000 – 50,000,000 requests / month</option>
-                            <option value="enterprise">Custom Enterprise Tier (50M+ requests)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-section-block">
-                    <h3><span class="step-counter">2</span> Architecture Routing Specifications</h3>
-                    <p class="form-block-desc">Select your primary integration classes. This aligns abstraction mapping
-                        costs directly.</p>
-
-                    <div class="input-control-group">
-                        <label> API Active Service Vertical Category</label>
-                        <select id="quoteServiceSelect" class="custom-select-element"
-                            onchange="syncQuoteDownstreamOptions()" required>
-                            <option value="email">Transactional Email Services</option>
-                            <option value="messaging">Global Channel Messaging Alerts</option>
-                            <option value="payments">Multi-Vendor Payment Gateways</option>
-                            <option value="banking">Secure Open Banking Ledgers</option>
-                            <option value="crm">Enterprise Customer CRM Suites</option>
-                            <option value="cloud">Cloud Virtualization Clusters</option>
-                        </select>
-                    </div>
-
-                    <div class="input-control-group">
-                        <label> Downstream Provider Abstraction Target</label>
-                        <select id="quoteDownstreamSelect" class="custom-select-element" required>
-                        </select>
-                    </div>
-
-                    <div class="form-action-footer" style="margin-top: 35px;">
-                        <button type="submit" class="btn btn-primary secure-submit-btn">
-                            <span><i class="fa-solid fa-paper-plane"></i> Dispatch Formal Quote Request Line</span>
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-            <div class="quote-panel-info-horizontal">
-                <div class="telemetry-box-header">
-                    <div class="pulse-indicator-node"></div>
-                    <h4>Live Form Architectural Sync Logs</h4>
-                </div>
-                <div id="quoteTerminalResponse" class="monospaced-log-canvas">
-                    Form engine standing by. Select a service framework from the matrix arrays above or configure fields
-                    manually to complete submission variables.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="enquiry-asymmetric" class="section-spacer" style="background-color: var(--bg-global);">
-        <div class="container">
-
-            <div class="section-header-block text-center">
-                <div class="badge-pill-micro">PROJECT INTENT DEPLOYMENT</div>
-                <h2>Let's Configure Your Integration</h2>
-                <p>Select your deployment profiles and state parameters to initiate a priority connection bridge.</p>
-            </div>
-
-            <div class="console-workspace-deck">
-                <div class="control-panel-box" style="justify-content: flex-start; gap: 24px;">
-                    <div>
-                        <span class="nexus-tag" style="display: block; margin-bottom: 8px;">Tunnel Encryption</span>
-                        <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--text-primary);">Secure Handshake</h3>
-                        <p style="font-size: 13px; color: var(--text-secondary);">
-                            Every single submission is isolated dynamically and funneled directly into our encrypted
-                            core node processing cluster.
-                        </p>
-                    </div>
-
-                    <hr style="border: 0; border-top: 1px solid var(--border-color);">
-
-                    <div>
-                        <h4
-                            style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 12px;">
-                            What happens next?
-                        </h4>
-                        <ul
-                            style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 13px; color: var(--text-secondary);">
-                            <li><i class="fa-solid fa-circle-check"
-                                    style="color: var(--accent-success); margin-right: 8px;"></i> Payload verification
-                                check</li>
-                            <li><i class="fa-solid fa-circle-check"
-                                    style="color: var(--accent-success); margin-right: 8px;"></i> Engineering asset
-                                allocation</li>
-                            <li><i class="fa-solid fa-circle-check"
-                                    style="color: var(--accent-success); margin-right: 8px;"></i> Mesh channel
-                                established (&lt;2hrs)</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="persona-panel-card" style="padding: 32px;">
-                    <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 20px;">
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                            <div class="input-control-group">
-                                <label for="enq-name">Ident Identity</label>
-                                <input type="text" id="enq-name" class="custom-input-element" placeholder="Your Name"
-                                    required>
-                            </div>
-                            <div class="input-control-group">
-                                <label for="enq-email">Routing Mailbox</label>
-                                <input type="email" id="enq-email" class="custom-input-element"
-                                    placeholder="name@domain.com" required>
-                            </div>
-                        </div>
-
-                        <div class="input-control-group">
-                            <label for="enq-framework">Infrastructure Framework Focus</label>
-                            <select id="enq-framework" class="custom-select-element">
-                                <option value="enterprise-core">Enterprise Managed Cluster (ApiNexus)</option>
-                                <option value="hybrid-mesh">Hybrid Multi-Cloud Processing</option>
-                                <option value="sovereign-node">Sovereign State Compliance Architecture</option>
-                            </select>
-                        </div>
-
-                        <div class="input-control-group">
-                            <label for="enq-message">Project Blueprint Payload / Enquiry Statement</label>
-                            <textarea id="enq-message" class="custom-input-element" rows="5"
-                                placeholder="Outline context variables, required operational nodes, or deployment barriers..."
-                                style="resize: none; font-family: inherit;" required></textarea>
-                        </div>
-
-                        <div class="input-control-group slider-wrapper-row" style="margin-top: 4px;">
-                            <div class="slider-labels-row">
-                                <span>Target Criticality Deployment SLA</span>
-                                <strong>Tier 1 Priority</strong>
-                            </div>
-                            <input type="range" class="native-slider-bar" min="1" max="3" value="1">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary"
-                            style="width: 100%; justify-content: center; margin-top: 8px;">
-                            Transmit Intent Payload
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="ide-terminal-window" style="margin-top: 32px;">
-                <div class="ide-header-tabs-bar">
-                    <div class="window-dots-cluster">
-                        <div class="dot-node red"></div>
-                        <div class="dot-node amber"></div>
-                        <div class="dot-node green"></div>
-                    </div>
-                    <div class="stack-pill-switcher">
-                        <button class="stack-pill-btn active">Live Terminal Shell</button>
-                    </div>
-                </div>
-                <div class="terminal-panel-pane" style="min-height: auto; padding: 20px;">
-                    <div class="pane-descriptor-tag">Dynamic Network Validation Canvas</div>
-                    <div class="log-stream-line" style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-                        <span class="syntax-keyword">sys_bridge</span>: standing by... awaiting form entry vectors to
-                        instantiate handshake routines.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <button id="backToTopBtn" title="Go to top" style="
-    display: none;
-    position: fixed;
-    bottom: 40px;
-    width: 50px;
-    right: 30px;
-    z-index: 99;
-    border: 1px solid rgb(204, 204, 204);
-    outline: none;
-    background-color: rgb(255, 255, 255);
-    color: rgb(51, 51, 51);
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 54px;
-    font-size: 25px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    transition: 0.2s;
-    height: 50px;
-" onmouseover="this.style.backgroundColor='#0066cc'; this.style.color='#ffffff'; this.style.borderColor='#0066cc';"
-        onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#333333'; this.style.borderColor='#cccccc';"
-        onclick="scrollToTop()">
+    <button class="universal-to-top-launcher position-fixed border d-flex align-items-center justify-content-center rounded-circle shadow" id="scrollTopBtn" onclick="scrollToTop()">
         <i class="fa-solid fa-jet-fighter-up"></i>
     </button>
 
-    <footer class="master-footer-sheet">
-        <div class="container footer-flex-row">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div class="logo-block-footer">
-                    <img src="images/logo-dark.svg" alt="logo" class="logo-main logo-dark-variant">
-                    <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
+    <footer class="master-footer-sheet py-4 mt-5 border-top">
+        <div class="container footer-flex-row d-flex flex-column flex-sm-row justify-content-sm-between align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <div class="logo-icon d-flex align-items-center justify-content-center rounded-2" style="width: 28px; height: 28px; font-size: 11px;">
+                    <i class="fa-solid fa-circle-nodes"></i>
                 </div>
-
-                <span>© 2026 Aparajayah Technologies</span>
-            </div>
-            <div class="footer-links-cluster">
-                <a href="#" class="footer-link-node">Security Whitepaper</a>
-                <a href="#" class="footer-link-node">Data Rights Charter</a>
-                <a href="#" class="footer-link-node">Ecosystem Registry Status Log</a>
+                <span class="fw-bold text-primary small">ApiNexus</span>
+                <span class="small text-secondary">© 2026 Aparajayah Technologies</span>
             </div>
         </div>
     </footer>
 
-    <script src="assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
-
 </html>

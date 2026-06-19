@@ -613,6 +613,7 @@ html[data-theme="light"] .logo-light-variant {
 
  .badge-pill-micro {
      font-size: 15px;
+     margin-bottom: 10px;
      font-weight: 700;
      color: var(--brand-primary);
      background-color: var(--brand-glow);
@@ -2453,3 +2454,146 @@ html[data-theme="light"] .logo-light-variant {
 .text-purple { color: var(--accent-purple) !important; }
 .text-brand { color: var(--brand-primary) !important; }
 .text-warning { color: #eab308 !important; }
+
+
+
+
+/* ==========================================================================
+   API-ONE COMPONENT ELEMENTS STYLE PARADIGM
+   ========================================================================== */
+.api-one-container {
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 0;
+    background: var(--bg-surface-tertiary);
+}
+
+.api-one-glow-left {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: -10%;
+    left: -10%;
+    filter: blur(80px);
+    background: radial-gradient(circle, rgba(59, 130, 246, var(--matrix-glow-opacity-1)) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.api-one-glow-right {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    bottom: -10%;
+    right: -10%;
+    filter: blur(80px);
+    background: radial-gradient(circle, rgba(168, 85, 247, var(--matrix-glow-opacity-2)) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.api-one-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.api-one-card {
+    background: var(--matrix-row-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.api-one-card:hover {
+    background: var(--matrix-row-hover);
+    border-color: var(--border-hover) !important;
+}
+
+.api-one-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.api-one-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.api-one-tag.context {
+    color: var(--text-muted);
+}
+
+.api-one-tag.nexus {
+    color: var(--text-primary);
+}
+
+.api-one-marker {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.api-one-marker.friction {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.api-one-marker.solution {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-success);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.api-one-vector-line {
+    width: 2px;
+    height: 100px;
+    background: var(--border-color);
+    position: absolute;
+    top: 50%;
+    start: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.api-one-node {
+    width: 32px;
+    height: 32px;
+    background: var(--matrix-vector-node-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+/* Connect interactions seamlessly across subelements on hover */
+.api-one-card:hover .api-one-node {
+    border-color: var(--accent-purple) !important;
+    color: var(--accent-purple);
+    transform: scale(1.1);
+}
+
+
+/* Fixed Scroll Top Launcher Styling Control Core */
+.universal-to-top-launcher {
+    bottom: 30px; right: 30px; width: 50px; height: 50px; font-size: 24px;
+    background-color: #ffffff; color: #333333; border-color: #cccccc !important; z-index: 999;
+}
+.universal-to-top-launcher:hover {
+    background-color: #0066cc; color: #ffffff; border-color: #0066cc !important;
+}

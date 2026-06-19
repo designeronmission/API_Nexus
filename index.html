@@ -30,11 +30,11 @@
                 </div>
 
                 <nav class="nav-links-shelf">
-                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html" class="nav-link active">Home</a>
                     <a href="service-list.html" class="nav-link">API Verticals</a>
                     <a href="#" class="nav-link">Integration Sandbox</a>
-                    <a href="#" class="nav-link">Documents</a>
-                    <a href="#" class="nav-link">Request a Quote</a>
+                    <a href="document.html" class="nav-link">Documents</a>
+                    <a href="quote.html" class="nav-link">Request a Quote</a>
                 </nav>
 
                 <div class="header-actions-deck">
@@ -63,12 +63,15 @@
     </section>
 
 
-    <section class="showcase-section">
+<section class="showcase-section">
         <div class="container">
             <div class="showcase-perspective-container">
                 <div class="showcase-window-wrapper" id="parallaxDashboard">
-                    <img src="images/dashboard.png" alt="ApiNexus Dashboard Telemetry Overview"
-                        class="showcase-image-element">
+                    <img src="images/dashboard.png" alt="ApiNexus Dashboard Telemetry Overview (Dark Mode)"
+                         class="showcase-image-element theme-variant-dark">
+                    
+                    <img src="images/dashboard-white.png" alt="ApiNexus Dashboard Telemetry Overview (Light Mode)"
+                         class="showcase-image-element theme-variant-light">
                 </div>
             </div>
         </div>
@@ -317,15 +320,14 @@
         </div>
     </section>
 
-    <!-- ==========================================================================
+    <!--==========================================================================
        MODIFIED API SERVICES WITH REQUEST QUOTE ACTIONS
        ========================================================================== */ -->
     <section id="services" class="container section-spacer">
         <div class="section-header-block text-center">
             <span class="badge-pill-micro">Orchestration Coverage Matrix</span>
             <h2>Supported Core API Services Verticals</h2>
-            <p>Scale logic across multiple external providers without expanding structural code bases or dependency
-                configuration structures.</p>
+            <p>Scale logic across multiple external providers without expanding structural code bases or dependency configuration structures.</p>
         </div>
 
         <div class="services-grid-matrix">
@@ -340,8 +342,8 @@
                             class="provider-micro-tag">Postmark</span><span class="provider-micro-tag">Mailgun</span>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('email')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
+                <button onclick="location.href='quote.html'" class="btn btn-secondary"
+                    style="width:100%; font-size:12px; padding:10px;"> Request
                     Quote</button>
             </div>
             <div class="service-vector-card">
@@ -355,8 +357,8 @@
                             class="provider-micro-tag">Infobip</span>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('messaging')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
+               <button onclick="location.href='quote.html'" class="btn btn-secondary"
+                    style="width:100%; font-size:12px; padding:10px;"> Request
                     Quote</button>
             </div>
             <div class="service-vector-card">
@@ -370,8 +372,8 @@
                             class="provider-micro-tag">PayPal</span><span class="provider-micro-tag">Adyen</span>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('payments')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
+               <button onclick="location.href='quote.html'" class="btn btn-secondary"
+                    style="width:100%; font-size:12px; padding:10px;"> Request
                     Quote</button>
             </div>
             <div class="service-vector-card">
@@ -385,8 +387,8 @@
                             class="provider-micro-tag">Yodlee</span>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('banking')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
+               <button onclick="location.href='quote.html'" class="btn btn-secondary"
+                    style="width:100%; font-size:12px; padding:10px;"> Request
                     Quote</button>
             </div>
             <div class="service-vector-card">
@@ -400,8 +402,8 @@
                             class="provider-micro-tag">Salesforce</span><span class="provider-micro-tag">Zoho CRM</span>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('crm')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
+               <button onclick="location.href='quote.html'" class="btn btn-secondary"
+                    style="width:100%; font-size:12px; padding:10px;"> Request
                     Quote</button>
             </div>
             <div class="service-vector-card">
@@ -415,8 +417,8 @@
                             Cloud</span><span class="provider-micro-tag">DigitalOcean</span>
                     </div>
                 </div>
-                <button onclick="navigateToQuoteForm('cloud')" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"><i class="fa-solid fa-arrow-down"></i> Request
+                <button onclick="location.href='quote.html'" class="btn btn-secondary"
+                    style="width:100%; font-size:12px; padding:10px;"> Request
                     Quote</button>
             </div>
         </div>
@@ -904,6 +906,87 @@ THE PARADIGM SHIFT: INTERACTIVE VALUE MATRIX (2026 TREND DESIGN)
     </div>
 </section>
 
+<section id="docs-ecosystem" class="container section-spacer" style="border-top: 1px solid var(--border-color); position: relative; overflow: hidden;">
+        <div style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, transparent 70%); bottom: -10%; left: -5%; pointer-events: none; filter: blur(70px);"></div>
+        
+        <div class="row align-items-center g-5">
+            <div class="col-12 col-lg-6">
+                <div class="pe-0 pe-lg-4">
+                    <span class="badge-pill-micro mb-3" style="color: var(--accent-purple); background-color: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.2);">
+                        Unified Gateway Layer
+                    </span>
+                    <h2 class="h1 fw-extrabold tracking-tight" style="font-size: 38px; line-height: 1.2; margin-bottom: 20px; color: var(--text-primary);">
+                        Anyone can integrate <br><span style="background: linear-gradient(to right, var(--brand-primary), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">any third-party API</span>
+                    </h2>
+                    <p class="fs-6 mb-4" style="line-height: 1.7; max-width: 520px; color: var(--text-secondary);">
+                        Stop spending months configuring conflicting endpoints. With ApiNexus, integrating any provider is a simple <strong>one-click deployment</strong>—just copy, paste, and run your unified code string.
+                    </p>
+                    
+                    <div class="d-flex flex-column gap-3 mb-5" style="font-size: 14px; color: var(--text-secondary);">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="d-flex align-items-center justify-content-center rounded-circle" style="width: 24px; height: 24px; background: rgba(16, 185, 129, 0.1); color: var(--accent-success); font-size: 12px;"><i class="fa-solid fa-bolt"></i></span>
+                            <span><strong>One-Click Translation:</strong> Instantly switch providers with zero code modifications.</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="d-flex align-items-center justify-content-center rounded-circle" style="width: 24px; height: 24px; background: rgba(16, 185, 129, 0.1); color: var(--accent-success); font-size: 12px;"><i class="fa-solid fa-copy"></i></span>
+                            <span><strong>Pure Copy & Paste:</strong> Native SDK blocks ready out-of-the-box for all 8 core stacks.</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center gap-3">
+                        <a href="#docs" class="btn btn-primary px-4 py-3" style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em;">
+                            <i class="fa-solid fa-paste me-2" style="font-size: 11px;"></i> Grab Integration Snippet
+                        </a>
+                        <a href="https://github.com" target="_blank" class="btn btn-secondary px-4 py-3 border" style="font-size: 13px;">
+                            <i class="fa-brands fa-github me-2"></i> Explore SDK Repositories
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="position-relative d-flex align-items-center justify-content-center">
+                    
+                    <div style="position: absolute; width: 100%; height: 100%; border: 1px dashed var(--border-color); opacity: 0.4; border-radius: 20px; transform: scale(1.05); pointer-events: none;"></div>
+                    
+                    <div style="background: var(--bg-surface-primary); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; padding: 24px; z-index: 2; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                        <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom" style="border-color: var(--border-color);">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background: #ef4444;"></span>
+                                <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background: #f59e0b;"></span>
+                                <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background: #10b981;"></span>
+                                <span class="ms-2 text-secondary" style="font-family: 'JetBrains Mono'; font-size: 11px;">nexus_one_click.js</span>
+                            </div>
+                            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); font-size: 11px; font-family: 'JetBrains Mono'; font-weight: 600;"> Ready to Paste</span>
+                        </div>
+                        
+                        <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6; color: var(--text-primary); overflow-x: auto;">
+                            <span style="color: #64748b;">// 1. Paste your unified ApiNexus instance layout</span><br>
+                            <span style="color: #f43f5e;">import</span> { ApiNexusRegistry } <span style="color: #f43f5e;">from</span> <span style="color: #10b981;">'@apinexus/node-core'</span>;<br><br>
+                            
+                            <span style="color: #f43f5e;">const</span> bridge = <span style="color: #f43f5e;">new</span> <span style="color: #3b82f6;">ApiNexusRegistry</span>({ token: process.env.<span style="color: #eab308;">NEXUS_KEY</span> });<br><br>
+                            
+                            <span style="color: #64748b;">// 2. Click once to map any 3rd party (e.g., Stripe, Twilio, SendGrid)</span><br>
+                            <span style="color: #f43f5e;">await</span> bridge.<span style="color: #3b82f6;">connectThirdParty</span>({<br>
+                            &nbsp;&nbsp;provider: <span style="color: #10b981;">"target_vendor_endpoint"</span>,<br>
+                            &nbsp;&nbsp;failoverRouting: <span style="color: #eab308;">true</span><br>
+                            });
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; right: -20px; top: -40px; background: #2563eb; color: white; padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(37,99,235,0.3); z-index: 3; font-family: 'Plus Jakarta Sans'; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-arrow-pointer-minify"></i> 1-Click Connect Active
+                    </div>
+
+                    <div class="border" style="position: absolute; left: -25px; bottom: -45px; background: var(--bg-surface-primary); color: var(--text-primary); border-color: var(--border-color); padding: 12px 18px; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.3); z-index: 3; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-code text-primary" style="font-size: 16px;"></i>
+                        <span>Unified Abstraction Layer <br><small class="text-secondary" style="font-weight: 400; font-size: 11px;">Replaces 100+ separate API docs</small></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="lab" class="container section-spacer">
         <div class="section-header-block text-center">

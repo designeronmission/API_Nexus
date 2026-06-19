@@ -12,8 +12,7 @@
 </head>
 <body>
 
-    <div class="broadcast-ribbon">Architectural Core Update: Core abstraction mapping matrices are fully active across all 6 platform segments.
-    </div>
+    <div class="broadcast-ribbon">Architectural Core Update: Core abstraction mapping matrices are fully active across all 6 platform segments.</div>
 
     <header class="site-header">
         <div class="container">
@@ -25,11 +24,11 @@
 
                 <nav class="nav-links-shelf">
                     <a href="index.html" class="nav-link">Home</a>
-                    <a href="#services" class="nav-link">API Verticals</a>
-                    <a href="#personas" class="nav-link">Target Personas</a>
-                    <a href="#lab" class="nav-link">Integration Sandbox</a>
+                    <a href="index.html#services" class="nav-link">API Verticals</a>
+                    <a href="index.html#personas" class="nav-link">Target Personas</a>
+                    <a href="#embedded-lab" class="nav-link">Integration Sandbox</a>
                     <a href="#" class="nav-link">Documents</a>
-                    <a href="#quote-desk" class="nav-link">Request a Quote</a>
+                    <a href="index.html#quote-desk" class="nav-link">Request a Quote</a>
                 </nav>
 
                 <div class="header-actions-deck">
@@ -72,9 +71,80 @@
             <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary);">No structural abstractions found</h3>
             <p style="color: var(--text-secondary); font-size: 14px; max-width: 480px; margin: 8px auto 0 auto;">Modify your query keywords parameters or switch to an alternate architectural framework vertical tab.</p>
         </div>
+
+        <section id="embedded-lab" class="section-spacer" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color);">
+            <div class="section-header-block text-center" style="margin-bottom: 32px;">
+                <span class="badge-pill-micro">Live Request Abstraction Desk</span>
+                <h2>Ecosystem Interconnection Core Studio</h2>
+                <p>Execute sandbox traces seamlessly for your chosen framework directly in your session context below.</p>
+            </div>
+
+            <div class="console-workspace-deck">
+                <div class="control-panel-box">
+                    <div>
+                        <div class="input-control-group">
+                            <label style="display:block; margin-bottom:8px; font-size:12px; font-weight:600; color:var(--text-secondary);">1. API Active Service Vertical Category</label>
+                            <select id="routeSelectField" class="custom-select-element" onchange="syncDownstreamTargets()">
+                                <option value="email">Transactional Email Services</option>
+                                <option value="messaging">Global Channel Messaging Alerts</option>
+                                <option value="payments">Multi-Vendor Payment Gateways</option>
+                                <option value="banking">Secure Open Banking Ledgers</option>
+                                <option value="crm">Enterprise Customer CRM Suites</option>
+                                <option value="cloud">Cloud Virtualization Clusters</option>
+                            </select>
+                        </div>
+
+                        <div class="input-control-group" style="margin-top: 16px;">
+                            <label style="display:block; margin-bottom:8px; font-size:12px; font-weight:600; color:var(--text-secondary);">2. Downstream Provider Abstraction Target</label>
+                            <select id="downstreamDropdownField" class="custom-select-element" style="text-transform: capitalize;"></select>
+                        </div>
+
+                        <div class="input-control-group slider-wrapper-row" style="margin-top: 16px;">
+                            <div class="slider-labels-row" style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                <span style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 11px;">Simulated Operation Velocity</span>
+                                <span id="sliderValueText" style="font-family: 'JetBrains Mono'; color: var(--brand-primary);">4,500 calls / min</span>
+                            </div>
+                            <input type="range" id="volSimulationSlider" min="500" max="30000" step="500" value="4500" class="native-slider-bar" style="width:100%;">
+                        </div>
+                    </div>
+
+                    <button onclick="triggerLocalExecutionSimulationTrace()" class="btn btn-primary" style="width: 100%; margin-top: 32px; letter-spacing: 0.02em; text-transform: uppercase; font-size: 12px; padding: 15px;">
+                        <i class="fa-solid fa-play" style="font-size: 10px;"></i> Dispatch Telemetry Transaction Sequence
+                    </button>
+                </div>
+
+                <div class="ide-terminal-window">
+                    <div class="ide-header-tabs-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color);">
+                        <div class="window-dots-cluster" style="display: flex; gap: 6px;">
+                            <span class="dot-node red" style="width:10px; height:10px; border-radius:50%; background:#ef4444; display:inline-block;"></span>
+                            <span class="dot-node amber" style="width:10px; height:10px; border-radius:50%; background:#f59e0b; display:inline-block;"></span>
+                            <span class="dot-node green" style="width:10px; height:10px; border-radius:50%; background:#10b981; display:inline-block;"></span>
+                        </div>
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <div class="stack-pill-switcher" style="display:flex; gap:4px; background:rgba(255,255,255,0.05); padding:2px; border-radius:6px;">
+                                <button onclick="updateLocalStackSlot('node')" id="stackBtnNode" class="stack-pill-btn active" style="background:var(--brand-primary); color:#fff; border:none; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;">Node.js</button>
+                                <button onclick="updateLocalStackSlot('python')" id="stackBtnPy" class="stack-pill-btn" style="background:transparent; color:var(--text-secondary); border:none; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;">Python</button>
+                            </div>
+                            <span id="extensionLabelSlot" style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-muted)">nexus_core.js</span>
+                        </div>
+                    </div>
+
+                    <div class="ide-panes-split-grid" style="display: flex; flex-direction: column; height: 320px;">
+                        <div class="terminal-panel-pane upper" style="flex: 1; padding: 16px; overflow-y: auto; background: rgba(15,23,42,0.4); border-bottom: 1px solid var(--border-color);">
+                            <div class="pane-descriptor-tag" style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">// Instantiated Abstract Configuration Code Snippet Blueprint Layout</div>
+                            <pre id="codePayloadCanvas" style="color: var(--text-primary); line-height: 1.6; white-space: pre-wrap; font-family:'JetBrains Mono', monospace; font-size:12.5px; margin:0;"></pre>
+                        </div>
+                        <div class="terminal-panel-pane lower" style="flex: 1; padding: 16px; overflow-y: auto; background: rgba(10,15,30,0.6);">
+                            <div class="pane-descriptor-tag" style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">// Encrypted Edge Gateway Tunnel Verification Telemetry Streams</div>
+                            <pre id="telemetryTerminalLogs" class="log-stream-line" style="color: #38bdf8; line-height: 1.5; white-space: pre-wrap; font-family:'JetBrains Mono', monospace; font-size:12px; margin:0;">System gateway connection matrix structural layer authenticated. Select pipeline attributes and trigger runtime tracking algorithms...</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="master-footer-sheet">
+    <footer class="master-footer-sheet" style="margin-top: 80px;">
         <div class="container">
             <div class="footer-flex-row">
                 <div>
@@ -84,47 +154,36 @@
                 <div class="footer-links-cluster">
                     <a href="index.html" class="footer-link-node">Return to Dashboard</a>
                     <a href="index.html#flow" class="footer-link-node">Platform Home</a>
-                    <a href="index.html#lab" class="footer-link-node">Console Lab</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Full expanded platform service infrastructure dataset matching all user data
+        // Data Provider Matrix Configuration Storage
         const serviceNodeDataset = [
-            /* ================= EMAIL SERVICES ================= */
-            { id: 'sendgrid', name: 'SendGrid Engine', category: 'email', description: 'Transactional delivery structures, pipeline logs optimization, and metadata delivery validation frameworks.', keywords: ['sendgrid', 'email', 'transactional', 'smtp', 'delivery', 'logs'], score: '99.8%', latency: '14ms', uptime: '99.99%', icon: 'fa-envelope' },
-            { id: 'postmark', name: 'Postmark Matrix', category: 'email', description: 'Lightning-fast delivery validation arrays and pinpoint logging layers optimized specifically for core app operations.', keywords: ['postmark', 'email', 'transactional', 'delivery', 'smtp', 'metadata'], score: '99.5%', latency: '9ms', uptime: '99.995%', icon: 'fa-paper-plane' },
-            { id: 'mailgun', name: 'Mailgun Pipeline Node', category: 'email', description: 'Robust multi-tenant delivery pipelines, programmatic parsing loops, and bulk notification abstraction profiles.', keywords: ['mailgun', 'email', 'transactional', 'bulk', 'smtp', 'validation'], score: '98.9%', latency: '19ms', uptime: '99.94%', icon: 'fa-box-archive' },
-
-            /* ================= MESSAGING SERVICES ================= */
-            { id: 'twilio', name: 'Twilio Relay Hub', category: 'messaging', description: 'Global baseline SMS relays, cross-region WhatsApp business accounts, and multi-tier network text alerts.', keywords: ['twilio', 'sms', 'messaging', 'whatsapp', 'text', 'alerts'], score: '99.9%', latency: '38ms', uptime: '99.999%', icon: 'fa-comments' },
-            { id: 'sinch', name: 'Sinch Omni-Channel Vector', category: 'messaging', description: 'Direct carrier infrastructure configurations matching localized message routes, flash verification parameters, and cross-border numbers.', keywords: ['sinch', 'sms', 'messaging', 'whatsapp', 'alerts', 'verification'], score: '97.8%', latency: '45ms', uptime: '99.96%', icon: 'fa-message' },
-            { id: 'infobip', name: 'Infobip Enterprise Core', category: 'messaging', description: 'Enterprise-tier backup failovers across text messaging arrays, rich media communications, and automated geo-compliance channels.', keywords: ['infobip', 'sms', 'messaging', 'whatsapp', 'text', 'network'], score: '98.4%', latency: '52ms', uptime: '99.95%', icon: 'fa-satellite-dish' },
-
-            /* ================= PAYMENT GATEWAYS ================= */
-            { id: 'stripe', name: 'Stripe Global Ledger', category: 'payments', description: 'Secure global card processing systems, localized checkout matrices, and multi-tier membership tables.', keywords: ['stripe', 'payments', 'gateway', 'card', 'checkout', 'membership'], score: '99.9%', latency: '48ms', uptime: '99.999%', icon: 'fa-credit-card' },
-            { id: 'paypal', name: 'PayPal Commerce Abstraction', category: 'payments', description: 'Global user wallet interfaces, flexible authorization matrices, and hardware-secured checkout routes.', keywords: ['paypal', 'payments', 'gateway', 'checkout', 'wallet', 'membership'], score: '96.5%', latency: '94ms', uptime: '99.95%', icon: 'fa-wallet' },
-            { id: 'adyen', name: 'Adyen Settlement Node', category: 'payments', description: 'Unified multi-region bank acquisition structures, automated conversion models, and alternative asset checkout matrices.', keywords: ['adyen', 'payments', 'gateway', 'card', 'checkout', 'settlement'], score: '99.1%', latency: '61ms', uptime: '99.98%', icon: 'fa-building-columns' },
-
-            /* ================= OPEN BANKING APIs ================= */
-            { id: 'plaid', name: 'Plaid Sync Fabric', category: 'banking', description: 'Financial ledger synchronization sweeps, asset validation processing, and instant structural ACH rails.', keywords: ['plaid', 'banking', 'ach', 'financial', 'ledger', 'asset', 'validation'], score: '99.4%', latency: '120ms', uptime: '99.97%', icon: 'fa-link' },
-            { id: 'tink', name: 'Tink Open Framework', category: 'banking', description: 'Pan-European banking connection layouts, aggregated account analysis profiles, and payment initiation structures.', keywords: ['tink', 'banking', 'ach', 'financial', 'ledger', 'open banking'], score: '98.2%', latency: '145ms', uptime: '99.96%', icon: 'fa-shuffle' },
-            { id: 'yodlee', name: 'Yodlee Vault Broker', category: 'banking', description: 'Institutional-grade asset validation arrays, balance reconciliation pipelines, and broad investment statement sweeps.', keywords: ['yodlee', 'banking', 'financial', 'ledger', 'asset', 'sweeps'], score: '97.5%', latency: '190ms', uptime: '99.92%', icon: 'fa-vault' },
-
-            /* ================= CUSTOMER CRM APIs ================= */
-            { id: 'hubspot', name: 'HubSpot Lifecycle Engine', category: 'crm', description: 'Bi-directional profile state synchronization maps, lifecycle funnel tags, and workspace account data sweeps.', keywords: ['hubspot', 'crm', 'synchronization', 'funnel', 'lifecycle', 'data'], score: '99.2%', latency: '34ms', uptime: '99.98%', icon: 'fa-users-gear' },
-            { id: 'salesforce', name: 'Salesforce Core Matrix', category: 'crm', description: 'Extensible customer state mapping systems, macro automation vectors, and high-density corporate database sweeps.', keywords: ['salesforce', 'crm', 'synchronization', 'funnel', 'data', 'lifecycle'], score: '98.7%', latency: '75ms', uptime: '99.96%', icon: 'fa-cloud-meatball' },
-            { id: 'zoho', name: 'Zoho CRM Data Route', category: 'crm', description: 'Frictionless bi-directional accounts parsing tools, lead routing loops, and contextual workspace pipeline tracking.', keywords: ['zoho', 'crm', 'synchronization', 'funnel', 'tags', 'sweeps'], score: '97.9%', latency: '41ms', uptime: '99.95%', icon: 'fa-address-card' },
-
-            /* ================= CLOUD INFRASTRUCTURE ================= */
-            { id: 'aws', name: 'AWS Core Array', category: 'cloud', description: 'Server compute instance pooling sweeps, distributed storage bucket arrays, and virtualization routing nodes.', keywords: ['aws', 'cloud', 'compute', 'storage', 'infrastructure', 'bucket'], score: '99.9%', latency: '12ms', uptime: '99.999%', icon: 'fa-server' },
-            { id: 'gcp', name: 'Google Cloud Platform Node', category: 'cloud', description: 'Elastic computing infrastructure pools, globally distributed key-value storage grids, and low-latency network routers.', keywords: ['google cloud', 'gcp', 'cloud', 'compute', 'storage', 'infrastructure'], score: '99.7%', latency: '15ms', uptime: '99.995%', icon: 'fa-cloud' },
-            { id: 'digitalocean', name: 'DigitalOcean Droplet Pool', category: 'cloud', description: 'Simplified virtual hardware slicing, rapid droplet instance orchestration arrays, and high-speed network volume maps.', keywords: ['digitalocean', 'cloud', 'compute', 'storage', 'infrastructure', 'droplet'], score: '98.6%', latency: '22ms', uptime: '99.98%', icon: 'fa-water' }
+            { id: 'sendgrid', name: 'SendGrid Engine', category: 'email', description: 'Transactional delivery structures, pipeline logs optimization, and metadata delivery validation frameworks.', keywords: ['sendgrid', 'email', 'transactional', 'smtp'], score: '99.8%', latency: '14ms', uptime: '99.99%', icon: 'fa-envelope' },
+            { id: 'postmark', name: 'Postmark Matrix', category: 'email', description: 'Lightning-fast delivery validation arrays and pinpoint logging layers optimized specifically for core app operations.', keywords: ['postmark', 'email', 'transactional'], score: '99.5%', latency: '9ms', uptime: '99.995%', icon: 'fa-paper-plane' },
+            { id: 'mailgun', name: 'Mailgun Pipeline Node', category: 'email', description: 'Robust multi-tenant delivery pipelines, programmatic parsing loops, and bulk notification abstraction profiles.', keywords: ['mailgun', 'email', 'bulk'], score: '98.9%', latency: '19ms', uptime: '99.94%', icon: 'fa-box-archive' },
+            { id: 'twilio', name: 'Twilio Relay Hub', category: 'messaging', description: 'Global baseline SMS relays, cross-region WhatsApp business accounts, and multi-tier network text alerts.', keywords: ['twilio', 'sms', 'messaging'], score: '99.9%', latency: '38ms', uptime: '99.999%', icon: 'fa-comments' },
+            { id: 'sinch', name: 'Sinch Omni-Channel Vector', category: 'messaging', description: 'Direct carrier infrastructure configurations matching localized message routes, flash verification parameters, and cross-border numbers.', keywords: ['sinch', 'sms', 'messaging'], score: '97.8%', latency: '45ms', uptime: '99.96%', icon: 'fa-message' },
+            { id: 'infobip', name: 'Infobip Enterprise Core', category: 'messaging', description: 'Enterprise-tier backup failovers across text messaging arrays, rich media communications, and automated geo-compliance channels.', keywords: ['infobip', 'sms', 'messaging'], score: '98.4%', latency: '52ms', uptime: '99.95%', icon: 'fa-satellite-dish' },
+            { id: 'stripe', name: 'Stripe Global Ledger', category: 'payments', description: 'Secure global card processing systems, localized checkout matrices, and multi-tier membership tables.', keywords: ['stripe', 'payments', 'gateway'], score: '99.9%', latency: '48ms', uptime: '99.999%', icon: 'fa-credit-card' },
+            { id: 'paypal', name: 'PayPal Commerce Abstraction', category: 'payments', description: 'Global user wallet interfaces, flexible authorization matrices, and hardware-secured checkout routes.', keywords: ['paypal', 'payments'], score: '96.5%', latency: '94ms', uptime: '99.95%', icon: 'fa-wallet' },
+            { id: 'adyen', name: 'Adyen Settlement Node', category: 'payments', description: 'Unified multi-region bank acquisition structures, automated conversion models, and alternative asset checkout matrices.', keywords: ['adyen', 'payments'], score: '99.1%', latency: '61ms', uptime: '99.98%', icon: 'fa-building-columns' },
+            { id: 'plaid', name: 'Plaid Sync Fabric', category: 'banking', description: 'Financial ledger synchronization sweeps, asset validation processing, and instant structural ACH rails.', keywords: ['plaid', 'banking', 'ach'], score: '99.4%', latency: '120ms', uptime: '99.97%', icon: 'fa-link' },
+            { id: 'tink', name: 'Tink Open Framework', category: 'banking', description: 'Pan-European banking connection layouts, aggregated account analysis profiles, and payment initiation structures.', keywords: ['tink', 'banking'], score: '98.2%', latency: '145ms', uptime: '99.96%', icon: 'fa-shuffle' },
+            { id: 'yodlee', name: 'Yodlee Vault Broker', category: 'banking', description: 'Institutional-grade asset validation arrays, balance reconciliation pipelines, and broad investment statement sweeps.', keywords: ['yodlee', 'banking'], score: '97.5%', uptime: '99.92%', icon: 'fa-vault' },
+            { id: 'hubspot', name: 'HubSpot Lifecycle Engine', category: 'crm', description: 'Bi-directional profile state synchronization maps, lifecycle funnel tags, and workspace account data sweeps.', keywords: ['hubspot', 'crm'], score: '99.2%', latency: '34ms', uptime: '99.98%', icon: 'fa-users-gear' },
+            { id: 'salesforce', name: 'Salesforce Core Matrix', category: 'crm', description: 'Extensible customer state mapping systems, macro automation vectors, and high-density corporate database sweeps.', keywords: ['salesforce', 'crm'], score: '98.7%', latency: '75ms', uptime: '99.96%', icon: 'fa-cloud-meatball' },
+            { id: 'zoho', name: 'Zoho CRM Data Route', category: 'crm', description: 'Frictionless bi-directional accounts parsing tools, lead routing loops, and contextual workspace pipeline tracking.', keywords: ['zoho', 'crm'], score: '97.9%', latency: '41ms', uptime: '99.95%', icon: 'fa-address-card' },
+            { id: 'aws', name: 'AWS Core Array', category: 'cloud', description: 'Server compute instance pooling sweeps, distributed storage bucket arrays, and virtualization routing nodes.', keywords: ['aws', 'cloud', 'compute'], score: '99.9%', latency: '12ms', uptime: '99.999%', icon: 'fa-server' },
+            { id: 'gcp', name: 'Google Cloud Platform Node', category: 'cloud', description: 'Elastic computing infrastructure pools, globally distributed key-value storage grids, and low-latency network routers.', keywords: ['google cloud', 'gcp', 'cloud'], score: '99.7%', latency: '15ms', uptime: '99.995%', icon: 'fa-cloud' },
+            { id: 'digitalocean', name: 'DigitalOcean Droplet Pool', category: 'cloud', description: 'Simplified virtual hardware slicing, rapid droplet instance orchestration arrays, and high-speed network volume maps.', keywords: ['digitalocean', 'cloud'], score: '98.6%', latency: '22ms', uptime: '99.98%', icon: 'fa-water' }
         ];
 
         let activeCategoryFilterId = 'all';
+        let localSelectedLanguage = 'node';
 
         function parseTargetSearchQueryParameter() {
             const URLParameters = new URLSearchParams(window.location.search);
@@ -164,9 +223,9 @@
                     <div style="width: 48px; height: 48px; border-radius: 10px; background-color: var(--bg-surface-secondary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--brand-primary);">
                         <i class="fa-solid ${api.icon}"></i>
                     </div>
-                    <div>
+                    <div style="flex:1;">
                         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">${api.name}</h4>
+                            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin:0;">${api.name}</h4>
                             <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background-color: rgba(168, 85, 247, 0.1); color: var(--accent-purple); padding: 2px 8px; border-radius: 4px; font-weight: 600;">
                                 ${api.score} System Score
                             </span>
@@ -174,15 +233,15 @@
                                 ${api.category}
                             </span>
                         </div>
-                        <p style="font-size: 13.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">${api.description}</p>
+                        <p style="font-size: 13.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5; margin-bottom:0;">${api.description}</p>
                         <div class="router-result-card-metrics" style="display: flex; gap: 16px; margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--text-muted); flex-wrap: wrap;">
-                            <span><i class="fa-solid fa-gauge-high"></i> Latency: <strong style="color: var(--text-secondary);">${api.latency}</strong></span>
+                            <span><i class="fa-solid fa-gauge-high"></i> Latency: <strong style="color: var(--text-secondary);">${api.latency || 'N/A'}</strong></span>
                             <span><i class="fa-solid fa-circle-nodes"></i> SLA: <strong style="color: var(--text-secondary);">${api.uptime}</strong></span>
                             <span><i class="fa-solid fa-square-terminal"></i> Status: <strong style="color: var(--accent-success);">Connected</strong></span>
                         </div>
                     </div>
                     <div>
-                        <a href="index.html#lab" class="btn btn-secondary" style="font-size: 12px; padding: 10px 16px; white-space: nowrap;">Execute Sandbox</a>
+                        <button onclick="bindAndFocusSandbox('${api.category}', '${api.id}')" class="btn btn-secondary" style="font-size: 12px; padding: 10px 16px; white-space: nowrap; cursor:pointer;">Execute Sandbox</button>
                     </div>
                 `;
                 targetOutputContainer.appendChild(resultCard);
@@ -201,6 +260,78 @@
             buildRenderedServicesListView();
         }
 
+        /* ================= SANDBOX SYNC LOGIC ENGINE ================= */
+        function bindAndFocusSandbox(category, targetId) {
+            const verticalDropdown = document.getElementById('routeSelectField');
+            verticalDropdown.value = category;
+            syncDownstreamTargets();
+            
+            const downstreamDropdown = document.getElementById('downstreamDropdownField');
+            downstreamDropdown.value = targetId;
+            
+            generateDynamicBlueprintCode();
+            
+            document.getElementById('embedded-lab').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function syncDownstreamTargets() {
+            const activeCategory = document.getElementById('routeSelectField').value;
+            const targetDropdown = document.getElementById('downstreamDropdownField');
+            targetDropdown.innerHTML = '';
+            
+            const matches = serviceNodeDataset.filter(n => n.category === activeCategory);
+            matches.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.id;
+                opt.textContent = item.name;
+                targetDropdown.appendChild(opt);
+            });
+            generateDynamicBlueprintCode();
+        }
+
+        function generateDynamicBlueprintCode() {
+            const provider = document.getElementById('downstreamDropdownField').value || 'default';
+            const velocity = document.getElementById('volSimulationSlider').value;
+            const canvas = document.getElementById('codePayloadCanvas');
+
+            if (localSelectedLanguage === 'node') {
+                canvas.textContent = `const { ApiNexusCore } = require('@apinexus/core');\n\nconst orchestrator = new ApiNexusCore({\n  nexusToken: process.env.APINEXUS_SECURE_TOKEN,\n  routingTarget: "${provider}"\n});\n\n// Intended throughput velocity benchmark parameters: ${velocity} requests/min\norchestrator.dispatchRouteLayer({\n  isolationLayer: true,\n  payloadStream: true\n}).then(response => console.log(response));`;
+            } else {
+                canvas.textContent = `from apinexus import ApiNexusCore\n\norchestrator = ApiNexusCore(\n    nexus_token=os.getenv("APINEXUS_SECURE_TOKEN"),\n    routing_target="${provider}"\n)\n\n# Intended throughput velocity benchmark parameters: ${velocity} requests/min\nresponse = orchestrator.dispatch_route_layer(\n    isolation_layer=True,\n    payload_stream=True\n)\nprint(response)`;
+            }
+        }
+
+        function updateLocalStackSlot(language) {
+            localSelectedLanguage = language;
+            document.getElementById('stackBtnNode').className = language === 'node' ? 'stack-pill-btn active' : 'stack-pill-btn';
+            document.getElementById('stackBtnPy').className = language === 'python' ? 'stack-pill-btn active' : 'stack-pill-btn';
+            document.getElementById('extensionLabelSlot').textContent = language === 'node' ? 'nexus_core.js' : 'nexus_core.py';
+            
+            // Adjust styles based on selection state
+            document.getElementById('stackBtnNode').style.background = language === 'node' ? 'var(--brand-primary)' : 'transparent';
+            document.getElementById('stackBtnNode').style.color = language === 'node' ? '#fff' : 'var(--text-secondary)';
+            document.getElementById('stackBtnPy').style.background = language === 'python' ? 'var(--brand-primary)' : 'transparent';
+            document.getElementById('stackBtnPy').style.color = language === 'python' ? '#fff' : 'var(--text-secondary)';
+            
+            generateDynamicBlueprintCode();
+        }
+
+        function triggerLocalExecutionSimulationTrace() {
+            const provider = document.getElementById('downstreamDropdownField').value;
+            const velocity = document.getElementById('volSimulationSlider').value;
+            const logBox = document.getElementById('telemetryTerminalLogs');
+            
+            logBox.textContent = `[INFO] Initializing sandbox matrix routing parameters...\n`;
+            
+            setTimeout(() => {
+                logBox.textContent += `[TRACE] Handshake acknowledged on token layer endpoint. [Target: ${provider.toUpperCase()}]\n`;
+            }, 300);
+            
+            setTimeout(() => {
+                logBox.textContent += `[SUCCESS] Transaction simulation executed successfully. Target stream bandwidth sustained at metrics match of ${velocity} requests/min. Data governance state validated [ISO-SAFE].`;
+            }, 800);
+        }
+
         // Global Initialization Window Handlers
         window.onload = () => {
             const parsedTokenQuery = parseTargetSearchQueryParameter();
@@ -210,6 +341,13 @@
             }
             
             buildRenderedServicesListView();
+            syncDownstreamTargets();
+
+            // Setup real-time dynamic slider value tracker
+            document.getElementById('volSimulationSlider').addEventListener('input', (e) => {
+                document.getElementById('sliderValueText').textContent = `${Number(e.target.value).toLocaleString()} calls / min`;
+                generateDynamicBlueprintCode();
+            });
 
             // Setup real-time key capture on modification box input strings
             document.getElementById('liveResultsModifierInput').addEventListener('input', () => {
@@ -237,6 +375,5 @@
             });
         };
     </script>
-
 </body>
 </html>

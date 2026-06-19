@@ -127,25 +127,7 @@
             }
         });
 
-        // Target Persona Toggle Rendering Engine Loops
-        const devBtn = document.getElementById('personaDevBtn');
-        const pmBtn = document.getElementById('personaPmBtn');
 
-        function drawTargetPersonaLayoutView(personaKey) {
-            configurationSystemState.activePersona = personaKey;
-            const targetCopyDataset = personaVisualCopyBlockDataset[personaKey];
-            gridViewSlot.innerHTML = targetCopyDataset.left + targetCopyDataset.right;
-            
-            if (personaKey === 'dev') {
-                devBtn.classList.add('active');
-                pmBtn.classList.remove('active');
-            } else {
-                pmBtn.classList.add('active');
-                devBtn.classList.remove('active');
-            }
-        }
-        devBtn.addEventListener('click', () => drawTargetPersonaLayoutView('dev'));
-        pmBtn.addEventListener('click', () => drawTargetPersonaLayoutView('pm'));
 
         // Laboratory Testing Console Framework Control Core Systems Elements
         const routeSelectField = document.getElementById('routeSelectField');

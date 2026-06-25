@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ApiNexus — Enterprise Integration Orchestrator</title>
+  <!-- Bootstrap 5 + Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== GLOBAL VARIABLES (light/dark) ===== */
+    :root {
+      --bg-global: #f8fafc;
+      --bg-surface-primary: #ffffff;
+      --bg-surface-secondary: #f1f5f9;
+      --bg-surface-tertiary: #e2e8f0;
+      --border-color: #cbd5e1;
+      --border-hover: #94a3b8;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --brand-primary: #1d4ed8;
+      --brand-glow: rgba(29, 78, 216, 0.08);
+      --accent-success: #059669;
+      --accent-purple: #7c3aed;
+    }
+    [data-theme="dark"] {
+      --bg-global: #06080c;
+      --bg-surface-primary: #0b0f17;
+      --bg-surface-secondary: #111724;
+      --bg-surface-tertiary: #04060a;
+      --border-color: #192235;
+      --border-hover: #2a3754;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #475569;
+      --brand-primary: #2563eb;
+      --brand-glow: rgba(37, 99, 235, 0.15);
+      --accent-success: #10b981;
+      --accent-purple: #a855f7;
+    }
+    /* ===== RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg-global);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    .section-spacer { padding-top: 80px; padding-bottom: 80px; }
+    .badge-pill-micro {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand-primary);
+      background: var(--brand-glow);
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: inline-block;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 13.5px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--brand-primary);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--brand-glow);
+    }
+    .btn-primary:hover { opacity: 0.95; transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--bg-surface-secondary);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+    }
+    .btn-secondary:hover { border-color: var(--border-hover); background: var(--bg-surface-tertiary); }
+    /* ===== HEADER / NAV ===== */
+    .broadcast-ribbon {
+      background: linear-gradient(90deg, var(--brand-primary), #4f46e5);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 10px 16px;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+    .site-header {
+      background: rgba(6,8,12,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    [data-theme="light"] .site-header { background: rgba(248,250,252,0.85); }
+    .header-wrapper {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-block img { height: 40px; }
+    .logo-light-variant { display: none; }
+    [data-theme="light"] .logo-dark-variant { display: none; }
+    [data-theme="light"] .logo-light-variant { display: block; }
+    /* ===== MEGA MENU - PERFECT HOVER WITH BRIDGE ===== */
+    .mega-nav {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .mega-nav-item {
+      position: relative;
+      padding: 6px 12px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+      z-index: 10;
+    }
+    .mega-nav-item:hover,
+    .mega-nav-item.active-nav {
+      background: var(--bg-surface-secondary);
+      color: var(--text-primary);
+    }
+    /* dropdown panel - perfect hover bridge */
+    .mega-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      background: var(--bg-surface-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      min-width: 700px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      display: none;
+      z-index: 200;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      pointer-events: none;
+    }
+    /* Show dropdown on hover of nav item OR dropdown itself */
+    .mega-nav-item:hover .mega-dropdown,
+    .mega-dropdown:hover {
+      display: grid;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    /* Also keep open when hovering the gap between nav and dropdown */
+    .mega-nav-item::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      z-index: 199;
+      pointer-events: auto;
+    }
+    .mega-dropdown h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+    .mega-dropdown a {
+      display: block;
+      padding: 6px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .mega-dropdown a:hover { color: var(--brand-primary); }
+    .mega-featured {
+      grid-column: span 3;
+      background: var(--bg-surface-secondary);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .mega-featured strong { font-size: 15px; }
+    .mega-featured a { color: var(--brand-primary); font-weight: 600; }
+    @media (max-width: 992px) {
+      .mega-nav { display: none; }
+      .mobile-menu-toggle { display: block; }
+    }
+    .mobile-menu-toggle { display: none; background: none; border: none; font-size: 24px; color: var(--text-primary); }
+    /* ===== HERO ===== */
+    .hero-section {
+      position: relative;
+      text-align: center;
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 700px;
+      height: 450px;
+      background: radial-gradient(circle, var(--brand-primary), var(--accent-purple));
+      opacity: 0.12;
+      filter: blur(140px);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-section h1 {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero-section h1 span {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: textShine 4s linear infinite;
+    }
+    @keyframes textShine { to { background-position: 200% center; } }
+    .hero-section p { font-size: 18px; color: var(--text-secondary); max-width: 700px; margin: 0 auto 32px; }
+    .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    /* ===== FEATURES GRID ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .feature-card {
+      background: var(--bg-surface-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px 20px;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .feature-card:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+    .feature-card i { font-size: 28px; color: var(--brand-primary); margin-bottom: 16px; }
+    .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--text-secondary); }
+    /* ===== CTA ===== */
+    .cta-section {
+      background: var(--bg-surface-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta-section h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+    /* ===== FOOTER ===== */
+    .master-footer {
+      background: var(--bg-surface-tertiary);
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-grid h5 { font-weight: 700; margin-bottom: 16px; }
+    .footer-grid a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 14px; padding: 4px 0; }
+    .footer-grid a:hover { color: var(--brand-primary); }
+    .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 24px; margin-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; font-size: 13px; color: var(--text-muted); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+    /* ===== PAGE TEMPLATE ===== */
+    .page-header { padding: 60px 0 40px; text-align: center; }
+    .page-header h1 { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; }
+    .page-header p { font-size: 18px; color: var(--text-secondary); max-width: 640px; margin: 0 auto; }
+    .content-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 40px 0;
+    }
+    .content-card {
+      background: var(--bg-surface-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .content-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    .content-card ul { list-style: none; padding: 0; }
+    .content-card ul li { padding: 8px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
+    .content-card ul li i { color: var(--accent-success); width: 20px; }
+    @media (max-width: 768px) { .content-grid-2 { grid-template-columns: 1fr; } }
+    /* ===== PRICING ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+    .pricing-card {
+      background: var(--bg-surface-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+    .pricing-card.popular { border-color: var(--brand-primary); box-shadow: 0 0 30px var(--brand-glow); }
+    .pricing-card .price { font-size: 36px; font-weight: 800; margin: 16px 0; }
+    .pricing-card ul { list-style: none; padding: 0; text-align: left; }
+    .pricing-card ul li { padding: 6px 0; border-bottom: 1px solid var(--border-color); }
+    .pricing-card ul li i { margin-right: 8px; color: var(--accent-success); }
+    /* ===== DOCS ===== */
+    .docs-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; }
+    .docs-sidebar { position: sticky; top: 100px; align-self: start; }
+    .docs-sidebar a { display: block; padding: 8px 12px; color: var(--text-secondary); text-decoration: none; border-radius: 6px; }
+    .docs-sidebar a:hover { background: var(--bg-surface-secondary); color: var(--text-primary); }
+    .docs-sidebar a.active { background: var(--brand-glow); color: var(--brand-primary); font-weight: 600; }
+    .doc-section { margin-bottom: 40px; }
+    .doc-section h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+    .doc-section .code-block {
+      background: var(--bg-surface-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      position: relative;
+    }
+    @media (max-width: 768px) { .docs-layout { grid-template-columns: 1fr; } .docs-sidebar { position: relative; top: 0; } }
+    /* ===== CONTACT ===== */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .contact-info i { width: 24px; color: var(--brand-primary); }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    /* ===== LOGIN/SIGNUP ===== */
+    .auth-card {
+      max-width: 420px;
+      margin: 60px auto;
+      background: var(--bg-surface-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px;
+    }
+    .auth-card .form-control { background: var(--bg-surface-secondary); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; }
+    .auth-card .form-control:focus { border-color: var(--brand-primary); box-shadow: 0 0 0 3px var(--brand-glow); }
+    @media (max-width: 600px) { .hero-section h1 { font-size: 32px; } }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOP RIBBON ===== -->
+<div class="broadcast-ribbon">
+  <i class="fa-solid fa-bolt me-2"></i> Architectural Core Update: Abstraction matrices active across 7 server domains.
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container header-wrapper">
+    <div class="logo-block">
+      <img src="https://placehold.co/180x40/1d4ed8/white?text=ApiNexus" alt="ApiNexus" class="logo-main logo-dark-variant" style="height:36px;" />
+      <img src="https://placehold.co/180x40/0f172a/white?text=ApiNexus" alt="ApiNexus" class="logo-main logo-light-variant" style="height:36px;" />
+    </div>
+    <!-- Desktop Mega Menu - PERFECT HOVER -->
+    <nav class="mega-nav">
+      <!-- Products -->
+      <div class="mega-nav-item" data-menu="products">
+        Products <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+        <div class="mega-dropdown">
+          <div>
+            <h4>Platform</h4>
+            <a href="#">API Management</a>
+            <a href="#">Integration Hub</a>
+            <a href="#">Authentication</a>
+            <a href="#">API Gateway</a>
+          </div>
+          <div>
+            <h4>Automation</h4>
+            <a href="#">Workflow Builder</a>
+            <a href="#">Event Triggers</a>
+            <a href="#">Scheduled Workflows</a>
+            <a href="#">Business Automation</a>
+          </div>
+          <div>
+            <h4>Operations</h4>
+            <a href="#">Monitoring &amp; Analytics</a>
+            <a href="#">Alerts &amp; Notifications</a>
+            <a href="#">Activity Logs</a>
+            <a href="#">Performance Insights</a>
+          </div>
+          <div class="mega-featured">
+            <span><strong>🚀 ApiNexus Platform</strong> — One Platform. Infinite Integrations.</span>
+            <a href="#">Explore Platform →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Solutions -->
+      <div class="mega-nav-item" data-menu="solutions">
+        Solutions <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+        <div class="mega-dropdown" style="min-width:600px;">
+          <div>
+            <h4>By Team</h4>
+            <a href="#">Developers</a>
+            <a href="#">Operations Teams</a>
+            <a href="#">IT Administrators</a>
+            <a href="#">Product Teams</a>
+          </div>
+          <div>
+            <h4>By Business</h4>
+            <a href="#">Startups</a>
+            <a href="#">SMBs</a>
+            <a href="#">Enterprises</a>
+            <a href="#">SaaS Companies</a>
+          </div>
+          <div>
+            <h4>Use Cases</h4>
+            <a href="#">API Ecosystem</a>
+            <a href="#">Workflow Automation</a>
+            <a href="#">Data Sync</a>
+            <a href="#">Enterprise Integrations</a>
+          </div>
+          <div class="mega-featured">
+            <span><strong>📈 Customer Success</strong> See how businesses streamline operations.</span>
+            <a href="#">View Case Studies →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Developers -->
+      <div class="mega-nav-item" data-menu="developers">
+        Developers <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+        <div class="mega-dropdown" style="min-width:550px;">
+          <div>
+            <h4>Documentation</h4>
+            <a href="#">Getting Started</a>
+            <a href="#">API Reference</a>
+            <a href="#">Authentication Guide</a>
+            <a href="#">Tutorials</a>
+          </div>
+          <div>
+            <h4>Tools</h4>
+            <a href="#">API Explorer</a>
+            <a href="#">Sandbox</a>
+            <a href="#">SDK Downloads</a>
+            <a href="#">Webhooks</a>
+          </div>
+          <div class="mega-featured">
+            <span><strong>🧑‍💻 Developer Hub</strong> Comprehensive docs &amp; resources.</span>
+            <a href="#">Open Documentation →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Resources -->
+      <div class="mega-nav-item" data-menu="resources">
+        Resources <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+        <div class="mega-dropdown" style="min-width:500px;">
+          <div>
+            <h4>Learning</h4>
+            <a href="#">Blog</a>
+            <a href="#">Guides</a>
+            <a href="#">Webinars</a>
+            <a href="#">Whitepapers</a>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Careers</a>
+            <a href="#">Partners</a>
+          </div>
+          <div class="mega-featured">
+            <span><strong>📢 Latest Updates</strong> New features &amp; improvements.</span>
+            <a href="#">View Changelog →</a>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="mega-nav-item" style="text-decoration:none;">Pricing</a>
+    </nav>
+    <!-- Actions -->
+    <div class="header-actions-deck d-flex align-items-center gap-3">
+      <a href="#" class="btn btn-secondary" style="padding:8px 18px; font-size:13px;">Sign In</a>
+      <a href="#" class="btn btn-primary" style="padding:8px 18px; font-size:13px;">Get Started</a>
+      <button class="mobile-menu-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HOME PAGE CONTENT ===== -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <h1>One Platform.<br /><span>Infinite Integrations.</span></h1>
+      <p>Connect, manage, and automate APIs, third-party services, and business workflows from a single secure platform. ApiNexus helps you simplify integration complexity.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">Get Started</a>
+        <a href="#" class="btn btn-secondary">Request Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY API NEXUS -->
+  <section class="section-spacer">
+    <div class="container text-center">
+      <span class="badge-pill-micro">Why ApiNexus</span>
+      <h2 style="font-size:32px; font-weight:700; letter-spacing:-0.02em; max-width:700px; margin:0 auto 20px;">Centralize, Automate, and Scale Your Integration Ecosystem</h2>
+      <p style="color:var(--text-secondary); max-width:640px; margin:0 auto 40px;">Modern businesses rely on dozens of apps and APIs. ApiNexus provides a unified hub to connect systems, automate workflows, monitor performance, and grow confidently.</p>
+      <div class="features-grid">
+        <div class="feature-card"><i class="fa-solid fa-sliders"></i><h3>API Management</h3><p>Manage all API connections through one dashboard.</p></div>
+        <div class="feature-card"><i class="fa-solid fa-arrows-spin"></i><h3>Workflow Automation</h3><p>Create automated workflows without complex coding.</p></div>
+        <div class="feature-card"><i class="fa-solid fa-plug"></i><h3>Integration Hub</h3><p>Connect internal and third-party applications.</p></div>
+        <div class="feature-card"><i class="fa-solid fa-chart-line"></i><h3>Monitoring &amp; Analytics</h3><p>Track performance and detect issues in real time.</p></div>
+        <div class="feature-card"><i class="fa-solid fa-shield"></i><h3>Enterprise Security</h3><p>Protect data with robust authentication and access controls.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to simplify your integrations?</h2>
+      <p style="color:var(--text-secondary); font-size:18px; margin-bottom:24px;">Start building with ApiNexus today.</p>
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT US (inline) ===== -->
+  <section class="section-spacer" id="about">
+    <div class="container">
+      <div class="page-header" style="padding:0 0 20px;">
+        <span class="badge-pill-micro">About Us</span>
+        <h1>About ApiNexus</h1>
+        <p>ApiNexus was built to solve one of the biggest challenges facing modern organizations: managing a growing ecosystem of APIs, applications, and business processes.</p>
+      </div>
+      <div class="content-grid-2">
+        <div class="content-card">
+          <h3><i class="fa-regular fa-eye me-2" style="color:var(--brand-primary);"></i> Our Vision</h3>
+          <p>To become the central platform where businesses seamlessly connect, automate, and scale their digital operations.</p>
+          <h3 class="mt-4"><i class="fa-regular fa-heart me-2" style="color:var(--brand-primary);"></i> Our Values</h3>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> <strong>Simplicity</strong> — Complex integrations should be easy to manage.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Reliability</strong> — Business-critical workflows require dependable infrastructure.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Security</strong> — Every integration should be protected by enterprise-grade security.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Innovation</strong> — Technology should accelerate growth, not create obstacles.</li>
+          </ul>
+        </div>
+        <div class="content-card" style="background:var(--bg-surface-secondary);">
+          <h3><i class="fa-regular fa-flag me-2" style="color:var(--brand-primary);"></i> Our Mission</h3>
+          <p style="font-size:16px; line-height:1.7;">Help businesses connect systems, automate operations, and unlock the full value of their technology investments through a unified integration platform.</p>
+          <div style="margin-top:24px; padding:16px; background:var(--bg-surface-primary); border-radius:12px; border:1px solid var(--border-color);">
+            <i class="fa-solid fa-quote-left" style="color:var(--accent-purple); opacity:0.6;"></i>
+            <p style="font-style:italic; color:var(--text-secondary);">"ApiNexus is the integration layer that finally makes sense for modern enterprises."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES PAGE (inline) ===== -->
+  <section class="section-spacer" style="background:var(--bg-surface-secondary);" id="features">
+    <div class="container">
+      <div class="page-header" style="padding:0 0 20px;">
+        <span class="badge-pill-micro">Features</span>
+        <h1>Powerful Features for Modern Integration Management</h1>
+        <p>Everything you need to manage APIs, automate workflows, and monitor your entire ecosystem.</p>
+      </div>
+      <div class="content-grid-2">
+        <div class="content-card"><h3><i class="fa-solid fa-gauge-high me-2" style="color:var(--brand-primary);"></i> Unified Dashboard</h3><p>Manage APIs, integrations, and workflows from one interface.</p></div>
+        <div class="content-card"><h3><i class="fa-solid fa-key me-2" style="color:var(--brand-primary);"></i> API Management</h3><ul><li><i class="fa-solid fa-check"></i> Authentication</li><li><i class="fa-solid fa-check"></i> Access Control</li><li><i class="fa-solid fa-check"></i> API Monitoring</li><li><i class="fa-solid fa-check"></i> Analytics</li></ul></div>
+        <div class="content-card"><h3><i class="fa-solid fa-arrows-rotate me-2" style="color:var(--brand-primary);"></i> Workflow Automation</h3><ul><li><i class="fa-solid fa-check"></i> Event Triggers</li><li><i class="fa-solid fa-check"></i> Conditional Logic</li><li><i class="fa-solid fa-check"></i> Scheduled Actions</li><li><i class="fa-solid fa-check"></i> Multi-Step Processes</li></ul></div>
+        <div class="content-card"><h3><i class="fa-solid fa-plug me-2" style="color:var(--brand-primary);"></i> Integration Management</h3><ul><li><i class="fa-solid fa-check"></i> Third-Party Connectors</li><li><i class="fa-solid fa-check"></i> Custom Integrations</li><li><i class="fa-solid fa-check"></i> Data Synchronization</li></ul></div>
+        <div class="content-card"><h3><i class="fa-solid fa-bell me-2" style="color:var(--brand-primary);"></i> Monitoring &amp; Alerts</h3><ul><li><i class="fa-solid fa-check"></i> Real-Time Status</li><li><i class="fa-solid fa-check"></i> Error Detection</li><li><i class="fa-solid fa-check"></i> Automated Notifications</li></ul></div>
+        <div class="content-card"><h3><i class="fa-solid fa-lock me-2" style="color:var(--brand-primary);"></i> Security &amp; Compliance</h3><ul><li><i class="fa-solid fa-check"></i> Encryption</li><li><i class="fa-solid fa-check"></i> Role-Based Access</li><li><i class="fa-solid fa-check"></i> Audit Logs</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTEGRATIONS ===== -->
+  <section class="section-spacer" id="integrations">
+    <div class="container">
+      <div class="page-header" style="padding:0 0 20px;">
+        <span class="badge-pill-micro">Integrations</span>
+        <h1>Connect the Tools You Already Use</h1>
+        <p>ApiNexus enables seamless integration with business applications, cloud services, and enterprise platforms.</p>
+      </div>
+      <div class="content-grid-2">
+        <div class="content-card"><h3><i class="fa-solid fa-people-group me-2" style="color:var(--brand-primary);"></i> CRM Systems</h3><p>Connect customer data across sales and support platforms.</p></div>
+        <div class="content-card"><h3><i class="fa-solid fa-credit-card me-2" style="color:var(--brand-primary);"></i> Payment Platforms</h3><p>Integrate payment gateways and transaction services.</p></div>
+        <div class="content-card"><h3><i class="fa-solid fa-comments me-2" style="color:var(--brand-primary);"></i> Communication Tools</h3><p>Automate notifications and team collaboration.</p></div>
+        <div class="content-card"><h3><i class="fa-solid fa-cloud me-2" style="color:var(--brand-primary);"></i> Cloud Services</h3><p>Connect storage, hosting, and cloud infrastructure providers.</p></div>
+        <div class="content-card"><h3><i class="fa-solid fa-building me-2" style="color:var(--brand-primary);"></i> Enterprise Applications</h3><p>Integrate ERP, HR, and operational systems.</p></div>
+        <div class="content-card" style="background:var(--bg-surface-secondary); border:2px dashed var(--border-color);"><h3><i class="fa-regular fa-pen-to-square me-2" style="color:var(--brand-primary);"></i> Build Custom Integrations</h3><p>Flexible APIs and developer tools for building tailored connections.</p><a href="#" class="btn btn-primary mt-3" style="font-size:13px;">Learn More</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section class="section-spacer" style="background:var(--bg-surface-secondary);" id="pricing">
+    <div class="container">
+      <div class="page-header" style="padding:0 0 20px;">
+        <span class="badge-pill-micro">Pricing</span>
+        <h1>Simple Pricing for Every Stage of Growth</h1>
+        <p>Choose the plan that fits your business needs.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card"><h3>Starter</h3><div class="price">$29<span style="font-size:16px; font-weight:400;">/mo</span></div><p style="color:var(--text-secondary);">For small teams beginning their integration journey.</p><ul><li><i class="fa-regular fa-circle-check"></i> Basic API Management</li><li><i class="fa-regular fa-circle-check"></i> 5 Integrations</li><li><i class="fa-regular fa-circle-check"></i> Standard Support</li></ul><a href="#" class="btn btn-secondary mt-3 w-100">Get Started</a></div>
+        <div class="pricing-card popular"><h3>Professional <span class="badge" style="background:var(--brand-primary); color:#fff; font-size:11px;">Popular</span></h3><div class="price">$79<span style="font-size:16px; font-weight:400;">/mo</span></div><p style="color:var(--text-secondary);">For growing businesses requiring advanced automation.</p><ul><li><i class="fa-regular fa-circle-check"></i> Unlimited Integrations</li><li><i class="fa-regular fa-circle-check"></i> Workflow Automation</li><li><i class="fa-regular fa-circle-check"></i> Advanced Analytics</li><li><i class="fa-regular fa-circle-check"></i> Priority Support</li></ul><a href="#" class="btn btn-primary mt-3 w-100">Start Free Trial</a></div>
+        <div class="pricing-card"><h3>Enterprise</h3><div class="price">Custom</div><p style="color:var(--text-secondary);">For organizations with complex requirements.</p><ul><li><i class="fa-regular fa-circle-check"></i> Custom Infrastructure</li><li><i class="fa-regular fa-circle-check"></i> Advanced Security</li><li><i class="fa-regular fa-circle-check"></i> Dedicated Support</li><li><i class="fa-regular fa-circle-check"></i> SLA Guarantees</li></ul><a href="#" class="btn btn-secondary mt-3 w-100">Contact Sales</a></div>
+      </div>
+      <p class="text-center mt-4" style="color:var(--text-secondary);">Need a custom solution? <a href="#" style="color:var(--brand-primary); font-weight:600;">Contact our team →</a></p>
+    </div>
+  </section>
+
+  <!-- ===== DOCUMENTATION ===== -->
+  <section class="section-spacer" id="docs">
+    <div class="container">
+      <div class="page-header" style="padding:0 0 20px;">
+        <span class="badge-pill-micro">Documentation</span>
+        <h1>Developer Documentation</h1>
+        <p>Everything you need to integrate, automate, and manage APIs using ApiNexus.</p>
+      </div>
+      <div class="docs-layout">
+        <div class="docs-sidebar">
+          <h5 style="font-weight:700; margin-bottom:12px;">Getting Started</h5>
+          <a href="#" class="active">Overview</a>
+          <a href="#">Authentication</a>
+          <a href="#">API Reference</a>
+          <a href="#">SDKs</a>
+          <a href="#">Tutorials</a>
+          <hr style="border-color:var(--border-color);">
+          <a href="#">Guides</a>
+          <a href="#">Changelog</a>
+        </div>
+        <div>
+          <div class="doc-section">
+            <h3>Getting Started</h3>
+            <p>Learn how to create your account and connect your first integration.</p>
+            <div class="code-block">
+              <span style="color:var(--text-muted);">// Quick start example</span><br>
+              <span style="color:var(--brand-primary);">import</span> { ApiNexus } <span style="color:var(--brand-primary);">from</span> <span style="color:var(--accent-success);">'@apinexus/sdk'</span>;<br>
+              <span style="color:var(--brand-primary);">const</span> nexus = <span style="color:var(--brand-primary);">new</span> ApiNexus({ apiKey: <span style="color:var(--accent-success);">'your-key'</span> });<br>
+              <span style="color:var(--brand-primary);">await</span> nexus.connect(<span style="color:var(--accent-success);">'stripe'</span>);
+            </div>
+          </div>
+          <div class="doc-section">
+            <h3>Authentication</h3>
+            <p>Secure your API requests using API keys and access tokens.</p>
+            <div class="code-block">
+              <span style="color:var(--text-muted);">// Bearer token example</span><br>
+              <span style="color:var(--brand-primary);">const</span> headers = { <br>
+              &nbsp;&nbsp;<span style="color:var(--accent-success);">'Authorization'</span>: <span style="color:var(--accent-success);">`Bearer ${token}`</span><br>
+              };
+            </div>
+          </div>
+          <div class="doc-section">
+            <h3>API Reference</h3>
+            <p>Detailed documentation for every available endpoint.</p>
+            <ul style="list-style:none; padding:0;">
+              <li style="padding:6px 0; border-bottom:1px solid var(--border-color);"><code style="background:var(--bg-surface-secondary); padding:2px 8px; border-radius:4px;">GET /integrations</code> — List all integrations</li>
+              <li style="padding:6px 0; border-bottom:1px solid var(--border-color);"><code style="background:var(--bg-surface-secondary); padding:2px 8px; border-radius:4px;">POST /workflows</code> — Create a new workflow</li>
+              <li style="padding:6px 0;"><code style="background:var(--bg-surface-secondary); padding:2px 8px; border-radius:4px;">GET /monitoring</code> — Fetch real-time metrics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section-spacer" style="background:var(--bg-surface-secondary);" id="contact">
+    <div class="container">
+      <div class="page-header" style="padding:0 0 20px;">
+        <span class="badge-pill-micro">Contact</span>
+        <h1>Get in Touch</h1>
+        <p>Have questions about ApiNexus? Our team is ready to help.</p>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div style="display:flex; gap:16px; margin-bottom:24px;"><i class="fa-solid fa-envelope" style="font-size:24px; color:var(--brand-primary);"></i><div><h5>Sales Inquiries</h5><p style="color:var(--text-secondary);">Learn how ApiNexus can help your organization.</p></div></div>
+          <div style="display:flex; gap:16px; margin-bottom:24px;"><i class="fa-solid fa-headset" style="font-size:24px; color:var(--brand-primary);"></i><div><h5>Technical Support</h5><p style="color:var(--text-secondary);">Get assistance from our support team.</p></div></div>
+          <div style="display:flex; gap:16px;"><i class="fa-solid fa-handshake" style="font-size:24px; color:var(--brand-primary);"></i><div><h5>Partnerships</h5><p style="color:var(--text-secondary);">Explore partnership opportunities with ApiNexus.</p></div></div>
+        </div>
+        <div class="content-card" style="background:var(--bg-surface-primary);">
+          <h3>Send a Message</h3>
+          <form>
+            <div class="mb-3"><label class="form-label">Name</label><input type="text" class="form-control" style="background:var(--bg-surface-secondary); border-color:var(--border-color);" /></div>
+            <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" style="background:var(--bg-surface-secondary); border-color:var(--border-color);" /></div>
+            <div class="mb-3"><label class="form-label">Company</label><input type="text" class="form-control" style="background:var(--bg-surface-secondary); border-color:var(--border-color);" /></div>
+            <div class="mb-3"><label class="form-label">Message</label><textarea rows="3" class="form-control" style="background:var(--bg-surface-secondary); border-color:var(--border-color);"></textarea></div>
+            <button class="btn btn-primary w-100">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOGIN / SIGNUP (inline examples) ===== -->
+  <section class="section-spacer" id="login">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;">
+        <div class="auth-card" style="max-width:100%; margin:0;">
+          <h3 style="text-align:center;">Welcome Back</h3>
+          <form>
+            <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" /></div>
+            <div class="mb-3"><label class="form-label">Password</label><input type="password" class="form-control" /></div>
+            <button class="btn btn-primary w-100">Sign In</button>
+            <div class="mt-3 text-center" style="font-size:14px; color:var(--text-secondary);"><a href="#" style="color:var(--brand-primary);">Forgot Password?</a> · <a href="#" style="color:var(--brand-primary);">Create Account</a></div>
+          </form>
+        </div>
+        <div class="auth-card" style="max-width:100%; margin:0;">
+          <h3 style="text-align:center;">Start Your Free Trial</h3>
+          <form>
+            <div class="mb-3"><label class="form-label">Full Name</label><input type="text" class="form-control" /></div>
+            <div class="mb-3"><label class="form-label">Company</label><input type="text" class="form-control" /></div>
+            <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" /></div>
+            <div class="mb-3"><label class="form-label">Password</label><input type="password" class="form-control" /></div>
+            <button class="btn btn-primary w-100">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRIVACY & TERMS ===== -->
+  <section class="section-spacer" style="background:var(--bg-surface-secondary);" id="legal">
+    <div class="container">
+      <div class="content-grid-2">
+        <div class="content-card">
+          <h3><i class="fa-regular fa-lock me-2" style="color:var(--brand-primary);"></i> Privacy Policy</h3>
+          <p>At ApiNexus, protecting your data is a priority. We collect information necessary to provide and improve our services, including account information, usage data, and integration metadata. We do not sell customer data to third parties. All information is protected using industry-standard security practices.</p>
+          <p style="margin-top:12px;"><strong>Contact:</strong> <a href="mailto:privacy@apinexus.one" style="color:var(--brand-primary);">privacy@apinexus.one</a></p>
+        </div>
+        <div class="content-card">
+          <h3><i class="fa-regular fa-file-lines me-2" style="color:var(--brand-primary);"></i> Terms of Service</h3>
+          <p>By accessing and using ApiNexus, you agree to comply with these terms. Users are responsible for maintaining account security and complying with applicable laws when using our platform. ApiNexus reserves the right to update services, modify features, and suspend accounts that violate these terms.</p>
+          <p style="margin-top:12px;"><strong>Contact:</strong> <a href="mailto:legal@apinexus.one" style="color:var(--brand-primary);">legal@apinexus.one</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="master-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5>ApiNexus</h5>
+        <p style="color:var(--text-secondary); font-size:14px; max-width:260px;">A unified integration platform for managing APIs, third-party services, and business workflows.</p>
+        <p style="font-weight:600; margin-top:8px;">One Platform. Infinite Integrations.</p>
+      </div>
+      <div><h5>Quick Links</h5><a href="#">Home</a><a href="#features">Features</a><a href="#integrations">Integrations</a><a href="#pricing">Pricing</a><a href="#docs">Documentation</a><a href="#contact">Contact</a></div>
+      <div><h5>Resources</h5><a href="#">Blog</a><a href="#">Guides</a><a href="#">Case Studies</a><a href="#">About Us</a><a href="#">Careers</a></div>
+      <div><h5>Legal</h5><a href="#legal">Privacy Policy</a><a href="#legal">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Aparajayah Technologies. All rights reserved.</span>
+      <span><i class="fa-brands fa-github me-2"></i><i class="fa-brands fa-twitter me-2"></i><i class="fa-brands fa-linkedin"></i></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Theme toggle (click logo)
+  document.querySelector('.logo-block')?.addEventListener('click', function() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+  });
+
+  // Mobile menu placeholder
+  document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function() {
+    alert('Mobile menu would open here. (Add your own drawer implementation)');
+  });
+
+  // ===== MEGA MENU - PERFECT HOVER WITH BRIDGE =====
+  // Track which nav item is currently active
+  let activeNavItem = null;
+
+  document.querySelectorAll('.mega-nav-item').forEach(item => {
+    // When mouse enters the nav item, set active
+    item.addEventListener('mouseenter', function() {
+      // Remove active from all
+      document.querySelectorAll('.mega-nav-item').forEach(el => el.classList.remove('active-nav'));
+      this.classList.add('active-nav');
+      activeNavItem = this;
+    });
+  });
+
+  // Handle dropdown hover to keep active state
+  document.querySelectorAll('.mega-dropdown').forEach(drop => {
+    drop.addEventListener('mouseenter', function() {
+      // Find parent nav item and keep it active
+      const parentItem = this.closest('.mega-nav-item');
+      if (parentItem) {
+        document.querySelectorAll('.mega-nav-item').forEach(el => el.classList.remove('active-nav'));
+        parentItem.classList.add('active-nav');
+        activeNavItem = parentItem;
+      }
+    });
+  });
+
+  // Handle when mouse leaves nav completely
+  document.addEventListener('mouseover', function(e) {
+    const nav = document.querySelector('.mega-nav');
+    const isInNav = nav?.contains(e.target);
+    const isInDropdown = e.target.closest?.('.mega-dropdown');
+    
+    // If mouse is not in nav or dropdown, remove all active
+    if (!isInNav && !isInDropdown) {
+      // Check if we're moving to something outside
+      setTimeout(() => {
+        const navHover = document.querySelector('.mega-nav:hover');
+        const dropHover = document.querySelector('.mega-dropdown:hover');
+        if (!navHover && !dropHover) {
+          document.querySelectorAll('.mega-nav-item').forEach(el => el.classList.remove('active-nav'));
+          activeNavItem = null;
+        }
+      }, 50);
+    }
+  });
+</script>
+</body>
+</html>

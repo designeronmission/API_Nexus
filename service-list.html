@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,10 +31,6 @@
                 </nav>
 
                 <div class="header-actions-deck">
-                    <button id="masterThemeBtn" class="btn btn-secondary" style="padding: 10px 16px;">
-                        <i id="themeIconSlot" class="fa-solid fa-moon"></i>
-                        <span id="themeLabelText" style="font-size: 12px;"></span>
-                    </button>
                     <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign In</a>
                 </div>
             </div>
@@ -113,14 +109,14 @@
                 </div>
 
                 <div class="ide-terminal-window">
-                    <div class="ide-header-tabs-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color);">
+                    <div class="ide-header-tabs-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border-color);">
                         <div class="window-dots-cluster" style="display: flex; gap: 6px;">
                             <span class="dot-node red" style="width:10px; height:10px; border-radius:50%; background:#ef4444; display:inline-block;"></span>
                             <span class="dot-node amber" style="width:10px; height:10px; border-radius:50%; background:#f59e0b; display:inline-block;"></span>
                             <span class="dot-node green" style="width:10px; height:10px; border-radius:50%; background:#10b981; display:inline-block;"></span>
                         </div>
                         <div style="display: flex; gap: 16px; align-items: center;">
-                            <div class="stack-pill-switcher" style="display:flex; gap:4px; background:rgba(255,255,255,0.05); padding:2px; border-radius:6px;">
+                            <div class="stack-pill-switcher" style="display:flex; gap:4px; padding:2px; border-radius:6px;">
                                 <button onclick="updateLocalStackSlot('node')" id="stackBtnNode" class="stack-pill-btn active" style="background:var(--brand-primary); color:#fff; border:none; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;">Node.js</button>
                                 <button onclick="updateLocalStackSlot('python')" id="stackBtnPy" class="stack-pill-btn" style="background:transparent; color:var(--text-secondary); border:none; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;">Python</button>
                             </div>
@@ -129,11 +125,11 @@
                     </div>
 
                     <div class="ide-panes-split-grid" style="display: flex; flex-direction: column; height: 320px;">
-                        <div class="terminal-panel-pane upper" style="flex: 1; padding: 16px; overflow-y: auto; background: rgba(15,23,42,0.4); border-bottom: 1px solid var(--border-color);">
+                        <div class="terminal-panel-pane upper" style="flex: 1; padding: 16px; overflow-y: auto; border-bottom: 1px solid var(--border-color);">
                             <div class="pane-descriptor-tag" style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">// Instantiated Abstract Configuration Code Snippet Blueprint Layout</div>
                             <pre id="codePayloadCanvas" style="color: var(--text-primary); line-height: 1.6; white-space: pre-wrap; font-family:'JetBrains Mono', monospace; font-size:12.5px; margin:0;"></pre>
                         </div>
-                        <div class="terminal-panel-pane lower" style="flex: 1; padding: 16px; overflow-y: auto; background: rgba(10,15,30,0.6);">
+                        <div class="terminal-panel-pane lower" style="flex: 1; padding: 16px; overflow-y: auto;">
                             <div class="pane-descriptor-tag" style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">// Encrypted Edge Gateway Tunnel Verification Telemetry Streams</div>
                             <pre id="telemetryTerminalLogs" class="log-stream-line" style="color: #38bdf8; line-height: 1.5; white-space: pre-wrap; font-family:'JetBrains Mono', monospace; font-size:12px; margin:0;">System gateway connection matrix structural layer authenticated. Select pipeline attributes and trigger runtime tracking algorithms...</pre>
                         </div>

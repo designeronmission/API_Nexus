@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
     <title>ApiNexus — Custom Enterprise Integration Orchestrator</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,25 +24,133 @@
     <header class="site-header">
         <div class="container">
             <div class="header-wrapper">
+
                 <div class="logo-block">
                     <img src="images/logo-dark.svg" alt="logo" class="logo-main logo-dark-variant">
                     <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
                 </div>
 
-                <nav class="nav-links-shelf">
-                    <a href="index.html" class="nav-link active">Home</a>
-                    <a href="service-list.html" class="nav-link">API Verticals</a>
-                    <a href="#" class="nav-link">Integration Sandbox</a>
-                    <a href="document.html" class="nav-link">Documents</a>
-                    <a href="quote.html" class="nav-link">Request a Quote</a>
+                <nav class="mega-nav">
+                    <!-- Products --> <a href="#" class="mega-nav-item" style="text-decoration:none;">Home</a>
+                    <div class="mega-nav-item" data-menu="products">
+                        Products <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown">
+                            <div>
+                                <h4>Platform</h4>
+                                <a href="#">API Management</a>
+                                <a href="#">Integration Hub</a>
+                                <a href="#">Authentication</a>
+                                <a href="#">API Gateway</a>
+                            </div>
+                            <div>
+                                <h4>Automation</h4>
+                                <a href="#">Workflow Builder</a>
+                                <a href="#">Event Triggers</a>
+                                <a href="#">Scheduled Workflows</a>
+                                <a href="#">Business Automation</a>
+                            </div>
+                            <div>
+                                <h4>Operations</h4>
+                                <a href="#">Monitoring &amp; Analytics</a>
+                                <a href="#">Alerts &amp; Notifications</a>
+                                <a href="#">Activity Logs</a>
+                                <a href="#">Performance Insights</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong>ApiNexus Platform</strong> — One Platform. Infinite
+                                    Integrations.</span>
+                                <a href="#">Explore Platform →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Solutions -->
+                    <div class="mega-nav-item" data-menu="solutions">
+                        Solutions <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:600px;">
+                            <div>
+                                <h4>By Team</h4>
+                                <a href="#">Developers</a>
+                                <a href="#">Operations Teams</a>
+                                <a href="#">IT Administrators</a>
+                                <a href="#">Product Teams</a>
+                            </div>
+                            <div>
+                                <h4>By Business</h4>
+                                <a href="#">Startups</a>
+                                <a href="#">SMBs</a>
+                                <a href="#">Enterprises</a>
+                                <a href="#">SaaS Companies</a>
+                            </div>
+                            <div>
+                                <h4>Use Cases</h4>
+                                <a href="#">API Ecosystem</a>
+                                <a href="#">Workflow Automation</a>
+                                <a href="#">Data Sync</a>
+                                <a href="#">Enterprise Integrations</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Customer Success</strong> See how businesses streamline
+                                    operations.</span>
+                                <a href="#">View Case Studies →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Developers -->
+                    <div class="mega-nav-item" data-menu="developers">
+                        Developers <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:550px;">
+                            <div>
+                                <h4>Documentation</h4>
+                                <a href="#">Getting Started</a>
+                                <a href="#">API Reference</a>
+                                <a href="#">Authentication Guide</a>
+                                <a href="#">Tutorials</a>
+                            </div>
+                            <div>
+                                <h4>Tools</h4>
+                                <a href="#">API Explorer</a>
+                                <a href="#">Sandbox</a>
+                                <a href="#">SDK Downloads</a>
+                                <a href="#">Webhooks</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Developer Hub</strong> Comprehensive docs &amp; resources.</span>
+                                <a href="#">Open Documentation →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Resources -->
+                    <div class="mega-nav-item" data-menu="resources">
+                        Resources <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:500px;">
+                            <div>
+                                <h4>Learning</h4>
+                                <a href="#">Blog</a>
+                                <a href="#">Guides</a>
+                                <a href="#">Webinars</a>
+                                <a href="#">Whitepapers</a>
+                            </div>
+                            <div>
+                                <h4>Company</h4>
+                                <a href="#">About Us</a>
+                                <a href="#">Contact</a>
+                                <a href="#">Careers</a>
+                                <a href="#">Partners</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Latest Updates</strong> New features &amp; improvements.</span>
+                                <a href="#">View Changelog →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="quote.html" class="mega-nav-item" style="text-decoration:none;">Request a Quote</a>
                 </nav>
 
+
+
                 <div class="header-actions-deck">
-                    <button id="masterThemeBtn" class="btn btn-secondary" style="padding: 10px 16px;">
-                        <i id="themeIconSlot" class="fa-solid fa-moon"></i>
-                        <span id="themeLabelText" style="font-size: 12px;"></span>
-                    </button>
-                    <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign In</a>
+                    <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign
+                        In</a>
                 </div>
             </div>
         </div>
@@ -63,226 +171,23 @@
     </section>
 
 
-<section class="showcase-section">
+    <section class="showcase-section">
         <div class="container">
             <div class="showcase-perspective-container">
                 <div class="showcase-window-wrapper" id="parallaxDashboard">
                     <img src="images/dashboard.png" alt="ApiNexus Dashboard Telemetry Overview (Dark Mode)"
-                         class="showcase-image-element theme-variant-dark">
-                    
+                        class="showcase-image-element theme-variant-dark">
+
                     <img src="images/dashboard-white.png" alt="ApiNexus Dashboard Telemetry Overview (Light Mode)"
-                         class="showcase-image-element theme-variant-light">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    
-
-    <section class="api-one-container">
-        <div class="api-one-glow-left"></div>
-        <div class="api-one-glow-right"></div>
-
-        <div class="container py-5 position-relative" style="z-index: 5;">
-            <div class="api-one-header text-center mb-5">
-                <span class="badge-pill-micro">
-                    Operational Evolution
-                </span>
-                <h2 class="h1 fw-extrabold tracking-tight mt-3">The Problem vs. The ApiNexus Way</h2>
-                <p class="text-secondary mt-2 fs-6">Hover over each frictionless transformation vector below to see the architectural upgrade.</p>
-            </div>
-
-            <div class="api-one-stack">
-                
-                <div class="api-one-card">
-                    <div class="row align-items-center g-3 g-lg-4">
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
-                            <div class="api-one-meta">
-                                <span class="api-one-tag context">Discovery Phase</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Search Google for endless hours</h4>
-                            </div>
-                            <div class="api-one-marker friction">
-                                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
-                            <div class="api-one-vector-line"></div>
-                            <div class="api-one-node">
-                                <i class="fa-solid fa-bolt-lightning"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
-                            <div class="api-one-marker solution">
-                                <i class="fa-solid fa-circle-check"></i>
-                            </div>
-                            <div class="api-one-meta">
-                                <span class="api-one-tag nexus">Instantaneous</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Search one centralized marketplace</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="api-one-card">
-                    <div class="row align-items-center g-3 g-lg-4">
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
-                            <div class="api-one-meta">
-                                <span class="api-one-tag context">Procurement Cost</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Compare pricing across 10 tabs</h4>
-                            </div>
-                            <div class="api-one-marker friction">
-                                <i class="fa-solid fa-layer-group"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
-                            <div class="api-one-vector-line"></div>
-                            <div class="api-one-node">
-                                <i class="fa-solid fa-bolt-lightning"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
-                            <div class="api-one-marker solution">
-                                <i class="fa-solid fa-circle-check"></i>
-                            </div>
-                            <div class="api-one-meta">
-                                <span class="api-one-tag nexus">Data-Driven Matrix</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Side-by-side feature & cost metrics</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="api-one-card">
-                    <div class="row align-items-center g-3 g-lg-4">
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
-                            <div class="api-one-meta">
-                                <span class="api-one-tag context">Security Debt</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Juggle 5 different auth methods</h4>
-                            </div>
-                            <div class="api-one-marker friction">
-                                <i class="fa-solid fa-key"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
-                            <div class="api-one-vector-line"></div>
-                            <div class="api-one-node">
-                                <i class="fa-solid fa-bolt-lightning"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
-                            <div class="api-one-marker solution">
-                                <i class="fa-solid fa-circle-check"></i>
-                            </div>
-                            <div class="api-one-meta">
-                                <span class="api-one-tag nexus">Unified Control</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Standardized secure guidelines</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="api-one-card">
-                    <div class="row align-items-center g-3 g-lg-4">
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
-                            <div class="api-one-meta">
-                                <span class="api-one-tag context">Developer Overhead</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Code boilerplate from scratch</h4>
-                            </div>
-                            <div class="api-one-marker friction">
-                                <i class="fa-solid fa-code-branch"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
-                            <div class="api-one-vector-line"></div>
-                            <div class="api-one-node">
-                                <i class="fa-solid fa-bolt-lightning"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
-                            <div class="api-one-marker solution">
-                                <i class="fa-solid fa-circle-check"></i>
-                            </div>
-                            <div class="api-one-meta">
-                                <span class="api-one-tag nexus">Production-Ready</span>
-                                <h4 class="h6 fw-bold mb-0 mt-1">Copy-and-paste absolute fragments</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-    <section id="api-search-engine" class="section-spacer"
-        style="border-top: 1px solid var(--border-color); position: relative; overflow: hidden;">
-        <div
-            style="position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, transparent 70%); top: 20%; right: -5%; pointer-events: none; filter: blur(60px);">
-        </div>
-
-        <div class="container">
-            <div class="section-header-block text-center" style="margin-bottom: 48px;">
-                <span class="badge-pill-micro">Instant Discovery Hub</span>
-                <h2>Search APIs by Your Requirement</h2>
-                <p>Describe what you need to build in natural language. Our routing core instantly maps your operational
-                    requirements to optimal third-party endpoints.</p>
-            </div>
-
-            <div style="max-width: 960px; margin: 0 auto;">
-
-                <div
-                    style="background-color: var(--bg-surface-primary); border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-bottom: 32px;">
-                    <div style="position: relative; display: flex; align-items: center;">
-                        <i class="fa-solid fa-magnifying-glass"
-                            style="position: absolute; left: 20px; color: var(--text-secondary); font-size: 18px;"></i>
-                        <input type="text" id="apiRequirementSearchInput"
-                            placeholder="e.g., 'Low-latency global credit card checkout' or 'Send transactional verification emails'..."
-                            style="width: 100%; background-color: var(--bg-surface-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 10px; padding: 18px 20px 18px 54px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s;" />
-                        <button onclick="executeRequirementMappingRoute()" class="btn btn-primary"
-                            style="position: absolute; right: 8px; padding: 10px 20px; font-size: 13px; border-radius: 6px;">
-                            Map Endpoints
-                        </button>
-                    </div>
-
-                    <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
-                        <span
-                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">Popular
-                            Specs:</span>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('High-throughput global transactional billing checkout')">Global
-                            Billing</button>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('SMS OTP identity verification and fraud prevention tracking')">SMS
-                            Authentication</button>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('Scalable cloud object ledger logs warehouse storage')">Object
-                            Storage</button>
-                        <button class="requirement-chip"
-                            onclick="fillRequirementQuerySpec('Real-time semantic search language model prompt parsing')">AI
-                            Prompt Synthesis</button>
-                    </div>
-                </div>
-
-                <div id="dynamicRouterDiscoveryGrid" style="display: flex; flex-direction: column; gap: 16px;">
-                </div>
-
-                <div id="routerEmptyStateFeedback"
-                    style="display: none; text-align: center; padding: 48px 24px; border: 1px dashed var(--border-color); border-radius: 12px; background-color: rgba(6,8,12,0.15);">
-                    <i class="fa-solid fa-bezier-curve"
-                        style="font-size: 32px; color: var(--text-muted); margin-bottom: 16px;"></i>
-                    <h4 style="font-size: 16px; font-weight: 600;">No perfect abstraction matrix match found</h4>
-                    <p
-                        style="font-size: 13px; color: var(--text-secondary); max-width: 420px; margin: 4px auto 0 auto;">
-                        Try restructuring your custom operational requirements string or check an alternate architecture
-                        horizontal tab panel.</p>
+                        class="showcase-image-element theme-variant-light">
                 </div>
             </div>
         </div>
     </section>
 
 
-    <section id="sovereignty" class="container">
+
+    <section id="sovereignty" class="container mb-4">
         <div class="compliance-backplate-box">
             <div class="text-center" style="max-width: 720px; margin: 0 auto;">
                 <span class="badge-pill-micro"
@@ -320,624 +225,853 @@
         </div>
     </section>
 
-    <!--==========================================================================
-       MODIFIED API SERVICES WITH REQUEST QUOTE ACTIONS
-       ========================================================================== */ -->
-    <section id="services" class="container section-spacer">
-        <div class="section-header-block text-center">
-            <span class="badge-pill-micro">Orchestration Coverage Matrix</span>
-            <h2>Supported Core API Services Verticals</h2>
-            <p>Scale logic across multiple external providers without expanding structural code bases or dependency configuration structures.</p>
-        </div>
 
-        <div class="services-grid-matrix">
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-envelope"></i></div>
-                    <h3>Email Service APIs</h3>
-                    <p>Transactional delivery structures, pipeline logs optimization, and metadata delivery validation
-                        frameworks.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">SendGrid</span><span
-                            class="provider-micro-tag">Postmark</span><span class="provider-micro-tag">Mailgun</span>
-                    </div>
-                </div>
-                <button onclick="location.href='quote.html'" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"> Request
-                    Quote</button>
+    <section class="container">
+        <div class="api-one-glow-left"></div>
+        <div class="api-one-glow-right"></div>
+
+        <div class="container py-5 position-relative" style="z-index: 5;">
+            <div class="api-one-header text-center mb-5">
+                <span class="badge-pill-micro">
+                    Operational Evolution
+                </span>
+                <h3 style="font-size: 28px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em;">The Problem
+                    vs. The ApiNexus Way</h3>
+                <p class="text-secondary mt-2 fs-6">Hover over each frictionless transformation vector below to see the
+                    architectural upgrade.</p>
             </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-comments"></i></div>
-                    <h3>Messaging Service APIs</h3>
-                    <p>Global baseline SMS relays, cross-region WhatsApp business accounts, and multi-tier network text
-                        alerts.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">Twilio</span><span class="provider-micro-tag">Sinch</span><span
-                            class="provider-micro-tag">Infobip</span>
+
+            <div class="api-one-stack">
+
+                <div class="api-one-card">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div
+                            class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="api-one-meta">
+                                <span class="api-one-tag context">Discovery Phase</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Search Google for endless hours</h4>
+                            </div>
+                            <div class="api-one-marker friction">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="api-one-vector-line"></div>
+                            <div class="api-one-node">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="api-one-marker solution">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="api-one-meta">
+                                <span class="api-one-tag nexus">Instantaneous</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Search one centralized marketplace</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-               <button onclick="location.href='quote.html'" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-credit-card"></i></div>
-                    <h3>Payment Gateway APIs</h3>
-                    <p>Secure global card processing systems, localized checkout matrices, and multi-tier membership
-                        tables.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">Stripe</span><span
-                            class="provider-micro-tag">PayPal</span><span class="provider-micro-tag">Adyen</span>
+
+                <div class="api-one-card">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div
+                            class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="api-one-meta">
+                                <span class="api-one-tag context">Procurement Cost</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Compare pricing across 10 tabs</h4>
+                            </div>
+                            <div class="api-one-marker friction">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="api-one-vector-line"></div>
+                            <div class="api-one-node">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="api-one-marker solution">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="api-one-meta">
+                                <span class="api-one-tag nexus">Data-Driven Matrix</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Side-by-side feature & cost metrics</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-               <button onclick="location.href='quote.html'" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-building-columns"></i></div>
-                    <h3>Open Banking APIs</h3>
-                    <p>Financial ledger synchronization sweeps, asset validation processing, and instant structural ACH
-                        rails.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">Plaid</span><span class="provider-micro-tag">Tink</span><span
-                            class="provider-micro-tag">Yodlee</span>
+
+                <div class="api-one-card">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div
+                            class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="api-one-meta">
+                                <span class="api-one-tag context">Security Debt</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Juggle 5 different auth methods</h4>
+                            </div>
+                            <div class="api-one-marker friction">
+                                <i class="fa-solid fa-key"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="api-one-vector-line"></div>
+                            <div class="api-one-node">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="api-one-marker solution">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="api-one-meta">
+                                <span class="api-one-tag nexus">Unified Control</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Standardized secure guidelines</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-               <button onclick="location.href='quote.html'" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-address-book"></i></div>
-                    <h3>Customer CRM APIs</h3>
-                    <p>Bi-directional profile state synchronization maps, lifecycle funnel tags, and workspace account
-                        data sweeps.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">HubSpot</span><span
-                            class="provider-micro-tag">Salesforce</span><span class="provider-micro-tag">Zoho CRM</span>
+
+                <div class="api-one-card">
+                    <div class="row align-items-center g-3 g-lg-4">
+                        <div
+                            class="col-12 col-md-5 d-flex align-items-center justify-content-start justify-content-md-end gap-3 text-start text-md-end row-reverse-md">
+                            <div class="api-one-meta">
+                                <span class="api-one-tag context">Developer Overhead</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Code boilerplate from scratch</h4>
+                            </div>
+                            <div class="api-one-marker friction">
+                                <i class="fa-solid fa-code-branch"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="col-md-2 d-none d-md-flex justify-content-center align-items-center position-relative h-100 py-2">
+                            <div class="api-one-vector-line"></div>
+                            <div class="api-one-node">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center justify-content-start gap-3 text-start">
+                            <div class="api-one-marker solution">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="api-one-meta">
+                                <span class="api-one-tag nexus">Production-Ready</span>
+                                <h4 class="h6 fw-bold mb-0 mt-1">Copy-and-paste absolute fragments</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-               <button onclick="location.href='quote.html'" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"> Request
-                    Quote</button>
-            </div>
-            <div class="service-vector-card">
-                <div>
-                    <div class="service-icon-frame"><i class="fa-solid fa-cloud"></i></div>
-                    <h3>Cloud Infrastructure APIs</h3>
-                    <p>Server compute instance pooling sweeps, distributed storage bucket arrays, and virtualization
-                        routing nodes.</p>
-                    <div class="provider-tags-shelf">
-                        <span class="provider-micro-tag">AWS Core</span><span class="provider-micro-tag">Google
-                            Cloud</span><span class="provider-micro-tag">DigitalOcean</span>
-                    </div>
-                </div>
-                <button onclick="location.href='quote.html'" class="btn btn-secondary"
-                    style="width:100%; font-size:12px; padding:10px;"> Request
-                    Quote</button>
+
             </div>
         </div>
     </section>
 
 
-    <!--==========================================================================
-THE PARADIGM SHIFT: INTERACTIVE VALUE MATRIX (2026 TREND DESIGN)
-=========================================================================-->
+    <section class="section-spacer" id="about">
+        <div class="container">
 
-    <section id="flow" class="flow-section section-spacer">
+            <div class="text-center mb-5">
+                <span class="badge-pill-micro">About Us</span>
+                <h2 class="fw-bold text-dark mt-2">About ApiNexus</h2>
+                <p class="text-secondary max-width-700 mx-auto mt-2">ApiNexus was built to solve one of the biggest
+                    challenges facing modern organizations: managing a growing ecosystem of APIs, applications, and
+                    business processes.</p>
+            </div>
+
+            <div class="row g-4 align-items-stretch">
+
+                <div class="col-12 col-lg-7">
+                    <div class="about-vector-card main-vision-pane">
+                        <div class="d-flex align-items-start gap-3 mb-4">
+                            <div class="about-icon-frame">
+                                <i class="fa-regular fa-eye"></i>
+                            </div>
+                            <div>
+                                <h3>Our Vision</h3>
+                                <p class="mb-0">To become the central platform where businesses seamlessly connect,
+                                    automate, and scale their digital operations.</p>
+                            </div>
+                        </div>
+
+                        <h4 class="value-title-tag"><i class="fa-regular fa-heart me-2"></i> Our Core Values</h4>
+                        <div class="value-matrix-list">
+                            <div class="value-matrix-item">
+                                <div class="value-check-icon"><i class="fa-solid fa-check"></i></div>
+                                <div><strong>Simplicity</strong> — Complex integrations should be easy to manage.</div>
+                            </div>
+                            <div class="value-matrix-item">
+                                <div class="value-check-icon"><i class="fa-solid fa-check"></i></div>
+                                <div><strong>Reliability</strong> — Business-critical workflows require dependable
+                                    infrastructure.</div>
+                            </div>
+                            <div class="value-matrix-item">
+                                <div class="value-check-icon"><i class="fa-solid fa-check"></i></div>
+                                <div><strong>Security</strong> — Every integration should be protected by
+                                    enterprise-grade security.</div>
+                            </div>
+                            <div class="value-matrix-item">
+                                <div class="value-check-icon"><i class="fa-solid fa-check"></i></div>
+                                <div><strong>Innovation</strong> — Technology should accelerate growth, not create
+                                    obstacles.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-5">
+                    <div class="about-vector-card mission-highlight-pane">
+                        <div class="mb-4">
+                            <div class="about-icon-frame mission-icon">
+                                <i class="fa-regular fa-flag"></i>
+                            </div>
+                            <h3>Our Mission</h3>
+                            <p class="fs-16 text-dark fw-medium lh-base">Help businesses connect systems, automate
+                                operations, and unlock the full value of their technology investments through a unified
+                                integration platform.</p>
+                        </div>
+
+                        <div class="about-quote-box">
+                            <div class="quote-accent-mark">
+                                <i class="fa-solid fa-quote-left"></i>
+                            </div>
+                            <p class="quote-text-string">"ApiNexus is the integration layer that finally makes sense for
+                                modern enterprises."</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-Vertical Abstraction Matrix Area -->
+    <section class="section-spacer vertical-matrix-section">
         <div class="container">
             <div class="section-header-block text-center">
-                <span class="badge-pill-micro">ApiNexus simplifies connectivity</span>
-                <h2>Centralized Hub for Integrations</h2>
-                <p>Instead of spending weeks studying massive documentation libraries and struggling with complex
-                    security setups, we do the heavy lifting for you. We design the infrastructure and give you clean
-                    scripts to drop right into your site.</p>
+                <span class="badge-pill-micro">
+                    Why ApiNexus
+                </span>
+                <h2>Centralize, Automate, and Scale Your Integration Ecosystem</h2>
+                <p>Modern businesses rely on dozens of apps and APIs. ApiNexus provides a unified hub to connect
+                    systems, automate workflows, monitor performance, and grow confidently.</p>
+            </div>
+            <div class="nexus-container" id="nexusContainer">
+                <svg class="svg-lines" id="svgLines">
+                    <defs>
+                        <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#6366f1" />
+                            <stop offset="100%" stop-color="#06b6d4" />
+                        </linearGradient>
+                    </defs>
+                    <path id="path1" class="connection-line" d="" />
+                    <path id="path2" class="connection-line" d="" />
+                    <path id="path3" class="connection-line" d="" />
+                    <path id="path4" class="connection-line" d="" />
+                </svg>
+
+                <div class="node center-hub" id="hub">
+                    <div class="icon-wrapper">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <h2>API Nexus</h2>
+                    <p>The Integration Core</p>
+                </div>
+
+                <div class="node top-left" id="node1">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="9"></rect>
+                            <rect x="14" y="3" width="7" height="5"></rect>
+                            <rect x="14" y="12" width="7" height="9"></rect>
+                            <rect x="3" y="16" width="7" height="5"></rect>
+                        </svg>
+                    </div>
+                    <h3>API Management</h3>
+                    <p>Manage all API connections through one dashboard.</p>
+                </div>
+
+                <div class="node bottom-left" id="node2">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Workflow Automation</h3>
+                    <p>Create automated workflows without complex coding.</p>
+                </div>
+
+                <div class="node top-right" id="node3">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Integration Hub</h3>
+                    <p>Connect internal and third-party applications.</p>
+                </div>
+
+                <div class="node bottom-right" id="node4">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Monitoring & Analytics</h3>
+                    <p>Track performance and detect issues in real time.</p>
+                </div>
             </div>
 
-            <div class="flow-diagram-container">
-                <div class="flow-column inputs">
-                    <div class="flow-node-item">
-                        <div class="flow-node-box"><i class="fa-solid fa-bullseye"></i></div>
-                        <span>Your Goals</span>
-                        <div class="flow-metric-tag">1. Define</div>
-                    </div>
-                    <div class="flow-node-item" style="right: 80px">
-                        <div class="flow-node-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <span>Feature Needs</span>
-                        <div class="flow-metric-tag">2. Match</div>
-                    </div>
-                    <div class="flow-node-item" style="right: 80px">
-                        <div class="flow-node-box"><i class="fa-solid fa-shuffle"></i></div>
-                        <span>Provider Audits</span>
-                        <div class="flow-metric-tag">3. Evaluate</div>
-                    </div>
-                    <div class="flow-node-item">
-                        <div class="flow-node-box"><i class="fa-solid fa-gears"></i></div>
-                        <span>Current Stack</span>
-                        <div class="flow-metric-tag">4. Connect</div>
-                    </div>
-                </div>
-
-                <div class="flow-center-hub">
-                    <div class="hub-ring outer"></div>
-                    <div class="hub-ring mid"></div>
-                    <div class="hub-core-sphere">
-                        <i class="fa-solid fa-circle-nodes"></i>
-                    </div>
-
-                    <svg class="flow-connections-svg" viewBox="0 0 500 400" preserveAspectRatio="none">
-                        <defs>
-                            <linearGradient id="incomingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="var(--border-color)" stop-opacity="0.2" />
-                                <stop offset="100%" stop-color="var(--accent-purple)" />
-                            </linearGradient>
-                            <linearGradient id="outgoingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="var(--accent-purple)" />
-                                <stop offset="100%" stop-color="var(--brand-primary)" />
-                            </linearGradient>
-                        </defs>
-                        <path class="flow-line incoming" d="M 120 40 C 200 40, 200 200, 250 200" />
-                        <path class="flow-line incoming" d="M 120 140 C 180 140, 200 200, 250 200" />
-                        <path class="flow-line incoming" d="M 120 240 C 180 240, 200 200, 250 200" />
-                        <path class="flow-line incoming" d="M 120 340 C 200 340, 200 200, 250 200" />
-                        <path class="flow-line outgoing" d="M 250 200 C 300 200, 300 40, 380 40" />
-                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 320 140, 380 140" />
-                        <path class="flow-line outgoing" d="M 250 200 C 320 200, 320 240, 380 240" />
-                        <path class="flow-line outgoing" d="M 250 200 C 300 200, 300 340, 380 340" />
-                    </svg>
-                </div>
-
-                <div class="flow-column outputs">
-                    <div class="flow-node-item">
-                        <div class="flow-node-box"
-                            style="border-color: var(--accent-purple); color: var(--accent-purple);"><i
-                                class="fa-solid fa-lightbulb"></i></div>
-                        <span>Perfect Vendor</span>
-                        <div class="flow-metric-tag"
-                            style="border-color: var(--accent-purple); color: var(--accent-purple);">Selected</div>
-                    </div>
-                    <div class="flow-node-item" style="left: 80px">
-                        <div class="flow-node-box"
-                            style="border-color: var(--accent-success); color: var(--accent-success);"><i
-                                class="fa-solid fa-handshake-angle"></i></div>
-                        <span>Unified Token</span>
-                        <div class="flow-metric-tag"
-                            style="border-color: var(--accent-success); color: var(--accent-success);">Secure</div>
-                    </div>
-                    <div class="flow-node-item" style="left: 80px">
-                        <div class="flow-node-box" style="border-color: #f59e0b; color: #f59e0b;"><i
-                                class="fa-solid fa-book-open"></i></div>
-                        <span>Drop-In Scripts</span>
-                        <div class="flow-metric-tag" style="border-color: #f59e0b; color: #f59e0b;">Ready</div>
-                    </div>
-                    <div class="flow-node-item">
-                        <div class="flow-node-box" style="border-color: #22d3ee; color: #22d3ee;"><i
-                                class="fa-solid fa-circle-check"></i></div>
-                        <span>Live Tracking</span>
-                        <div class="flow-metric-tag" style="border-color: #22d3ee; color: #22d3ee;">Active</div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
 
 
-<!-- Cross-Vertical Abstraction Matrix Area -->
-<section class="section-spacer vertical-matrix-section">
-    <div class="container">
-        <div class="section-header-block text-center">
-            <span class="badge-pill-micro">Infrastructure Topology</span>
-            <h2>Unified Abstraction Layer</h2>
-            <p>Standardizing fragmented protocol architectures into an isolated token transit bus across all core enterprise domains.</p>
+
+
+    <!-- Cross-Vertical Abstraction Matrix Area -->
+    <section class="section-spacer vertical-matrix-section" id="services">
+        <div class="container">
+            <div class="section-header-block text-center">
+                <span class="badge-pill-micro">Infrastructure Topology</span>
+                <h2>Unified Abstraction Layer</h2>
+                <p>Standardizing fragmented protocol architectures into an isolated token transit bus across all core
+                    enterprise domains.</p>
+            </div>
+
+            <div class="matrix-grid-container">
+
+                <!-- 1. Email Vertical Row -->
+                <div class="matrix-row-card">
+                    <!-- Left Column: Legacy Layer -->
+                    <div class="matrix-col-legacy">
+                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
+                        <h3 class="matrix-column-title">
+                            <i class="fa-solid fa-envelope"></i>Email Service APIs
+                        </h3>
+
+                        <div class="legacy-stack">
+                            <!-- SendGrid -->
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-sendgrid">SG</div>
+                                    <div>
+                                        <h4>SendGrid Core</h4>
+                                        <span class="meta-subtext">Auth: API Key / OAuth2</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">$19.95/mo</span>
+                                    <span class="metric-secondary">~45m Setup</span>
+                                </div>
+                            </div>
+
+                            <!-- Postmark -->
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-postmark">PM</div>
+                                    <div>
+                                        <h4>Postmark Server</h4>
+                                        <span class="meta-subtext">Auth: Server Token</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">$15.00/mo</span>
+                                    <span class="metric-secondary">~30m Setup</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: ApiNexus Unified Engine -->
+                    <div class="matrix-col-unified">
+                        <!-- Inline Header: Badge Left, CTA Right -->
+                        <div class="unified-card-header">
+                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
+                            <a href="details-email.html" class="btn-matrix-explore">Explore <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+
+                        <h3 class="unified-title">Email Service APIs</h3>
+                        <p class="unified-description">
+                            ApiNexus eliminates distinct provider lock-in and syntax disparities. By abstracting
+                            transactional or marketing flows into a uniform token transit path, setups drop
+                            exponentially while reliability surges.
+                        </p>
+
+                        <div class="unified-stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-label">Unified Key Access</span>
+                                <span class="stat-value text-success"><i class="fa-solid fa-key"></i> Single Unified
+                                    Key</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Average Setup Time</span>
+                                <span class="stat-value"><i class="fa-solid fa-bolt text-warning"></i> Less than 5
+                                    Mins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Messaging/SMS Vertical Row -->
+                <div class="matrix-row-card">
+                    <div class="matrix-col-legacy">
+                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
+                        <h3 class="matrix-column-title">
+                            <i class="fa-solid fa-comments"></i> Messaging Service APIs
+                        </h3>
+                        <div class="legacy-stack">
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-twilio">TW</div>
+                                    <div>
+                                        <h4>Twilio Core Engine</h4>
+                                        <span class="meta-subtext">Routing: Manual Fallbacks</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">100 RPS Limit</span>
+                                    <span class="metric-secondary">Dev Handled Fail</span>
+                                </div>
+                            </div>
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-sinch">SI</div>
+                                    <div>
+                                        <h4>Sinch Global Platform</h4>
+                                        <span class="meta-subtext">Routing: Carrier Bindings</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Configurable Base</span>
+                                    <span class="metric-secondary">Soft Fail Hook</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matrix-col-unified">
+                        <div class="unified-card-header">
+                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
+                            <a href="details-messaging.html" class="btn-matrix-explore">Explore <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+
+                        <h3 class="unified-title">Telemetry Dynamic SMS Pipeline</h3>
+                        <p class="unified-description">
+                            ApiNexus unifies edge telecommunication pipes into an uncapped intelligent pool. Features
+                            smart global auto-routing arrays to prevent message delivery disruptions or hardware drops.
+                        </p>
+                        <div class="unified-stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-label">Global Routing Core</span>
+                                <span class="stat-value text-brand"><i class="fa-solid fa-shuffle"></i> Dynamic
+                                    Auto-Route</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Fallback Contingency</span>
+                                <span class="stat-value text-success"><i class="fa-solid fa-shield-heart"></i> Instant
+                                    Failover</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Payment Vertical Row -->
+                <div class="matrix-row-card">
+                    <div class="matrix-col-legacy">
+                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
+                        <h3 class="matrix-column-title">
+                            <i class="fa-solid fa-credit-card"></i> Payment Gateway APIs
+                        </h3>
+                        <div class="legacy-stack">
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-stripe">ST</div>
+                                    <div>
+                                        <h4>Stripe Engine</h4>
+                                        <span class="meta-subtext">Auth: Secret Bearer Key</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Custom Webhooks</span>
+                                    <span class="metric-secondary">PCI Self-Assess</span>
+                                </div>
+                            </div>
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-adyen">AD</div>
+                                    <div>
+                                        <h4>Adyen Matrix</h4>
+                                        <span class="meta-subtext">Auth: Merchant Signature</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Heavy Contracts</span>
+                                    <span class="metric-secondary">Hardware Audits</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matrix-col-unified">
+                        <div class="unified-card-header">
+                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
+                            <a href="details-payment.html" class="btn-matrix-explore">Explore <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+
+                        <h3 class="unified-title">Standardized Clearing Pipeline</h3>
+                        <p class="unified-description">
+                            Achieve automated multi-acquirer load balancing without structural modifications. Secure
+                            multi-region transactions natively inside an isolated cryptographic space.
+                        </p>
+                        <div class="unified-stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-label">Acquirer Balancing</span>
+                                <span class="stat-value text-brand"><i class="fa-solid fa-scale-balanced"></i> Auto Load
+                                    Balance</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Compliance Layer</span>
+                                <span class="stat-value text-purple"><i class="fa-solid fa-vault"></i> FIPS Encrypted
+                                    Vault</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Banking Kernels Row -->
+                <div class="matrix-row-card">
+                    <div class="matrix-col-legacy">
+                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
+                        <h3 class="matrix-column-title">
+                            <i class="fa-solid fa-building-columns"></i>Open Banking APIs
+                        </h3>
+                        <div class="legacy-stack">
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-plaid">PL</div>
+                                    <div>
+                                        <h4>Plaid Network</h4>
+                                        <span class="meta-subtext">Auth: OAuth Redirect</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Poll Intervals</span>
+                                    <span class="metric-secondary">External KYC Loops</span>
+                                </div>
+                            </div>
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-finicity">FI</div>
+                                    <div>
+                                        <h4>Finicity Data</h4>
+                                        <span class="meta-subtext">Auth: Token Exchanges</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Scheduled Batch</span>
+                                    <span class="metric-secondary">Manual Doc Parse</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matrix-col-unified">
+                        <div class="unified-card-header">
+                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
+                            <a href="details-banking.html" class="btn-matrix-explore">Explore <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+
+                        <h3 class="unified-title">Unified Streaming Ledger Kernel</h3>
+                        <p class="unified-description">
+                            ApiNexus unifies core bank ledgers using real-time streaming topologies rather than batch
+                            schedules, protected via direct hardware attestation vaults.
+                        </p>
+                        <div class="unified-stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-label">Synchronicity Model</span>
+                                <span class="stat-value text-success"><i class="fa-solid fa-rotate"></i> Real-Time
+                                    Streaming</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Identity Attestation</span>
+                                <span class="stat-value"><i class="fa-solid fa-microchip"></i> Hardware Shielded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. CRM Data Sync Row -->
+                <div class="matrix-row-card">
+                    <div class="matrix-col-legacy">
+                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
+                        <h3 class="matrix-column-title">
+                            <i class="fa-solid fa-users-gear"></i> Customer CRM APIs
+                        </h3>
+                        <div class="legacy-stack">
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-hubspot">HS</div>
+                                    <div>
+                                        <h4>HubSpot Suite</h4>
+                                        <span class="meta-subtext">Auth: OAuth2 Suite</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Proprietary Schema</span>
+                                    <span class="metric-secondary">Strict Daily Limits</span>
+                                </div>
+                            </div>
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-salesforce">SF</div>
+                                    <div>
+                                        <h4>Salesforce Core</h4>
+                                        <span class="meta-subtext">Auth: Connected Apps</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Apex Object Matrix</span>
+                                    <span class="metric-secondary">Resource Locking</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matrix-col-unified">
+                        <div class="unified-card-header">
+                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
+                            <a href="details-crm.html" class="btn-matrix-explore">Explore <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+
+                        <h3 class="unified-title">Atomic CRM Aggregator Layer</h3>
+                        <p class="unified-description">
+                            ApiNexus utilizes standardized, abstracted JSON mappings back-buffered by high-throughput
+                            edge cache arrays to isolate internal frameworks from standard multi-vendor rate throttles.
+                        </p>
+                        <div class="unified-stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-label">Field Optimization</span>
+                                <span class="stat-value"><i class="fa-solid fa-code"></i> Abstract JSON Map</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Sync Architecture</span>
+                                <span class="stat-value text-brand"><i class="fa-solid fa-cubes"></i> Atomic
+                                    Loops</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Cloud Infrastructure Row -->
+                <div class="matrix-row-card">
+                    <div class="matrix-col-legacy">
+                        <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
+                        <h3 class="matrix-column-title">
+                            <i class="fa-solid fa-cloud"></i> Cloud Infrastructure APIs
+                        </h3>
+                        <div class="legacy-stack">
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-aws">AWS</div>
+                                    <div>
+                                        <h4>AWS Infrastructure</h4>
+                                        <span class="meta-subtext">Auth: Access Key / Secret</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">IAM Identity Paths</span>
+                                    <span class="metric-secondary">Stack Lag: Mins</span>
+                                </div>
+                            </div>
+                            <div class="legacy-provider-card">
+                                <div class="provider-info-group">
+                                    <div class="provider-logo-avatar bg-gcp">GCP</div>
+                                    <div>
+                                        <h4>Google Cloud Engine</h4>
+                                        <span class="meta-subtext">Auth: JSON File Arrays</span>
+                                    </div>
+                                </div>
+                                <div class="provider-metrics">
+                                    <span class="metric-primary">Service Matrices</span>
+                                    <span class="metric-secondary">Container Latency</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matrix-col-unified">
+                        <div class="unified-card-header">
+                            <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
+                            <a href="details-cloud.html" class="btn-matrix-explore">Explore <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+
+                        <h3 class="unified-title">Decoupled Cloud Core Layer</h3>
+                        <p class="unified-description">
+                            ApiNexus abstracts individual provider hypervisor setups into a single secure edge routing
+                            interface, reducing operational orchestration overheads down to millisecond timelines.
+                        </p>
+                        <div class="unified-stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-label">Network Routing</span>
+                                <span class="stat-value text-brand"><i class="fa-solid fa-network-wired"></i> Optimized
+                                    Edge Paths</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Initialization Speed</span>
+                                <span class="stat-value text-success"><i class="fa-solid fa-gauge-high"></i> Sub-second
+                                    Setup</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" id="integrations">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <span class="badge-pill-micro">Integrations</span>
+                <h2 class="fw-bold text-dark mt-2">Connect the Tools You Already Use</h2>
+                <p class="text-secondary max-width-700 mx-auto mt-2">ApiNexus enables seamless integration with business
+                    applications, cloud services, and enterprise platforms.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="integration-vector-card">
+                        <div class="integration-icon-frame">
+                            <i class="fa-solid fa-people-group"></i>
+                        </div>
+                        <h3>CRM Systems</h3>
+                        <p>Connect customer data across sales and support platforms seamlessly.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="integration-vector-card">
+                        <div class="integration-icon-frame">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <h3>Payment Platforms</h3>
+                        <p>Integrate payment gateways and high-frequency transaction services.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="integration-vector-card">
+                        <div class="integration-icon-frame">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3>Communication Tools</h3>
+                        <p>Automate alerts, logging notifications, and core team collaboration.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="integration-vector-card">
+                        <div class="integration-icon-frame">
+                            <i class="fa-solid fa-cloud"></i>
+                        </div>
+                        <h3>Cloud Services</h3>
+                        <p>Connect secure object storage, hosting layers, and multi-cloud infrastructure.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="integration-vector-card">
+                        <div class="integration-icon-frame">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <h3>Enterprise Applications</h3>
+                        <p>Integrate legacy ERP platforms, HR software, and operational databases.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="integration-vector-card action-dashed-card">
+                        <div class="integration-icon-frame action-icon">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </div>
+                        <h3>Build Custom Links</h3>
+                        <p>Utilize flexible APIs and SDK tools for creating tailored pipeline connections.</p>
+                        <a href="#" class="btn btn-primary w-100 mt-2 py-2">Learn More <i
+                                class="fa-solid fa-arrow-right ms-2 small"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="docs-ecosystem" class="container section-spacer"
+        style="border-top: 1px solid var(--border-color); position: relative; overflow: hidden;">
+        <div
+            style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, transparent 70%); bottom: -10%; left: -5%; pointer-events: none; filter: blur(70px);">
         </div>
 
-        <div class="matrix-grid-container">
-            
-            <!-- 1. Email Vertical Row -->
-            <div class="matrix-row-card">
-                <!-- Left Column: Legacy Layer -->
-                <div class="matrix-col-legacy">
-                    <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                    <h3 class="matrix-column-title">
-                        <i class="fa-solid fa-envelope"></i> Legacy Email Channels
-                    </h3>
-                    
-                    <div class="legacy-stack">
-                        <!-- SendGrid -->
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-sendgrid">SG</div>
-                                <div>
-                                    <h4>SendGrid Core</h4>
-                                    <span class="meta-subtext">Auth: API Key / OAuth2</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">$19.95/mo</span>
-                                <span class="metric-secondary">~45m Setup</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Postmark -->
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-postmark">PM</div>
-                                <div>
-                                    <h4>Postmark Server</h4>
-                                    <span class="meta-subtext">Auth: Server Token</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">$15.00/mo</span>
-                                <span class="metric-secondary">~30m Setup</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Right Column: ApiNexus Unified Engine -->
-                <div class="matrix-col-unified">
-                    <!-- Inline Header: Badge Left, CTA Right -->
-                    <div class="unified-card-header">
-                        <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                        <a href="details-email.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <h3 class="unified-title">Abstracted Multi-Provider Email</h3>
-                    <p class="unified-description">
-                        ApiNexus eliminates distinct provider lock-in and syntax disparities. By abstracting transactional or marketing flows into a uniform token transit path, setups drop exponentially while reliability surges.
-                    </p>
-                    
-                    <div class="unified-stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-label">Unified Key Access</span>
-                            <span class="stat-value text-success"><i class="fa-solid fa-key"></i> Single Unified Key</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Average Setup Time</span>
-                            <span class="stat-value"><i class="fa-solid fa-bolt text-warning"></i> Less than 5 Mins</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Messaging/SMS Vertical Row -->
-            <div class="matrix-row-card">
-                <div class="matrix-col-legacy">
-                    <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                    <h3 class="matrix-column-title">
-                        <i class="fa-solid fa-comments"></i> Fragmented SMS Hardware
-                    </h3>
-                    <div class="legacy-stack">
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-twilio">TW</div>
-                                <div>
-                                    <h4>Twilio Core Engine</h4>
-                                    <span class="meta-subtext">Routing: Manual Fallbacks</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">100 RPS Limit</span>
-                                <span class="metric-secondary">Dev Handled Fail</span>
-                            </div>
-                        </div>
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-sinch">SI</div>
-                                <div>
-                                    <h4>Sinch Global Platform</h4>
-                                    <span class="meta-subtext">Routing: Carrier Bindings</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Configurable Base</span>
-                                <span class="metric-secondary">Soft Fail Hook</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="matrix-col-unified">
-                    <div class="unified-card-header">
-                        <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                        <a href="details-messaging.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <h3 class="unified-title">Telemetry Dynamic SMS Pipeline</h3>
-                    <p class="unified-description">
-                        ApiNexus unifies edge telecommunication pipes into an uncapped intelligent pool. Features smart global auto-routing arrays to prevent message delivery disruptions or hardware drops.
-                    </p>
-                    <div class="unified-stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-label">Global Routing Core</span>
-                            <span class="stat-value text-brand"><i class="fa-solid fa-shuffle"></i> Dynamic Auto-Route</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Fallback Contingency</span>
-                            <span class="stat-value text-success"><i class="fa-solid fa-shield-heart"></i> Instant Failover</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. Payment Vertical Row -->
-            <div class="matrix-row-card">
-                <div class="matrix-col-legacy">
-                    <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                    <h3 class="matrix-column-title">
-                        <i class="fa-solid fa-credit-card"></i> Disparate Payment Ledgers
-                    </h3>
-                    <div class="legacy-stack">
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-stripe">ST</div>
-                                <div>
-                                    <h4>Stripe Engine</h4>
-                                    <span class="meta-subtext">Auth: Secret Bearer Key</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Custom Webhooks</span>
-                                <span class="metric-secondary">PCI Self-Assess</span>
-                            </div>
-                        </div>
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-adyen">AD</div>
-                                <div>
-                                    <h4>Adyen Matrix</h4>
-                                    <span class="meta-subtext">Auth: Merchant Signature</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Heavy Contracts</span>
-                                <span class="metric-secondary">Hardware Audits</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="matrix-col-unified">
-                    <div class="unified-card-header">
-                        <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                        <a href="details-payment.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <h3 class="unified-title">Standardized Clearing Pipeline</h3>
-                    <p class="unified-description">
-                        Achieve automated multi-acquirer load balancing without structural modifications. Secure multi-region transactions natively inside an isolated cryptographic space.
-                    </p>
-                    <div class="unified-stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-label">Acquirer Balancing</span>
-                            <span class="stat-value text-brand"><i class="fa-solid fa-scale-balanced"></i> Auto Load Balance</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Compliance Layer</span>
-                            <span class="stat-value text-purple"><i class="fa-solid fa-vault"></i> FIPS Encrypted Vault</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. Banking Kernels Row -->
-            <div class="matrix-row-card">
-                <div class="matrix-col-legacy">
-                    <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                    <h3 class="matrix-column-title">
-                        <i class="fa-solid fa-building-columns"></i> Fragmented Open Banking
-                    </h3>
-                    <div class="legacy-stack">
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-plaid">PL</div>
-                                <div>
-                                    <h4>Plaid Network</h4>
-                                    <span class="meta-subtext">Auth: OAuth Redirect</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Poll Intervals</span>
-                                <span class="metric-secondary">External KYC Loops</span>
-                            </div>
-                        </div>
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-finicity">FI</div>
-                                <div>
-                                    <h4>Finicity Data</h4>
-                                    <span class="meta-subtext">Auth: Token Exchanges</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Scheduled Batch</span>
-                                <span class="metric-secondary">Manual Doc Parse</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="matrix-col-unified">
-                    <div class="unified-card-header">
-                        <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                        <a href="details-banking.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <h3 class="unified-title">Unified Streaming Ledger Kernel</h3>
-                    <p class="unified-description">
-                        ApiNexus unifies core bank ledgers using real-time streaming topologies rather than batch schedules, protected via direct hardware attestation vaults.
-                    </p>
-                    <div class="unified-stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-label">Synchronicity Model</span>
-                            <span class="stat-value text-success"><i class="fa-solid fa-rotate"></i> Real-Time Streaming</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Identity Attestation</span>
-                            <span class="stat-value"><i class="fa-solid fa-microchip"></i> Hardware Shielded</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. CRM Data Sync Row -->
-            <div class="matrix-row-card">
-                <div class="matrix-col-legacy">
-                    <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                    <h3 class="matrix-column-title">
-                        <i class="fa-solid fa-users-gear"></i> Fragmented Customer Objects
-                    </h3>
-                    <div class="legacy-stack">
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-hubspot">HS</div>
-                                <div>
-                                    <h4>HubSpot Suite</h4>
-                                    <span class="meta-subtext">Auth: OAuth2 Suite</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Proprietary Schema</span>
-                                <span class="metric-secondary">Strict Daily Limits</span>
-                            </div>
-                        </div>
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-salesforce">SF</div>
-                                <div>
-                                    <h4>Salesforce Core</h4>
-                                    <span class="meta-subtext">Auth: Connected Apps</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Apex Object Matrix</span>
-                                <span class="metric-secondary">Resource Locking</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="matrix-col-unified">
-                    <div class="unified-card-header">
-                        <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                        <a href="details-crm.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <h3 class="unified-title">Atomic CRM Aggregator Layer</h3>
-                    <p class="unified-description">
-                        ApiNexus utilizes standardized, abstracted JSON mappings back-buffered by high-throughput edge cache arrays to isolate internal frameworks from standard multi-vendor rate throttles.
-                    </p>
-                    <div class="unified-stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-label">Field Optimization</span>
-                            <span class="stat-value"><i class="fa-solid fa-code"></i> Abstract JSON Map</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Sync Architecture</span>
-                            <span class="stat-value text-brand"><i class="fa-solid fa-cubes"></i> Atomic Loops</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. Cloud Infrastructure Row -->
-            <div class="matrix-row-card">
-                <div class="matrix-col-legacy">
-                    <span class="badge-pill-micro legacy-badge">Legacy Layer</span>
-                    <h3 class="matrix-column-title">
-                        <i class="fa-solid fa-cloud"></i> Multi-Cloud Infrastructure
-                    </h3>
-                    <div class="legacy-stack">
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-aws">AWS</div>
-                                <div>
-                                    <h4>AWS Infrastructure</h4>
-                                    <span class="meta-subtext">Auth: Access Key / Secret</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">IAM Identity Paths</span>
-                                <span class="metric-secondary">Stack Lag: Mins</span>
-                            </div>
-                        </div>
-                        <div class="legacy-provider-card">
-                            <div class="provider-info-group">
-                                <div class="provider-logo-avatar bg-gcp">GCP</div>
-                                <div>
-                                    <h4>Google Cloud Engine</h4>
-                                    <span class="meta-subtext">Auth: JSON File Arrays</span>
-                                </div>
-                            </div>
-                            <div class="provider-metrics">
-                                <span class="metric-primary">Service Matrices</span>
-                                <span class="metric-secondary">Container Latency</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="matrix-col-unified">
-                    <div class="unified-card-header">
-                        <span class="badge-pill-micro unified-badge">ApiNexus Unified Line</span>
-                        <a href="details-cloud.html" class="btn-matrix-explore">Explore <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <h3 class="unified-title">Decoupled Cloud Core Layer</h3>
-                    <p class="unified-description">
-                        ApiNexus abstracts individual provider hypervisor setups into a single secure edge routing interface, reducing operational orchestration overheads down to millisecond timelines.
-                    </p>
-                    <div class="unified-stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-label">Network Routing</span>
-                            <span class="stat-value text-brand"><i class="fa-solid fa-network-wired"></i> Optimized Edge Paths</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Initialization Speed</span>
-                            <span class="stat-value text-success"><i class="fa-solid fa-gauge-high"></i> Sub-second Setup</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section id="docs-ecosystem" class="container section-spacer" style="border-top: 1px solid var(--border-color); position: relative; overflow: hidden;">
-        <div style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, transparent 70%); bottom: -10%; left: -5%; pointer-events: none; filter: blur(70px);"></div>
-        
         <div class="row align-items-center g-5">
             <div class="col-12 col-lg-6">
                 <div class="pe-0 pe-lg-4">
-                    <span class="badge-pill-micro mb-3" style="color: var(--accent-purple); background-color: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.2);">
+                    <span class="badge-pill-micro mb-3"
+                        style="color: var(--accent-purple); background-color: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.2);">
                         Unified Gateway Layer
                     </span>
-                    <h2 class="h1 fw-extrabold tracking-tight" style="font-size: 38px; line-height: 1.2; margin-bottom: 20px; color: var(--text-primary);">
-                        Anyone can integrate <br><span style="background: linear-gradient(to right, var(--brand-primary), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">any third-party API</span>
+                    <h2 class="h1 fw-extrabold tracking-tight"
+                        style="font-size: 38px; line-height: 1.2; margin-bottom: 20px; color: var(--text-primary);">
+                        Anyone can integrate <br><span
+                            style="background: linear-gradient(to right, var(--brand-primary), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Any
+                            third-party API</span>
                     </h2>
                     <p class="fs-6 mb-4" style="line-height: 1.7; max-width: 520px; color: var(--text-secondary);">
-                        Stop spending months configuring conflicting endpoints. With ApiNexus, integrating any provider is a simple <strong>one-click deployment</strong>—just copy, paste, and run your unified code string.
+                        Stop spending months configuring conflicting endpoints. With ApiNexus, integrating any provider
+                        is a simple <strong>one-click deployment</strong>—just copy, paste, and run your unified code
+                        string.
                     </p>
-                    
+
                     <div class="d-flex flex-column gap-3 mb-5" style="font-size: 14px; color: var(--text-secondary);">
                         <div class="d-flex align-items-center gap-3">
-                            <span class="d-flex align-items-center justify-content-center rounded-circle" style="width: 24px; height: 24px; background: rgba(16, 185, 129, 0.1); color: var(--accent-success); font-size: 12px;"><i class="fa-solid fa-bolt"></i></span>
-                            <span><strong>One-Click Translation:</strong> Instantly switch providers with zero code modifications.</span>
+                            <span class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="width: 24px; height: 24px; background: rgba(16, 185, 129, 0.1); color: var(--accent-success); font-size: 12px;"><i
+                                    class="fa-solid fa-bolt"></i></span>
+                            <span><strong>One-Click Translation:</strong> Instantly switch providers with zero code
+                                modifications.</span>
                         </div>
                         <div class="d-flex align-items-center gap-3">
-                            <span class="d-flex align-items-center justify-content-center rounded-circle" style="width: 24px; height: 24px; background: rgba(16, 185, 129, 0.1); color: var(--accent-success); font-size: 12px;"><i class="fa-solid fa-copy"></i></span>
-                            <span><strong>Pure Copy & Paste:</strong> Native SDK blocks ready out-of-the-box for all 8 core stacks.</span>
+                            <span class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="width: 24px; height: 24px; background: rgba(16, 185, 129, 0.1); color: var(--accent-success); font-size: 12px;"><i
+                                    class="fa-solid fa-copy"></i></span>
+                            <span><strong>Pure Copy & Paste:</strong> Native SDK blocks ready out-of-the-box for all 8
+                                core stacks.</span>
                         </div>
                     </div>
 
                     <div class="d-flex flex-wrap align-items-center gap-3">
-                        <a href="#docs" class="btn btn-primary px-4 py-3" style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em;">
+                        <a href="#docs" class="btn btn-primary px-4 py-3"
+                            style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em;">
                             <i class="fa-solid fa-paste me-2" style="font-size: 11px;"></i> Grab Integration Snippet
                         </a>
-                        <a href="https://github.com" target="_blank" class="btn btn-secondary px-4 py-3 border" style="font-size: 13px;">
+                        <a href="https://github.com" target="_blank" class="btn btn-secondary px-4 py-3 border"
+                            style="font-size: 13px;">
                             <i class="fa-brands fa-github me-2"></i> Explore SDK Repositories
                         </a>
                     </div>
@@ -946,41 +1080,62 @@ THE PARADIGM SHIFT: INTERACTIVE VALUE MATRIX (2026 TREND DESIGN)
 
             <div class="col-12 col-lg-6">
                 <div class="position-relative d-flex align-items-center justify-content-center">
-                    
-                    <div style="position: absolute; width: 100%; height: 100%; border: 1px dashed var(--border-color); opacity: 0.4; border-radius: 20px; transform: scale(1.05); pointer-events: none;"></div>
-                    
-                    <div style="background: var(--bg-surface-primary); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; padding: 24px; z-index: 2; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
-                        <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom" style="border-color: var(--border-color);">
+
+                    <div
+                        style="position: absolute; width: 100%; height: 100%; border: 1px dashed var(--border-color); opacity: 0.4; border-radius: 20px; transform: scale(1.05); pointer-events: none;">
+                    </div>
+
+                    <div
+                        style="background: var(--bg-surface-primary); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; padding: 24px; z-index: 2;">
+                        <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom"
+                            style="border-color: var(--border-color);">
                             <div class="d-flex align-items-center gap-2">
-                                <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background: #ef4444;"></span>
-                                <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background: #f59e0b;"></span>
-                                <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background: #10b981;"></span>
-                                <span class="ms-2 text-secondary" style="font-family: 'JetBrains Mono'; font-size: 11px;">nexus_one_click.js</span>
+                                <span class="d-inline-block rounded-circle"
+                                    style="width: 10px; height: 10px; background: #ef4444;"></span>
+                                <span class="d-inline-block rounded-circle"
+                                    style="width: 10px; height: 10px; background: #f59e0b;"></span>
+                                <span class="d-inline-block rounded-circle"
+                                    style="width: 10px; height: 10px; background: #10b981;"></span>
+                                <span class="ms-2 text-secondary"
+                                    style="font-family: 'JetBrains Mono'; font-size: 11px;">nexus_one_click.js</span>
                             </div>
-                            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); font-size: 11px; font-family: 'JetBrains Mono'; font-weight: 600;"> Ready to Paste</span>
+                            <span class="badge"
+                                style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); font-size: 11px; font-family: 'JetBrains Mono'; font-weight: 600;">
+                                Ready to Paste</span>
                         </div>
-                        
-                        <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6; color: var(--text-primary); overflow-x: auto;">
+
+                        <div
+                            style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6; color: var(--text-primary); overflow-x: auto;">
                             <span style="color: #64748b;">// 1. Paste your unified ApiNexus instance layout</span><br>
-                            <span style="color: #f43f5e;">import</span> { ApiNexusRegistry } <span style="color: #f43f5e;">from</span> <span style="color: #10b981;">'@apinexus/node-core'</span>;<br><br>
-                            
-                            <span style="color: #f43f5e;">const</span> bridge = <span style="color: #f43f5e;">new</span> <span style="color: #3b82f6;">ApiNexusRegistry</span>({ token: process.env.<span style="color: #eab308;">NEXUS_KEY</span> });<br><br>
-                            
-                            <span style="color: #64748b;">// 2. Click once to map any 3rd party (e.g., Stripe, Twilio, SendGrid)</span><br>
-                            <span style="color: #f43f5e;">await</span> bridge.<span style="color: #3b82f6;">connectThirdParty</span>({<br>
+                            <span style="color: #f43f5e;">import</span> { ApiNexusRegistry } <span
+                                style="color: #f43f5e;">from</span> <span
+                                style="color: #10b981;">'@apinexus/node-core'</span>;<br><br>
+
+                            <span style="color: #f43f5e;">const</span> bridge = <span style="color: #f43f5e;">new</span>
+                            <span style="color: #3b82f6;">ApiNexusRegistry</span>({ token: process.env.<span
+                                style="color: #eab308;">NEXUS_KEY</span> });<br><br>
+
+                            <span style="color: #64748b;">// 2. Click once to map any 3rd party (e.g., Stripe, Twilio,
+                                SendGrid)</span><br>
+                            <span style="color: #f43f5e;">await</span> bridge.<span
+                                style="color: #3b82f6;">connectThirdParty</span>({<br>
                             &nbsp;&nbsp;provider: <span style="color: #10b981;">"target_vendor_endpoint"</span>,<br>
                             &nbsp;&nbsp;failoverRouting: <span style="color: #eab308;">true</span><br>
                             });
                         </div>
                     </div>
 
-                    <div style="position: absolute; right: -20px; top: -40px; background: #2563eb; color: white; padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(37,99,235,0.3); z-index: 3; font-family: 'Plus Jakarta Sans'; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                    <div
+                        style="position: absolute; right: -20px; top: -40px; background: #2563eb; color: white; padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(37,99,235,0.3); z-index: 3; font-family: 'Plus Jakarta Sans'; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
                         <i class="fa-solid fa-arrow-pointer-minify"></i> 1-Click Connect Active
                     </div>
 
-                    <div class="border" style="position: absolute; left: -25px; bottom: -45px; background: var(--bg-surface-primary); color: var(--text-primary); border-color: var(--border-color); padding: 12px 18px; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.3); z-index: 3; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                    <div class="border"
+                        style="position: absolute; left: -25px; bottom: -45px; background: var(--bg-surface-primary); color: var(--text-primary); border-color: var(--border-color); padding: 12px 18px; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.3); z-index: 3; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
                         <i class="fa-solid fa-code text-primary" style="font-size: 16px;"></i>
-                        <span>Unified Abstraction Layer <br><small class="text-secondary" style="font-weight: 400; font-size: 11px;">Replaces 100+ separate API docs</small></span>
+                        <span>Unified Abstraction Layer <br><small class="text-secondary"
+                                style="font-weight: 400; font-size: 11px;">Replaces 100+ separate API
+                                docs</small></span>
                     </div>
 
                 </div>
@@ -988,91 +1143,32 @@ THE PARADIGM SHIFT: INTERACTIVE VALUE MATRIX (2026 TREND DESIGN)
         </div>
     </section>
 
-    <section id="lab" class="container section-spacer">
-        <div class="section-header-block text-center">
-            <span class="badge-pill-micro">Live Request Abstraction Desk</span>
-            <h2>Ecosystem Interconnection Core Studio</h2>
-            <p>Select an API vertical class. Watch the structural selection array parse options directly across all 21
-                system endpoints.</p>
+
+
+
+    <section class="section-spacer text-center position-relative overflow-hidden"
+        style="padding: 100px 0; background: #0f172a; color: white;">
+        <div
+            style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); bottom: -20%; left: 50%; transform: translateX(-50%); pointer-events: none; filter: blur(60px);">
         </div>
-
-        <div class="console-workspace-deck">
-            <div class="control-panel-box">
-                <div>
-                    <div class="input-control-group">
-                        <label>1. API Active Service Vertical Category</label>
-                        <select id="routeSelectField" class="custom-select-element">
-                            <option value="email"> Transactional Email Services</option>
-                            <option value="messaging"> Global Channel Messaging Alerts</option>
-                            <option value="payments"> Multi-Vendor Payment Gateways</option>
-                            <option value="banking"> Secure Open Banking Ledgers</option>
-                            <option value="crm"> Enterprise Customer CRM Suites</option>
-                            <option value="ai"> Distributed Neural AI Prompts</option>
-                            <option value="cloud"> Cloud Virtualization Clusters</option>
-                        </select>
-                    </div>
-
-                    <div class="input-control-group">
-                        <label>2. Downstream Provider Abstraction Target</label>
-                        <select id="downstreamDropdownField" class="custom-select-element"
-                            style="text-transform: capitalize;"></select>
-                    </div>
-
-                    <div class="input-control-group slider-wrapper-row">
-                        <div class="slider-labels-row">
-                            <span
-                                style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 11px;">Simulated
-                                Operation Velocity</span>
-                            <span id="sliderValueText"
-                                style="font-family: 'JetBrains Mono'; color: var(--brand-primary);">4,500 calls /
-                                min</span>
-                        </div>
-                        <input type="range" id="volSimulationSlider" min="500" max="30000" step="500" value="4500"
-                            class="native-slider-bar">
-                    </div>
-                </div>
-
-                <button onclick="triggerExecutionSimulationTrace()" class="btn btn-primary"
-                    style="width: 100%; margin-top: 32px; letter-spacing: 0.02em; text-transform: uppercase; font-size: 12px; padding: 15px;">
-                    <i class="fa-solid fa-play" style="font-size: 10px;"></i> Dispatch Telemetry Transaction Sequence
-                </button>
-            </div>
-
-            <div class="ide-terminal-window">
-                <div class="ide-header-tabs-bar">
-                    <div class="window-dots-cluster">
-                        <span class="dot-node red"></span><span class="dot-node amber"></span><span
-                            class="dot-node green"></span>
-                    </div>
-                    <div style="display: flex; gap: 16px; align-items: center;">
-                        <div class="stack-pill-switcher">
-                            <button onclick="updateActiveStackSlot('node')" id="stackBtnNode"
-                                class="stack-pill-btn active">Node.js</button>
-                            <button onclick="updateActiveStackSlot('python')" id="stackBtnPy"
-                                class="stack-pill-btn">Python</button>
-                        </div>
-                        <span id="extensionLabelSlot"
-                            style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-muted)">nexus_core.js</span>
-                    </div>
-                </div>
-
-                <div class="ide-panes-split-grid">
-                    <div class="terminal-panel-pane upper">
-                        <div class="pane-descriptor-tag">// Instantiated Abstract Configuration Code Snippet Blueprint
-                            Layout</div>
-                        <pre id="codePayloadCanvas"
-                            style="color: var(--text-primary); line-height: 1.6; white-space: pre-wrap;"></pre>
-                    </div>
-                    <div class="terminal-panel-pane lower">
-                        <div class="pane-descriptor-tag">// Encrypted Edge Gateway Tunnel Verification Telemetry Streams
-                        </div>
-                        <pre id="telemetryTerminalLogs"
-                            class="log-stream-line">System gateway connection matrix structural layer authenticated. Select pipeline attributes and trigger runtime tracking algorithms...</pre>
-                    </div>
-                </div>
+        <div class="container position-relative" style="z-index: 5;">
+            <h2 class="display-4 fw-extrabold text-white tracking-tight mb-2" style="letter-spacing: -0.03em;">Ready to
+                Simplify Your Integration Ecosystem?</h2>
+            <p class="text-secondary fs-6 mx-auto mb-4 pb-2" style="max-width: 640px; color: #94a3b8 !important;">
+                Stop managing disconnected configuration arrays and start building a unified infrastructure strategy.
+                Connect channels, automate logical loops, track delays, and expand seamlessly.
+            </p>
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                <a href="login.html" class="btn btn-primary px-4 py-3 shadow-sm"
+                    style="font-weight: 600; border-radius: 10px; background: #2563eb; border: none;"><i
+                        class="fa-solid fa-circle-arrow-right me-2"></i>Get Started Today</a>
+                <a href="quote.html" class="btn btn-outline-light px-4 py-3"
+                    style="font-weight: 600; border-radius: 10px;"><i class="fa-solid fa-headset me-2"></i>Request a
+                    Demo</a>
             </div>
         </div>
     </section>
+
 
     <div id="verticalDetailModal" class="vertical-modal-overlay" style="display: none;">
         <div class="vertical-modal-content">
@@ -1084,7 +1180,9 @@ THE PARADIGM SHIFT: INTERACTIVE VALUE MATRIX (2026 TREND DESIGN)
 
 
 
-      <button class="universal-to-top-launcher position-fixed border d-flex align-items-center justify-content-center rounded-circle shadow" id="scrollTopBtn" onclick="scrollToTop()">
+    <button
+        class="universal-to-top-launcher position-fixed border d-flex align-items-center justify-content-center rounded-circle shadow"
+        id="scrollTopBtn" onclick="scrollToTop()">
         <i class="fa-solid fa-jet-fighter-up"></i>
     </button>
 
@@ -1096,18 +1194,42 @@ THE PARADIGM SHIFT: INTERACTIVE VALUE MATRIX (2026 TREND DESIGN)
                     <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
                 </div>
 
-                <span>© 2026 Aparajayah Technologies</span>
+
             </div>
             <div class="footer-links-cluster">
-                <a href="#" class="footer-link-node">Security Whitepaper</a>
-                <a href="#" class="footer-link-node">Data Rights Charter</a>
-                <a href="#" class="footer-link-node">Ecosystem Registry Status Log</a>
+                <span>© 2026 Aparajayah Technologies</span>
             </div>
         </div>
     </footer>
 
     <script src="assets/script.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function drawLines() {
+            const container = document.getElementById('nexusContainer');
+            const hub = document.getElementById('hub').getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+
+            const hubX = (hub.left + hub.width / 2) - containerRect.left;
+            const hubY = (hub.top + hub.height / 2) - containerRect.top;
+
+            for (let i = 1; i <= 4; i++) {
+                const node = document.getElementById(`node${i}`).getBoundingClientRect();
+                const path = document.getElementById(`path${i}`);
+
+                const nodeX = (node.left + node.width / 2) - containerRect.left;
+                const nodeY = (node.top + node.height / 2) - containerRect.top;
+
+                const controlX = (hubX + nodeX) / 2;
+                const dString = `M ${hubX} ${hubY} C ${controlX} ${hubY}, ${controlX} ${nodeY}, ${nodeX} ${nodeY}`;
+
+                path.setAttribute('d', dString);
+            }
+        }
+
+        window.addEventListener('load', drawLines);
+        window.addEventListener('resize', drawLines);
+    </script>
 </body>
 
 </html>

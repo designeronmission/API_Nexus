@@ -108,110 +108,16 @@
         };
 
         // UI Light/Dark Custom Controller Module Logic
-        const masterThemeBtn = document.getElementById('masterThemeBtn');
         const themeIconSlot = document.getElementById('themeIconSlot');
         const themeLabelText = document.getElementById('themeLabelText');
         const htmlNodeTagElement = document.documentElement;
 
-        masterThemeBtn.addEventListener('click', () => {
-            if (configurationSystemState.activeTheme === "dark") {
-                configurationSystemState.activeTheme = "light";
-                htmlNodeTagElement.setAttribute('data-theme', 'light');
-                themeIconSlot.className = "fa-solid fa-sun";
-                themeLabelText.textContent = "";
-            } else {
-                configurationSystemState.activeTheme = "dark";
-                htmlNodeTagElement.setAttribute('data-theme', 'dark');
-                themeIconSlot.className = "fa-solid fa-moon";
-                themeLabelText.textContent = "";
-            }
-        });
 
 
 
-        // Laboratory Testing Console Framework Control Core Systems Elements
-        const routeSelectField = document.getElementById('routeSelectField');
-        const downstreamDropdownField = document.getElementById('downstreamDropdownField');
-        const volSlider = document.getElementById('volSimulationSlider');
-        const sliderLabel = document.getElementById('sliderValueText');
-        const codeCanvas = document.getElementById('codePayloadCanvas');
-        const terminalLogs = document.getElementById('telemetryTerminalLogs');
 
-        function rebuildDropdownOptionsArrayDeck(categoryKey) {
-            const approvedVendorsList = databaseServiceProvidersRegistry[categoryKey];
-            downstreamDropdownField.innerHTML = "";
-            
-            approvedVendorsList.forEach((vendor) => {
-                const opt = document.createElement('option');
-                opt.value = vendor;
-                opt.textContent = ` Proxy Tunnel Router Source Edge ── ${vendor}`;
-                downstreamDropdownField.appendChild(opt);
-            });
-            syncTerminalCodeDisplayCanvas();
-        }
+      
 
-        function syncTerminalCodeDisplayCanvas() {
-            const pickedCategory = routeSelectField.value;
-            const activeStack = configurationSystemState.activeStack;
-            const pickedVendor = downstreamDropdownField.value || "unknown";
-            
-            let sourceStringTemplate = matrixCodeBlueprintsDataset[activeStack][pickedCategory];
-            sourceStringTemplate = sourceStringTemplate.replace("{{PROVIDER}}", pickedVendor);
-            
-            codeCanvas.innerHTML = sourceStringTemplate;
-            document.getElementById('extensionLabelSlot').textContent = activeStack === 'node' ? 'nexus_core.js' : 'nexus_core.py';
-        }
-
-        function updateActiveStackSlot(stackKey) {
-            configurationSystemState.activeStack = stackKey;
-            const btnNode = document.getElementById('stackBtnNode');
-            const btnPy = document.getElementById('stackBtnPy');
-            
-            if (stackKey === 'node') {
-                btnNode.classList.add('active');
-                btnPy.classList.remove('active');
-            } else {
-                btnPy.classList.add('active');
-                btnNode.classList.remove('active');
-            }
-            syncTerminalCodeDisplayCanvas();
-        }
-
-        // Connect Event Interaction Handlers Mappings
-        routeSelectField.addEventListener('change', (e) => rebuildDropdownOptionsArrayDeck(e.target.value));
-        downstreamDropdownField.addEventListener('change', () => syncTerminalCodeDisplayCanvas());
-        volSlider.addEventListener('input', (e) => {
-            sliderLabel.textContent = `${Number(e.target.value).toLocaleString()} calls / min`;
-        });
-
-        // Real-Time Diagnostic Execution Matrix Generation Logger Simulator Loop Routine
-        function triggerExecutionSimulationTrace() {
-            const currentRouteClassId = routeSelectField.value;
-            const parsedVendorTargetId = downstreamDropdownField.value || "unknown";
-            const currentPacketDensityValue = Number(volSlider.value).toLocaleString();
-            const randomlyComputedLatencyMetric = Math.floor(Math.random() * 24) + 8;
-            
-            terminalLogs.textContent = `[TRANSACTION LOOP INITIALIZED] Scanning structural verification checksum arrays for dynamic parameters verification...\n`;
-            
-            setTimeout(() => {
-                terminalLogs.textContent += `[EDGE DEPLOYMENT MATCHED] Extracted active context credentials. Encapsulating private authentication keys safely inside HSM envelopes...\n`;
-            }, 180);
-
-            setTimeout(() => {
-                terminalLogs.textContent += `[ROUTING PIPELINE ACTIVE] Relaying unified structural query variables down target endpoint data lines...\n`;
-            }, 420);
-
-            setTimeout(() => {
-                terminalLogs.textContent += `\n==================================================================================================\n`;
-                terminalLogs.textContent += `➔ INCOMING GATEWAY HTTP CODE : 200 SUCCESS STATUS CLEAR\n`;
-                terminalLogs.textContent += `➔ CORE SYSTEM ROUTE ENDPOINT : api.apinexus.engine/v1/gateway/orchestrate/${currentRouteClassId}\n`;
-                terminalLogs.textContent += `➔ DELEGATED PROCESSING NODE  : isolation-vault://secure-hardware-module-fips/${parsedVendorTargetId}\n`;
-                terminalLogs.textContent += `➔ PIPELINE PACKET FLUX LOAD  : Real-time traffic parsing running smooth at ${currentPacketDensityValue} ops / minute\n`;
-                terminalLogs.textContent += `➔ COMPUTED EDGE PROXY CYCLE  : Operational bus latency tracked at ${randomlyComputedLatencyMetric}ms (99.998% Data Integrity Metric Pass)\n`;
-                terminalLogs.textContent += `==================================================================================================\n`;
-                terminalLogs.textContent += `\n>> Active integration telemetry pipeline trace tracking complete. Edge proxy structures standing by in loop parameters.`;
-            }, 750);
-        }
 
         /* ==========================================================================
            NEW FUNCTIONS: NAVIGATION AND SIMULATED DISPATCH FOR REQUEST QUOTE
@@ -250,11 +156,28 @@
         }
 
         // Baseline Document Activation Hooks Mount
-        window.onload = () => {
-            drawTargetPersonaLayoutView('dev');
-            rebuildDropdownOptionsArrayDeck('email');
-        };
-
+// Baseline Document Activation Hooks Mount
+window.onload = () => {
+    // If you kept the persona layout switcher, invoke it safely
+    if (typeof drawTargetPersonaLayoutView === "function") {
+        drawTargetPersonaLayoutView('dev');
+    }
+    
+    // Global parsed query checks for the separate service-list template
+    const parsedTokenQuery = parseTargetSearchQueryParameter();
+    const resultInput = document.getElementById('liveResultsModifierInput');
+    const resultTitle = document.getElementById('resultsTitleText');
+    
+    if (resultInput && resultTitle) {
+        if (parsedTokenQuery) {
+            resultInput.value = parsedTokenQuery;
+            resultTitle.textContent = `Matches for "${parsedTokenQuery}"`;
+        } else {
+            resultTitle.textContent = 'Mapped Core Matrices';
+        }
+        buildRenderedServicesListView();
+    }
+};
         // Interactive Scroll Parallax for Dashboard Mockup
         window.addEventListener('scroll', () => {
             const dashboard = document.getElementById('parallaxDashboard');
@@ -586,24 +509,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('resultsTitleText').textContent = textValue ? `Matches for "${textValue}"` : 'Mapped Core Matrices';
                 buildRenderedServicesListView();
             });
-
-            // Production Sync theme color loop logic
-            const masterThemeBtn = document.getElementById('masterThemeBtn');
-            const themeIconSlot = document.getElementById('themeIconSlot');
-            const themeLabelText = document.getElementById('themeLabelText');
-
-            masterThemeBtn.addEventListener('click', () => {
-                const activeState = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', activeState);
-                
-                if (activeState === 'light') {
-                    themeIconSlot.className = 'fa-solid fa-sun';
-                    themeLabelText.textContent = 'Light IDE Mode';
-                } else {
-                    themeIconSlot.className = 'fa-solid fa-moon';
-                    themeLabelText.textContent = 'Dark IDE Mode';
-                }
-            });
         };
 
 
@@ -837,4 +742,50 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-        
+    
+ // ===== MEGA MENU - PERFECT HOVER WITH BRIDGE =====
+  // Track which nav item is currently active
+  let activeNavItem = null;
+
+  document.querySelectorAll('.mega-nav-item').forEach(item => {
+    // When mouse enters the nav item, set active
+    item.addEventListener('mouseenter', function() {
+      // Remove active from all
+      document.querySelectorAll('.mega-nav-item').forEach(el => el.classList.remove('active-nav'));
+      this.classList.add('active-nav');
+      activeNavItem = this;
+    });
+  });
+
+  // Handle dropdown hover to keep active state
+  document.querySelectorAll('.mega-dropdown').forEach(drop => {
+    drop.addEventListener('mouseenter', function() {
+      // Find parent nav item and keep it active
+      const parentItem = this.closest('.mega-nav-item');
+      if (parentItem) {
+        document.querySelectorAll('.mega-nav-item').forEach(el => el.classList.remove('active-nav'));
+        parentItem.classList.add('active-nav');
+        activeNavItem = parentItem;
+      }
+    });
+  });
+
+  // Handle when mouse leaves nav completely
+  document.addEventListener('mouseover', function(e) {
+    const nav = document.querySelector('.mega-nav');
+    const isInNav = nav?.contains(e.target);
+    const isInDropdown = e.target.closest?.('.mega-dropdown');
+    
+    // If mouse is not in nav or dropdown, remove all active
+    if (!isInNav && !isInDropdown) {
+      // Check if we're moving to something outside
+      setTimeout(() => {
+        const navHover = document.querySelector('.mega-nav:hover');
+        const dropHover = document.querySelector('.mega-dropdown:hover');
+        if (!navHover && !dropHover) {
+          document.querySelectorAll('.mega-nav-item').forEach(el => el.classList.remove('active-nav'));
+          activeNavItem = null;
+        }
+      }, 50);
+    }
+  });

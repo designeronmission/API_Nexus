@@ -20,25 +20,136 @@
         PRODUCTION GATEWAY SECURED: Enterprise Client Deployment Framework Active
     </div>
 
-     <header class="site-header">
+      <header class="site-header">
         <div class="container">
             <div class="header-wrapper">
+
                 <div class="logo-block">
                     <img src="images/logo-dark.svg" alt="logo" class="logo-main logo-dark-variant">
                     <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
                 </div>
 
-                <nav class="nav-links-shelf">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="#services" class="nav-link">API Verticals</a>
-                    <a href="#lab" class="nav-link">Integration Sandbox</a>
-                   <a href="document.html" class="nav-link">Documents</a>
-                    <a href="#quote-desk" class="nav-link">Request a Quote</a>
+                <nav class="mega-nav">
+                    <!-- Products --> <a href="index.html" class="mega-nav-item" style="text-decoration:none;">Home</a>
+                    <div class="mega-nav-item" data-menu="products">
+                        Products <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown">
+                            <div>
+                                <h4>Platform</h4>
+                                <a href="#">API Management</a>
+                                <a href="#">Integration Hub</a>
+                                <a href="#">Authentication</a>
+                                <a href="#">API Gateway</a>
+                            </div>
+                            <div>
+                                <h4>Automation</h4>
+                                <a href="#">Workflow Builder</a>
+                                <a href="#">Event Triggers</a>
+                                <a href="#">Scheduled Workflows</a>
+                                <a href="#">Business Automation</a>
+                            </div>
+                            <div>
+                                <h4>Operations</h4>
+                                <a href="#">Monitoring &amp; Analytics</a>
+                                <a href="#">Alerts &amp; Notifications</a>
+                                <a href="#">Activity Logs</a>
+                                <a href="#">Performance Insights</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong>ApiNexus Platform</strong> — One Platform. Infinite
+                                    Integrations.</span>
+                                <a href="#">Explore Platform →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Solutions -->
+                    <div class="mega-nav-item" data-menu="solutions">
+                        Solutions <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:600px;">
+                            <div>
+                                <h4>By Team</h4>
+                                <a href="#">Developers</a>
+                                <a href="#">Operations Teams</a>
+                                <a href="#">IT Administrators</a>
+                                <a href="#">Product Teams</a>
+                            </div>
+                            <div>
+                                <h4>By Business</h4>
+                                <a href="#">Startups</a>
+                                <a href="#">SMBs</a>
+                                <a href="#">Enterprises</a>
+                                <a href="#">SaaS Companies</a>
+                            </div>
+                            <div>
+                                <h4>Use Cases</h4>
+                                <a href="#">API Ecosystem</a>
+                                <a href="#">Workflow Automation</a>
+                                <a href="#">Data Sync</a>
+                                <a href="#">Enterprise Integrations</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Customer Success</strong> See how businesses streamline
+                                    operations.</span>
+                                <a href="#">View Case Studies →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Developers -->
+                    <div class="mega-nav-item" data-menu="developers">
+                        Developers <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:550px;">
+                            <div>
+                                <h4>Documentation</h4>
+                                <a href="#">Getting Started</a>
+                                <a href="#">API Reference</a>
+                                <a href="#">Authentication Guide</a>
+                                <a href="#">Tutorials</a>
+                            </div>
+                            <div>
+                                <h4>Tools</h4>
+                                <a href="#">API Explorer</a>
+                                <a href="#">Sandbox</a>
+                                <a href="#">SDK Downloads</a>
+                                <a href="#">Webhooks</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Developer Hub</strong> Comprehensive docs &amp; resources.</span>
+                                <a href="#">Open Documentation →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Resources -->
+                    <div class="mega-nav-item" data-menu="resources">
+                        Resources <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:500px;">
+                            <div>
+                                <h4>Learning</h4>
+                                <a href="#">Blog</a>
+                                <a href="#">Guides</a>
+                                <a href="#">Webinars</a>
+                                <a href="#">Whitepapers</a>
+                            </div>
+                            <div>
+                                <h4>Company</h4>
+                                <a href="#">About Us</a>
+                                <a href="#">Contact</a>
+                                <a href="#">Careers</a>
+                                <a href="#">Partners</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Latest Updates</strong> New features &amp; improvements.</span>
+                                <a href="#">View Changelog →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="quote.html" class="mega-nav-item" style="text-decoration:none;">Request a Quote</a>
                 </nav>
 
+
+
                 <div class="header-actions-deck">
-                    
-                    <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign In</a>
+                    <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign
+                        In</a>
                 </div>
             </div>
         </div>
@@ -225,6 +336,22 @@
 
         </form>
     </main>
+
+        <footer class="master-footer-sheet">
+        <div class="container footer-flex-row">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="logo-block-footer">
+                    <img src="images/logo-dark.svg" alt="logo" class="logo-main logo-dark-variant">
+                    <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
+                </div>
+
+
+            </div>
+            <div class="footer-links-cluster">
+                <span>© 2026 Aparajayah Technologies</span>
+            </div>
+        </div>
+    </footer>
 
     <script src="assets/script.js"></script>
 </body>

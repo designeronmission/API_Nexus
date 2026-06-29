@@ -283,7 +283,7 @@
                         <div class="mega-dropdown">
                             <div>
                                 <h4>Platform</h4>
-                                <a href="API Management.html">API Management</a>
+                                <a href="API-Management.html">API Management</a>
                                 <a href="integration-hub.html">Integration Hub</a>
                                 <a href="#">Authentication</a>
                                 <a href="#">API Gateway</a>
@@ -619,39 +619,165 @@
         </div>
     </section>
 
-    <section class="section-spacer" style="background-color: var(--bg-surface-secondary); padding: 120px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-        <div class="container">
-            <div class="section-header-block text-center" style="max-width: 600px; margin: 0 auto 65px auto;">
-                <span class="badge-pill-micro" style="background: rgba(37, 99, 235, 0.05); color: var(--brand-primary); border-color: rgba(37, 99, 235, 0.15); font-weight:600;"><i class="fa-solid fa-scale-balanced me-1"></i> Core Divergence</span>
-                <h2 style="font-weight: 800; font-size: 38px; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px;">The Integration Shift</h2>
-            </div>
+  <section class="section-spacer" style="background-color: var(--bg-surface-secondary); padding: 140px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: radial-gradient(var(--border-color) 1px, transparent 1px); background-size: 24px 24px; opacity: 0.4; pointer-events: none;"></div>
 
-            <div class="matrix-comparison-container">
-                <div class="row g-0">
-                    <div class="col-md-6 matrix-column-legacy">
-                        <h4 style="font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:800; color:#ef4444; letter-spacing:0.06em; margin-bottom:30px; display:flex; align-items:center; gap:8px;">
-                            <span style="width:6px; height:6px; background:#ef4444; border-radius:50%;"></span> TRADITIONAL INTEGRATION
-                        </h4>
-                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Hardcoded custom scripting models</div>
-                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Silent routing downtime failure loops</div>
-                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Isolated point-to-point network logic</div>
-                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Massive scaling operational bottlenecks</div>
-                    </div>
+    <div class="container" style="position: relative; z-index: 2;">
+        <div class="section-header-block text-center" style="max-width: 650px; margin: 0 auto 80px auto;">
+            <span class="badge-pill-micro" style="background: rgba(37, 99, 235, 0.05); color: var(--brand-primary); border-color: rgba(37, 99, 235, 0.15); font-weight: 700; letter-spacing: 0.05em; padding: 6px 16px;">
+                <i class="fa-solid fa-code-compare me-1.5"></i> ARCHITECTURAL DIVERGENCE
+            </span>
+            <h2 style="font-weight: 800; font-size: 44px; letter-spacing: -0.03em; color: var(--text-primary); margin-top: 18px; line-height: 1.2;">
+                The Integration Shift
+            </h2>
+            <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin-top: 12px; max-width: 540px; margin-left: auto; margin-right: auto;">
+                Transition out of unstable point-to-point operational debt and lock your enterprise infrastructure into a state of absolute central clarity.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            
+            <div class="col-lg-6">
+                <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 24px; padding: 44px; height: 100%; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; display: flex; flex-direction: column;" 
+                     onmouseover="this.style.borderColor='#ef4444'; this.style.boxShadow='0 20px 40px rgba(239, 68, 68, 0.02)';" 
+                     onmouseout="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none';">
                     
-                    <div class="col-md-6 matrix-column-nexus">
-                        <div class="scan-line-overlay"></div>
-                        <h4 style="font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:800; color:var(--brand-primary); letter-spacing:0.06em; margin-bottom:30px; display:flex; align-items:center; gap:8px;">
-                            <span style="width:6px; height:6px; background:var(--brand-primary); border-radius:50%;"></span> APINEXUS INTEGRATION FABRIC
-                        </h4>
-                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> Unified abstracted orchestration system</div>
-                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> Live monitoring telemetry dashboard</div>
-                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> Declarative flow mapping components</div>
-                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> High-performance server scaling</div>
+                    <div style="position: absolute; top: 0; right: 0; width: 120px; height: 120px; background: linear-gradient(135deg, transparent 70%, rgba(239, 68, 68, 0.04) 100%); pointer-events: none;"></div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; border-bottom: 1px dashed var(--border-color); padding-bottom: 20px;">
+                        <div>
+                            <h4 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 800; color: #ef4444; letter-spacing: 0.08em; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 6px; height: 6px; background: #ef4444; border-radius: 50%; display: inline-block;"></span> LEGACY PROTOCOLS
+                            </h4>
+                            <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin: 0;">Traditional Integration</h3>
+                        </div>
+                        <div style="width: 44px; height: 44px; background: rgba(239, 68, 68, 0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 16px;">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px;">
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(239, 68, 68, 0.08); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 11px; flex-shrink: 0; margin-top: 2px;">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Brittle Point-to-Point Scripts</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Hardcoded logic nodes that fracture instantly upon minor third-party API modifications.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(239, 68, 68, 0.08); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 11px; flex-shrink: 0; margin-top: 2px;">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Silent Routing Failure Loops</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Downtime errors slip through standard logging patterns undetected by oversight workflows.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(239, 68, 68, 0.08); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 11px; flex-shrink: 0; margin-top: 2px;">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Isolated Data Silos</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Information components trapped across disconnected operational schemas without synchronization.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(239, 68, 68, 0.08); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 11px; flex-shrink: 0; margin-top: 2px;">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Compounding Capital Overhead</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Massive software engineering hours dedicated strictly to repairing fragile pipeline frameworks.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: auto; padding: 12px 18px; background: #fafafa; border: 1px solid var(--border-color); border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--text-secondary); display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-triangle-exclamation text-danger" style="font-size:13px;"></i> STATE: Compounding Technical Debt
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-6">
+                <div style="background: #ffffff; border: 1px solid rgba(37, 99, 235, 0.2); border-radius: 24px; padding: 44px; height: 100%; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 15px 45px rgba(37, 99, 235, 0.02);" 
+                     onmouseover="this.style.borderColor='var(--brand-primary)'; this.style.boxShadow='0 25px 60px rgba(37, 99, 235, 0.06)';" 
+                     onmouseout="this.style.borderColor='rgba(37, 99, 235, 0.2)'; this.style.boxShadow='0 15px 45px rgba(37, 99, 235, 0.02)';" id="nexusComparisonCard">
+                    
+                    <div class="scan-line-overlay"></div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; border-bottom: 1px solid rgba(37, 99, 235, 0.12); padding-bottom: 20px;">
+                        <div>
+                            <h4 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 800; color: var(--brand-primary); letter-spacing: 0.08em; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 6px; height: 6px; background: var(--brand-primary); border-radius: 50%; display: inline-block;"></span> UNIFIED SUBSTRATE
+                            </h4>
+                            <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin: 0;">ApiNexus Integration Fabric</h3>
+                        </div>
+                        <div style="width: 44px; height: 44px; background: rgba(37, 99, 235, 0.06); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--brand-primary); font-size: 16px; border: 1px solid rgba(37, 99, 235, 0.15);">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px;">
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(16, 185, 129, 0.08); display: flex; align-items: center; justify-content: center; color: #10b981; font-size: 11px; flex-shrink: 0; margin-top: 2px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Unified Abstracted Orchestration</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Declarative components completely isolate individual network connections away from foundational script fields.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(16, 185, 129, 0.08); display: flex; align-items: center; justify-content: center; color: #10b981; font-size: 11px; flex-shrink: 0; margin-top: 2px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Real-Time Telemetry Logging Matrix</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Instant tracking monitors message transit flows, mapping disruptions automatically as they develop.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(16, 185, 129, 0.08); display: flex; align-items: center; justify-content: center; color: #10b981; font-size: 11px; flex-shrink: 0; margin-top: 2px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Polymorphic Data Normalization Engine</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Transforms payloads seamlessly across varying database frameworks instantly at logic runtimes.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(16, 185, 129, 0.08); display: flex; align-items: center; justify-content: center; color: #10b981; font-size: 11px; flex-shrink: 0; margin-top: 2px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px;">Elastic High-Throughput Cloud Scaling</h6>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Built to support extreme traffic spikes effortlessly without manual system resource reallocation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: auto; padding: 12px 18px; background: linear-gradient(90deg, rgba(37, 99, 235, 0.03) 0%, transparent 100%); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--brand-primary); display: flex; align-items: center; justify-content: space-between;">
+                        <span style="display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 6px; height: 6px; background: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #10b981;"></span>
+                            FABRIC ORCHESTRATION PROTOCOL
+                        </span>
+                        <span style="font-weight: 700; font-size: 10px; background: rgba(37,99,235,0.08); padding: 2px 8px; border-radius: 4px;">SECURE L4</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="section-spacer" style="background-color: var(--bg-surface-primary); padding: 120px 0; position: relative;">
         <div class="container">

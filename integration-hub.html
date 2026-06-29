@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiNexus — Custom Enterprise Integration Orchestrator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    
+    <style>
+        /* ==========================================================================
+           CORE ARCHITECTURAL LIGHT ANIMS & PRIMITIVES
+           ========================================================================== */
+        @keyframes stroke-flow {
+            to { stroke-dashoffset: -20; }
+        }
+        .flowing-path {
+            stroke-dasharray: 6, 4;
+            animation: stroke-flow 1.2s linear infinite;
+        }
+
+        @keyframes pulse-glow-light {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.2), 0 10px 30px rgba(0,0,0,0.03); transform: scale(1); }
+            50% { box-shadow: 0 0 0 14px rgba(37, 99, 235, 0), 0 10px 35px rgba(37, 99, 235, 0.1); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0), 0 10px 30px rgba(0,0,0,0.03); transform: scale(1); }
+        }
+        .pulse-active-hub-light {
+            animation: pulse-glow-light 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes node-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .floating-node {
+            animation: node-float 4s ease-in-out infinite;
+        }
+
+        .animated-hub-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hub-central-core {
+            width: 140px;
+            height: 140px;
+            background: #ffffff;
+            border: 2px solid var(--brand-primary);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .hub-edge-node {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            z-index: 5;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        .hub-edge-node:hover {
+            border-color: var(--brand-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
+        }
+
+        /* ==========================================================================
+           REDESIGNED STACK: COMPLETELY FLATTENS STRAIGHT ON HOVER
+           ========================================================================== */
+        .architecture-stack-layer {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            position: relative;
+            margin-bottom: -22px;
+            
+            /* Isometric initial state transformation variables */
+            transform:perspective(1200px) rotateX(10deg) rotateY(-6deg) rotateZ(1deg) translateY(0);
+            transform-style: preserve-3d;
+            
+            /* High precision timing bounce interpolation */
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        border-color 0.3s ease, 
+                        background-color 0.3s ease, 
+                        box-shadow 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Snaps completely flat, parallel, and straight straight ahead on hover */
+        .architecture-stack-layer:hover {
+            transform: perspective(1200px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-28px);
+            border-color: var(--brand-primary);
+            background: #ffffff;
+            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.08), 0 10px 25px rgba(0, 0, 0, 0.02);
+            z-index: 40 !important;
+        }
+
+        /* NOC Live Operations Command Panel Overlays */
+        @keyframes scanning-bar {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scan-line-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(37, 99, 235, 0.02), transparent);
+            animation: scanning-bar 3s linear infinite;
+            pointer-events: none;
+        }
+
+        .metric-card-noc-light {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+             
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .metric-card-noc-light:hover {
+            background: #ffffff;
+            border-color: var(--brand-primary);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        }
+        .metric-card-noc-light .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            margin: 6px 0;
+        }
+
+        /* ==========================================================================
+           COMPLEXITY & MATRIX COMPARISONS HIGH-END STYLING LABELS
+           ========================================================================== */
+        .crisis-grid-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .crisis-grid-card:hover {
+            transform: translateY(-4px);
+            border-color: #ef4444;
+            box-shadow: 0 12px 24px rgba(239, 68, 68, 0.04);
+        }
+
+        .matrix-comparison-container {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.01);
+        }
+        .matrix-column-legacy {
+            padding: 44px;
+            background: #fafafa;
+            border-right: 1px solid var(--border-color);
+        }
+        .matrix-column-nexus {
+            padding: 44px;
+            background: linear-gradient(135deg, rgba(37,99,235,0.01) 0%, rgba(255,255,255,1) 100%);
+            position: relative;
+        }
+        .matrix-item-row {
+            padding: 14px 0;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .matrix-item-row:last-child {
+            border-bottom: none;
+        }
+
+        /* ==========================================================================
+           CREATIVE INDUSTRY HUB STYLING REVISIONS
+           ========================================================================== */
+        .industry-creative-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .industry-creative-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--brand-primary);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.05);
+        }
+        .industry-creative-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 0;
+            background: var(--brand-primary);
+            transition: height 0.3s ease;
+        }
+        .industry-creative-card:hover::before {
+            height: 100%;
+        }
+
+        /* Unlimited Matrix Interactive Wrapper */
+        .unlimited-nodes-wrapper {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 60px 40px;
+            position: relative;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.015);
+        }
+        .glass-badge-node {
+            padding: 8px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+             
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .glass-badge-node:hover {
+            border-color: var(--brand-primary);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(37,99,235,0.06);
+        }
+        .glass-badge-node.active-brand {
+            background: var(--brand-primary);
+            color: #ffffff;
+            border-color: var(--brand-primary);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.15);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrapper">
+
+                <div class="logo-block">
+                    <img src="images/logo-dark.svg" alt="logo" class="logo-main logo-dark-variant">
+                    <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
+                </div>
+
+                <nav class="mega-nav">
+                    <!-- Products --> <a href="index.html" class="mega-nav-item" style="text-decoration:none;">Home</a>
+                    <div class="mega-nav-item" data-menu="products">
+                        Products <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown">
+                            <div>
+                                <h4>Platform</h4>
+                                <a href="API Management.html">API Management</a>
+                                <a href="integration-hub.html">Integration Hub</a>
+                                <a href="#">Authentication</a>
+                                <a href="#">API Gateway</a>
+                            </div>
+                            <div>
+                                <h4>Automation</h4>
+                                <a href="#">Workflow Builder</a>
+                                <a href="#">Event Triggers</a>
+                                <a href="#">Scheduled Workflows</a>
+                                <a href="#">Business Automation</a>
+                            </div>
+                            <div>
+                                <h4>Operations</h4>
+                                <a href="#">Monitoring &amp; Analytics</a>
+                                <a href="#">Alerts &amp; Notifications</a>
+                                <a href="#">Activity Logs</a>
+                                <a href="#">Performance Insights</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong>ApiNexus Platform</strong> — One Platform. Infinite
+                                    Integrations.</span>
+                                <a href="#">Explore Platform →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Solutions -->
+                    <div class="mega-nav-item" data-menu="solutions">
+                        Solutions <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:600px;">
+                            <div>
+                                <h4>By Team</h4>
+                                <a href="#">Developers</a>
+                                <a href="#">Operations Teams</a>
+                                <a href="#">IT Administrators</a>
+                                <a href="#">Product Teams</a>
+                            </div>
+                            <div>
+                                <h4>By Business</h4>
+                                <a href="#">Startups</a>
+                                <a href="#">SMBs</a>
+                                <a href="#">Enterprises</a>
+                                <a href="#">SaaS Companies</a>
+                            </div>
+                            <div>
+                                <h4>Use Cases</h4>
+                                <a href="#">API Ecosystem</a>
+                                <a href="#">Workflow Automation</a>
+                                <a href="#">Data Sync</a>
+                                <a href="#">Enterprise Integrations</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Customer Success</strong> See how businesses streamline
+                                    operations.</span>
+                                <a href="#">View Case Studies →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Developers -->
+                    <div class="mega-nav-item" data-menu="developers">
+                        Developers <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:550px;">
+                            <div>
+                                <h4>Documentation</h4>
+                                <a href="#">Getting Started</a>
+                                <a href="#">API Reference</a>
+                                <a href="#">Authentication Guide</a>
+                                <a href="#">Tutorials</a>
+                            </div>
+                            <div>
+                                <h4>Tools</h4>
+                                <a href="#">API Explorer</a>
+                                <a href="#">Sandbox</a>
+                                <a href="#">SDK Downloads</a>
+                                <a href="#">Webhooks</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Developer Hub</strong> Comprehensive docs &amp; resources.</span>
+                                <a href="#">Open Documentation →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Resources -->
+                    <div class="mega-nav-item" data-menu="resources">
+                        Resources <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:500px;">
+                            <div>
+                                <h4>Learning</h4>
+                                <a href="#">Blog</a>
+                                <a href="#">Guides</a>
+                                <a href="#">Webinars</a>
+                                <a href="#">Whitepapers</a>
+                            </div>
+                            <div>
+                                <h4>Company</h4>
+                                <a href="#">About Us</a>
+                                <a href="#">Contact</a>
+                                <a href="#">Careers</a>
+                                <a href="#">Partners</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Latest Updates</strong> New features &amp; improvements.</span>
+                                <a href="#">View Changelog →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="quote.html" class="mega-nav-item" style="text-decoration:none;">Request a Quote</a>
+                </nav>
+
+                <div class="header-actions-deck">
+                    <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary); padding: 80px 0 110px 0; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background-image: radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.04) 0%, transparent 60%); pointer-events: none;"></div>
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-xl-5">
+                    <span class="badge-pill-micro" style="background: rgba(37, 99, 235, 0.05); color: var(--brand-primary); border-color: rgba(37, 99, 235, 0.12); font-weight: 700;">
+                        <i class="fa-solid fa-network-wired me-1"></i> INTEGRATION FABRIC
+                    </span>
+                    <h1 style="font-weight: 800; font-size: 50px; letter-spacing: -0.03em; line-height: 1.1; margin-top: 18px; color: var(--text-primary);">
+                        Connect Everything.<br><span style="color: var(--brand-primary);">Orchestrate Anything.</span>
+                    </h1>
+                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.7; margin-top: 24px; margin-bottom: 38px; max-width: 530px;">
+                        ApiNexus creates a unified integration fabric that connects cloud applications, enterprise systems, databases, APIs, and business workflows through a centralized orchestration layer.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mb-5">
+                        <a href="#marketplace" class="btn btn-primary px-4 py-3 shadow-sm" style="font-weight:600; border-radius:10px; background:var(--brand-primary); border:none; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Explore Integrations</a>
+                        <a href="quote.html" class="btn btn-outline-light px-4 py-3" style="font-weight:600; border-radius:10px; border-color: var(--border-color); color: var(--text-primary); background:#fff;">Schedule Review</a>
+                    </div>
+                
+                </div>
+                
+                <div class="col-xl-7">
+                    <div class="animated-hub-container">
+                        <svg style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 2;">
+                            <path d="M 120 70 C 200 70, 200 200, 350 200" stroke="rgba(37, 99, 235, 0.4)" stroke-width="2.5" fill="none" class="flowing-path" />
+                            <path d="M 120 200 C 200 200, 200 200, 350 200" stroke="rgba(37, 99, 235, 0.4)" stroke-width="2.5" fill="none" class="flowing-path" />
+                            <path d="M 120 330 C 200 330, 200 200, 350 200" stroke="rgba(37, 99, 235, 0.4)" stroke-width="2.5" fill="none" class="flowing-path" />
+                            
+                            <path d="M 350 200 C 500 200, 500 70, 580 70" stroke="rgba(168, 85, 247, 0.4)" stroke-width="2.5" fill="none" class="flowing-path" />
+                            <path d="M 350 200 C 500 200, 500 160, 580 160" stroke="rgba(168, 85, 247, 0.4)" stroke-width="2.5" fill="none" class="flowing-path" />
+                            <path d="M 350 200 C 500 200, 500 240, 580 240" stroke="rgba(168, 85, 247, 0.4)" stroke-width="2.5" fill="none" class="flowing-path" />
+                            <path d="M 350 200 C 500 200, 500 330, 580 330" stroke="rgba(168, 85, 247, 0.4)" stroke-width="2.5" fill="none" class="flowing-path" />
+                        </svg>
+
+                        <div class="hub-central-core pulse-active-hub-light">
+                            <i class="fa-solid fa-circle-nodes text-brand mb-2" style="font-size: 30px;"></i>
+                            <span style="  font-size: 11px; font-weight: 700; color: var(--text-primary);">ApiNexus Core</span>
+                        </div>
+
+                        <div class="hub-edge-node floating-node" style="top: 50px; left: 20px; animation-delay: 0s;"><i class="fa-brands fa-salesforce text-primary me-2"></i>Salesforce</div>
+                        <div class="hub-edge-node floating-node" style="top: 180px; left: 20px; animation-delay: 1s;"><i class="fa-brands fa-hubspot text-warning me-2"></i>HubSpot</div>
+                        <div class="hub-edge-node floating-node" style="top: 310px; left: 20px; animation-delay: 2s;"><i class="fa-brands fa-stripe text-info me-2"></i>Stripe</div>
+
+                        <div class="hub-edge-node floating-node" style="top: 50px; right: 20px; animation-delay: 0.5s;"><i class="fa-solid fa-network-wired me-2" style="color:#64748b;"></i>ERP Layers</div>
+                        <div class="hub-edge-node floating-node" style="top: 140px; right: 20px; animation-delay: 1.5s;"><i class="fa-solid fa-users-gear me-2" style="color:#0ea5e9;"></i>Enterprise CRM</div>
+                        <div class="hub-edge-node floating-node" style="top: 220px; right: 20px; animation-delay: 2.5s;"><i class="fa-solid fa-database me-2" style="color:#10b981;"></i>Data Lakes</div>
+                        <div class="hub-edge-node floating-node" style="top: 310px; right: 20px; animation-delay: 3.5s;"><i class="fa-solid fa-brain text-purple me-2"></i>AI Subsystems</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-secondary); padding: 120px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <span class="badge-pill-micro" style="background: rgba(239, 68, 68, 0.06); color: #ef4444; border-color: rgba(239, 68, 68, 0.15); font-weight:600;"><i class="fa-solid fa-bolt me-1"></i> Complexity Overhead</span>
+                    <h2 style="font-weight: 800; font-size: 42px; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px; line-height: 1.2;">Your Business Runs on Intertwined Chaos</h2>
+                    <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.7; margin-top: 18px;">
+                        Every secondary point-to-point script added to your infrastructure creates compounding Technical Debt. Break free from custom legacy architectural dependencies.
+                    </p>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="crisis-grid-card">
+                                <div style="color: #ef4444; font-size: 20px;"><i class="fa-solid fa-database"></i></div>
+                                <div>
+                                    <h6 style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">Isolated Data Silos</h6>
+                                    <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Information trapped across disparate non-communicating tools.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="crisis-grid-card">
+                                <div style="color: #ef4444; font-size: 20px;"><i class="fa-solid fa-arrows-spin"></i></div>
+                                <div>
+                                    <h6 style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">Duplicate Workflows</h6>
+                                    <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Manual tracking redundancies wasting internal team velocity.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="crisis-grid-card">
+                                <div style="color: #ef4444; font-size: 20px;"><i class="fa-solid fa-code-branch"></i></div>
+                                <div>
+                                    <h6 style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">Brittle Point Scripts</h6>
+                                    <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Hardcoded logic nodes that fracture instantly upon minor API modifications.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="crisis-grid-card">
+                                <div style="color: #ef4444; font-size: 20px;"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                                <div>
+                                    <h6 style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">Maintenance Drain</h6>
+                                    <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Massive capital operational expenses dedicated strictly to structural fixes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary); padding: 120px 0;">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width: 620px; margin: 0 auto 80px auto;">
+                <span class="badge-pill-micro" style="background: rgba(168, 85, 247, 0.06); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.15); font-weight: 600;"><i class="fa-solid fa-layer-group me-1"></i> System Architecture</span>
+                <h2 style="font-weight: 800; font-size: 40px; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px;">One Integration Layer For Your Entire Ecosystem</h2>
+            </div>
+
+            <div style="max-width: 780px; margin: 0 auto; display: flex; flex-direction: column;">
+                <div class="architecture-stack-layer" style="z-index: 6;">
+                    <span style="font-size: 12px; color: var(--brand-primary); font-weight: 700;">LAYER 01 - APPLICATIONS SUITE</span>
+                    <h4 style="font-size: 17px; font-weight: 700; color: var(--text-primary); margin-top: 4px; margin-bottom: 0;">Inbound Services & Webhook Interface Matrices</h4>
+                </div>
+                <div class="architecture-stack-layer" style="z-index: 5; background: #ffffff; border-color: rgba(37, 99, 235, 0.25); box-shadow: 0 15px 35px rgba(37,99,235,0.04);">
+                    <span style="font-size: 12px; color: var(--brand-primary); font-weight: 700;">LAYER 02 - APINEXUS SUBSTRATE</span>
+                    <h4 style="font-size: 17px; font-weight: 700; color: var(--text-primary); margin-top: 4px; margin-bottom: 0;">Centralized Integration Fabric & Orchestrator</h4>
+                </div>
+                <div class="architecture-stack-layer" style="z-index: 4; background: #f8fafc;">
+                    <span style="  font-size: 11px; color: var(--text-muted); font-weight: 700;">INTEGRATED SCHEMAS // FUNCTIONAL SUBMODULES</span>
+                    <div class="row g-2 mt-3" style="  font-size: 11px; font-weight: 600;">
+                        <div class="col" style="min-width: 100px;"><div style="padding: 8px 4px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary);">Transformation</div></div>
+                        <div class="col" style="min-width: 100px;"><div style="padding: 8px 4px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary);">Workflow Engine</div></div>
+                        <div class="col" style="min-width: 100px;"><div style="padding: 8px 4px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary);">Security Layer</div></div>
+                        <div class="col" style="min-width: 100px;"><div style="padding: 8px 4px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary);">Telemetry Logs</div></div>
+                        <div class="col" style="min-width: 100px;"><div style="padding: 8px 4px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary);">Event Router</div></div>
+                    </div>
+                </div>
+                <div class="architecture-stack-layer" style="z-index: 3;">
+                    <span style="font-size: 12px; color: var(--brand-primary); font-weight: 700;">LAYER 03 - CONNECTED SYSTEMS</span>
+                    <h4 style="font-size: 17px; font-weight: 700; color: var(--text-primary); margin-top: 4px; margin-bottom: 0;">Downstream Core Data Infrastructure Elements</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="marketplace" class="section-spacer" style="background-color: var(--bg-surface-secondary); padding: 120px 0; border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width: 600px; margin: 0 auto 75px auto;">
+                <span class="badge-pill-micro" style="background: rgba(37, 99, 235, 0.05); color: var(--brand-primary); border-color: rgba(37, 99, 235, 0.15); font-weight:600;"><i class="fa-solid fa-square-poll-vertical me-1"></i> Core Modules</span>
+                <h2 style="font-weight: 800; font-size: 38px; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px;">Built For Enterprise Connectivity</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-xl-4">
+                    <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 14px; padding: 36px; height: 100%; display: flex; flex-direction: column; transition:all 0.3s;" onmouseover="this.style.borderColor='var(--brand-primary)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                        <div style="width: 42px; height: 42px; background: rgba(37, 99, 235, 0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--brand-primary); font-size: 18px; margin-bottom: 24px;"><i class="fa-solid fa-store"></i></div>
+                        <h4 style="font-size: 19px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">Connector Marketplace</h4>
+                        <p style="color: var(--text-secondary); font-size: 13.5px; line-height: 1.6; margin-bottom: 24px;">Deploy prebuilt connector structures across prominent global digital apps instantly.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-auto" style="font-size: 12px; font-family:'JetBrains Mono', monospace; font-weight:600; color:var(--text-secondary);">
+                            <span style="background:#f1f5f9; padding:4px 8px; border-radius:4px;"><i class="fa-brands fa-salesforce text-primary me-1"></i>SFDC</span>
+                            <span style="background:#f1f5f9; padding:4px 8px; border-radius:4px;"><i class="fa-brands fa-hubspot text-warning me-1"></i>HubSpot</span>
+                            <span style="background:#f1f5f9; padding:4px 8px; border-radius:4px;"><i class="fa-brands fa-stripe text-info me-1"></i>Stripe</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 14px; padding: 36px; height: 100%; transition:all 0.3s;" onmouseover="this.style.borderColor='var(--brand-primary)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                        <div style="width: 42px; height: 42px; background: rgba(37, 99, 235, 0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--brand-primary); font-size: 18px; margin-bottom: 24px;"><i class="fa-solid fa-sliders"></i></div>
+                        <h4 style="font-size: 19px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">Custom Integration Builder</h4>
+                        <p style="color: var(--text-secondary); font-size: 13.5px; line-height: 1.6; margin-bottom: 0;">Create custom connectors manually using clean developer APIs, functional SDK kits, and granular inbound webhooks seamlessly.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 14px; padding: 36px; height: 100%; transition:all 0.3s;" onmouseover="this.style.borderColor='var(--brand-primary)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                        <div style="width: 42px; height: 42px; background: rgba(37, 99, 235, 0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--brand-primary); font-size: 18px; margin-bottom: 24px;"><i class="fa-solid fa-code-compare"></i></div>
+                        <h4 style="font-size: 19px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">Data Transformation Engine</h4>
+                        <p style="color: var(--text-secondary); font-size: 13.5px; line-height: 1.6; margin-bottom: 0;">Automatically map, structuralize, confirm, and translate incoming database properties between disparate target machines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary); padding: 120px 0; border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="row mb-5 align-items-end">
+                <div class="col-lg-6">
+                    <span class="badge-pill-micro" style="background: rgba(37, 99, 235, 0.05); color: var(--brand-primary); border-color: rgba(37, 99, 235, 0.15); font-weight:600;"><i class="fa-solid fa-folder-open me-1"></i> Specialized Blueprint Packs</span>
+                    <h2 style="font-weight: 800; font-size: 42px; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px;">Purpose-Built For Every Industry</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 6px; max-width: 500px; margin-left: auto;">
+                        ApiNexus comes pre-packaged with strict governance constraints tailored directly for sensitive environments. Select your template architecture layout out of the box.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="industry-creative-card">
+                        <div style="font-size: 28px; color: var(--brand-primary); margin-bottom: 20px;"><i class="fa-solid fa-cloud-sun"></i></div>
+                        <h5 style="font-weight:700; color:var(--text-primary); margin-bottom:12px;">SaaS Platforms</h5>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:0;">Automate telemetry syncing, user event logs, subscription adjustments, and pipeline events smoothly.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="industry-creative-card">
+                        <div style="font-size: 28px; color: var(--accent-purple); margin-bottom: 20px;"><i class="fa-solid fa-building-columns"></i></div>
+                        <h5 style="font-weight:700; color:var(--text-primary); margin-bottom:12px;">Financial Services</h5>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:0;">High-throughput transaction auditing ledger arrays with encrypted regional transit protocols.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="industry-creative-card">
+                        <div style="font-size: 28px; color: #10b981; margin-bottom: 20px;"><i class="fa-solid fa-stethoscope"></i></div>
+                        <h5 style="font-weight:700; color:var(--text-primary); margin-bottom:12px;">Healthcare Systems</h5>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:0;">HIPAA-compliant message passing pipelines and secure patient record linking parameters.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-secondary); padding: 120px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width: 600px; margin: 0 auto 65px auto;">
+                <span class="badge-pill-micro" style="background: rgba(37, 99, 235, 0.05); color: var(--brand-primary); border-color: rgba(37, 99, 235, 0.15); font-weight:600;"><i class="fa-solid fa-scale-balanced me-1"></i> Core Divergence</span>
+                <h2 style="font-weight: 800; font-size: 38px; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px;">The Integration Shift</h2>
+            </div>
+
+            <div class="matrix-comparison-container">
+                <div class="row g-0">
+                    <div class="col-md-6 matrix-column-legacy">
+                        <h4 style="font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:800; color:#ef4444; letter-spacing:0.06em; margin-bottom:30px; display:flex; align-items:center; gap:8px;">
+                            <span style="width:6px; height:6px; background:#ef4444; border-radius:50%;"></span> TRADITIONAL INTEGRATION
+                        </h4>
+                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Hardcoded custom scripting models</div>
+                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Silent routing downtime failure loops</div>
+                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Isolated point-to-point network logic</div>
+                        <div class="matrix-item-row"><i class="fa-solid fa-xmark text-danger me-3"></i> Massive scaling operational bottlenecks</div>
+                    </div>
+                    
+                    <div class="col-md-6 matrix-column-nexus">
+                        <div class="scan-line-overlay"></div>
+                        <h4 style="font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:800; color:var(--brand-primary); letter-spacing:0.06em; margin-bottom:30px; display:flex; align-items:center; gap:8px;">
+                            <span style="width:6px; height:6px; background:var(--brand-primary); border-radius:50%;"></span> APINEXUS INTEGRATION FABRIC
+                        </h4>
+                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> Unified abstracted orchestration system</div>
+                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> Live monitoring telemetry dashboard</div>
+                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> Declarative flow mapping components</div>
+                        <div class="matrix-item-row" style="font-weight:600; color:var(--text-primary);"><i class="fa-solid fa-check text-success me-3"></i> High-performance server scaling</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary); padding: 120px 0; position: relative;">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width: 600px; margin: 0 auto 55px auto;">
+                <span class="badge-pill-micro" style="background: rgba(168, 85, 247, 0.05); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.15); font-weight:600;"><i class="fa-solid fa-globe me-1"></i> Core Substrate</span>
+                <h2 style="font-weight: 800; font-size: 38px; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px;">One Hub. Unlimited Possibilities.</h2>
+            </div>
+
+            <div class="unlimited-nodes-wrapper text-center">
+                <div style="max-width: 650px; margin: 0 auto;">
+                    <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+                        <span class="glass-badge-node"><i class="fa-brands fa-salesforce text-primary"></i> Salesforce Platform</span>
+                        <span class="glass-badge-node active-brand"><i class="fa-solid fa-circle-nodes"></i> ApiNexus Core Hub</span>
+                        <span class="glass-badge-node"><i class="fa-brands fa-stripe text-info"></i> Stripe Payments</span>
+                        <span class="glass-badge-node"><i class="fa-solid fa-database text-success"></i> PostgreSQL</span>
+                        <span class="glass-badge-node"><i class="fa-brands fa-aws text-warning"></i> AWS Lambda</span>
+                        <span class="glass-badge-node"><i class="fa-brands fa-slack text-purple"></i> Slack Webhooks</span>
+                    </div>
+                    <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0;">
+                        Map schemas dynamically across any standard API protocol stack instantly. Our polymorphic pipeline substrate normalizes incoming requests into structural unified entities at runtime.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+            <section class="section-spacer text-center position-relative overflow-hidden"
+        style="padding: 100px 0; background: #0f172a; color: white;">
+        <div
+            style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); bottom: -20%; left: 50%; transform: translateX(-50%); pointer-events: none; filter: blur(60px);">
+        </div>
+        <div class="container position-relative" style="z-index: 5;">
+            <h2 class="display-4 fw-extrabold text-white tracking-tight mb-2" style="letter-spacing: -0.03em;">Connect Your Entire Technology Ecosystem</h2>
+            <p class="text-secondary fs-6 mx-auto mb-4 pb-2" style="max-width: 640px; color: #94a3b8 !important;">
+               Stop managing disconnected configuration arrays and start building a unified infrastructure strategy.
+            </p>
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                <a href="login.html" class="btn btn-primary px-4 py-3 shadow-sm"
+                    style="font-weight: 600; border-radius: 10px; background: #2563eb; border: none;"><i
+                        class="fa-solid fa-circle-arrow-right me-2"></i>Get Started Today</a>
+                <a href="quote.html" class="btn btn-outline-light px-4 py-3"
+                    style="font-weight: 600; border-radius: 10px;"><i class="fa-solid fa-headset me-2"></i>Request a
+                    Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--bg-surface-primary); border-top: 1px solid var(--border-color); padding: 32px 0;">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div>
+                <span style="font-weight: 700; color: var(--text-primary); font-size: 14px;"><i class="fa-solid fa-cubes text-primary me-2"></i>ApiNexus Technologies</span>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 0; margin-top: 2px;">Enterprise Mission Control System & Lifecycle Infrastructure Hub.</p>
+            </div>
+            <div style="display: flex; gap: 24px;">
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Security Trust Protocol</a>
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Privacy Matrix</a>
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

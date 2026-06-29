@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiNexus Control Center — Enterprise API Lifecycle Orchestration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    
+    <style>
+        .radar-container {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, transparent 70%);
+        }
+        .radar-ring-inner {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 1px dashed rgba(37, 99, 235, 0.2);
+        }
+        .radar-core {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--bg-surface-primary);
+            border: 2px solid var(--brand-primary);
+            box-shadow: 0 0 20px var(--brand-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+        .radar-sweep {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, transparent 100%);
+            transform-origin: bottom right;
+            border-bottom-right-radius: 0;
+            animation: radarRotate 4s linear infinite;
+        }
+        @keyframes radarRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .radar-blip {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-success);
+        }
+        .chaos-box, .clarity-box {
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            height: 100%;
+        }
+        .chaos-box { background-color: rgba(239, 68, 68, 0.02); }
+        .clarity-box { background-color: rgba(16, 185, 129, 0.02); }
+
+        .tag-api{
+            padding: 14px 20px;
+    font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrapper">
+
+                <div class="logo-block">
+                    <img src="images/logo-dark.svg" alt="logo" class="logo-main logo-dark-variant">
+                    <img src="images/logo.svg" alt="logo" class="logo-main logo-light-variant">
+                </div>
+
+                <nav class="mega-nav">
+                    <!-- Products --> <a href="index.html" class="mega-nav-item" style="text-decoration:none;">Home</a>
+                    <div class="mega-nav-item" data-menu="products">
+                        Products <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown">
+                            <div>
+                                <h4>Platform</h4>
+                                <a href="API Management.html">API Management</a>
+                                <a href="integration-hub.html">Integration Hub</a>
+                                <a href="#">Authentication</a>
+                                <a href="#">API Gateway</a>
+                            </div>
+                            <div>
+                                <h4>Automation</h4>
+                                <a href="#">Workflow Builder</a>
+                                <a href="#">Event Triggers</a>
+                                <a href="#">Scheduled Workflows</a>
+                                <a href="#">Business Automation</a>
+                            </div>
+                            <div>
+                                <h4>Operations</h4>
+                                <a href="#">Monitoring &amp; Analytics</a>
+                                <a href="#">Alerts &amp; Notifications</a>
+                                <a href="#">Activity Logs</a>
+                                <a href="#">Performance Insights</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong>ApiNexus Platform</strong> — One Platform. Infinite
+                                    Integrations.</span>
+                                <a href="#">Explore Platform →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Solutions -->
+                    <div class="mega-nav-item" data-menu="solutions">
+                        Solutions <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:600px;">
+                            <div>
+                                <h4>By Team</h4>
+                                <a href="#">Developers</a>
+                                <a href="#">Operations Teams</a>
+                                <a href="#">IT Administrators</a>
+                                <a href="#">Product Teams</a>
+                            </div>
+                            <div>
+                                <h4>By Business</h4>
+                                <a href="#">Startups</a>
+                                <a href="#">SMBs</a>
+                                <a href="#">Enterprises</a>
+                                <a href="#">SaaS Companies</a>
+                            </div>
+                            <div>
+                                <h4>Use Cases</h4>
+                                <a href="#">API Ecosystem</a>
+                                <a href="#">Workflow Automation</a>
+                                <a href="#">Data Sync</a>
+                                <a href="#">Enterprise Integrations</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Customer Success</strong> See how businesses streamline
+                                    operations.</span>
+                                <a href="#">View Case Studies →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Developers -->
+                    <div class="mega-nav-item" data-menu="developers">
+                        Developers <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:550px;">
+                            <div>
+                                <h4>Documentation</h4>
+                                <a href="#">Getting Started</a>
+                                <a href="#">API Reference</a>
+                                <a href="#">Authentication Guide</a>
+                                <a href="#">Tutorials</a>
+                            </div>
+                            <div>
+                                <h4>Tools</h4>
+                                <a href="#">API Explorer</a>
+                                <a href="#">Sandbox</a>
+                                <a href="#">SDK Downloads</a>
+                                <a href="#">Webhooks</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Developer Hub</strong> Comprehensive docs &amp; resources.</span>
+                                <a href="#">Open Documentation →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Resources -->
+                    <div class="mega-nav-item" data-menu="resources">
+                        Resources <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                        <div class="mega-dropdown" style="min-width:500px;">
+                            <div>
+                                <h4>Learning</h4>
+                                <a href="#">Blog</a>
+                                <a href="#">Guides</a>
+                                <a href="#">Webinars</a>
+                                <a href="#">Whitepapers</a>
+                            </div>
+                            <div>
+                                <h4>Company</h4>
+                                <a href="#">About Us</a>
+                                <a href="#">Contact</a>
+                                <a href="#">Careers</a>
+                                <a href="#">Partners</a>
+                            </div>
+                            <div class="mega-featured">
+                                <span><strong> Latest Updates</strong> New features &amp; improvements.</span>
+                                <a href="#">View Changelog →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="quote.html" class="mega-nav-item" style="text-decoration:none;">Request a Quote</a>
+                </nav>
+
+                <div class="header-actions-deck">
+                    <a href="login.html" class="btn btn-primary" style="padding: 10px 18px; font-size: 12px;">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-animated-grid"></div>
+        <div class="hero-glow-backplate"></div>
+        <div class="container">
+            <div class="row align-items-center text-start g-5">
+                <div class="col-12 col-lg-6">
+                    <span class="badge-pill-micro" style="margin-bottom:16px; letter-spacing:0.08em;">API CONTROL CENTER</span>
+                    <h1 style="font-size: 46px; line-height: 1.15; margin-bottom: 20px; font-weight:800;">
+                        Govern Every Endpoint <br><span>Across Your Entire Ecosystem</span>
+                    </h1>
+                    <p style="margin: 0 0 32px 0; font-size: 16px; color: var(--text-secondary);">
+                        Stop managing APIs individually. ApiNexus continuously discovers, classifies, secures, and governs APIs through a centralized operational intelligence layer.
+                    </p>
+                    
+                    <div class="row g-3 mb-4 text-center">
+                        <div class="col-6 col-sm-3">
+                            <div style="background: var(--bg-surface-primary); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px;">
+                                <div style="font-family:'JetBrains Mono', monospace; font-size: 16px; font-weight:700; color: var(--brand-primary);">5,240</div>
+                                <div style="font-size: 10px; color: var(--text-muted); font-weight:600; margin-top:2px;">APIs Discovered</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div style="background: var(--bg-surface-primary); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px;">
+                                <div style="font-family:'JetBrains Mono', monospace; font-size: 16px; font-weight:700; color: var(--accent-success);">99.99%</div>
+                                <div style="font-size: 10px; color: var(--text-muted); font-weight:600; margin-top:2px;">Availability</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div style="background: var(--bg-surface-primary); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px;">
+                                <div style="font-family:'JetBrains Mono', monospace; font-size: 16px; font-weight:700; color: var(--text-primary);">1.2B</div>
+                                <div style="font-size: 10px; color: var(--text-muted); font-weight:600; margin-top:2px;">Reqs / Month</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div style="background: var(--bg-surface-primary); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px;">
+                                <div style="font-family:'JetBrains Mono', monospace; font-size: 16px; font-weight:700; color: var(--accent-purple);">47</div>
+                                <div style="font-size: 10px; color: var(--text-muted); font-weight:600; margin-top:2px;">Connected Systems</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-cta-group justify-content-start">
+                        <a href="#cta" class="btn btn-primary">Launch Control Center</a>
+                        <a href="#cta" class="btn btn-secondary">Schedule Architecture Review</a>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-lg-6">
+                    <div class="ide-terminal-window">
+                        <div class="ide-header-tabs-bar">
+                            <div class="window-dots-cluster">
+                                <span class="dot-node red"></span>
+                                <span class="dot-node amber"></span>
+                                <span class="dot-node green"></span>
+                            </div>
+                            <span style="font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);">SYSTEM: LIVE_OPERATIONAL_MATRIX</span>
+                        </div>
+                        <div class="p-4" style="background-color: var(--bg-surface-primary);">
+                            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px; display:flex; justify-content:space-between; align-items:center;">
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 13px; font-weight:700; color: var(--text-primary); letter-spacing:0.05em;"><i class="fa-solid fa-server me-2 text-primary"></i>API HEALTH MATRIX</span>
+                                <span class="provider-micro-tag" style="background-color: rgba(16, 185, 129, 0.1); color: var(--accent-success); border-color: transparent;"><i class="fa-solid fa-circle text-success me-1 animate-pulse"></i> Active Monitor</span>
+                            </div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 2.2;">
+                                <div class="d-flex justify-content-between style-line" style="border-bottom: 1px dashed var(--border-color);">
+                                    <span style="color: var(--text-secondary);">Active Monitored Endpoints</span>
+                                    <span style="color: var(--text-primary); font-weight:600;">5240</span>
+                                </div>
+                                <div class="d-flex justify-content-between style-line" style="border-bottom: 1px dashed var(--border-color);">
+                                    <span style="color: var(--text-secondary);">Deprecated / Legacy Services</span>
+                                    <span style="color: #f59e0b; font-weight:600;">182</span>
+                                </div>
+                                <div class="d-flex justify-content-between style-line" style="border-bottom: 1px dashed var(--border-color);">
+                                    <span style="color: var(--text-secondary);">Critical Security Violations</span>
+                                    <span style="color: #ef4444; font-weight:600;">12</span>
+                                </div>
+                                <div class="d-flex justify-content-between style-line">
+                                    <span style="color: var(--text-secondary);">Ecosystem Network Uptime</span>
+                                    <span style="color: var(--accent-success); font-weight:600;">99.99%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary);">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width:700px; margin: 0 auto 48px auto;">
+                <span class="badge-pill-micro">Ecosystem Friction</span>
+                <h2>Your APIs Are Everywhere</h2>
+                <p>Distributed infrastructure environments create operational blind spots, structural version drifts, and unmonitored exposure entryways.</p>
+            </div>
+
+            <div class="compliance-backplate-box text-center" style="padding: 40px; background-color: var(--bg-surface-secondary);">
+                <div class="row align-items-center g-4">
+                    <div class="col-12 col-md-3">
+                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                            <span class="provider-micro-tag" style="background:#fff;"><i class="fa-brands fa-stripe text-primary me-1"></i> Stripe</span>
+                            <span class="provider-micro-tag" style="background:#fff;"><i class="fa-solid fa-message text-danger me-1"></i> Twilio</span>
+                            <span class="provider-micro-tag" style="background:#fff;"><i class="fa-brands fa-salesforce text-info me-1"></i> Salesforce</span>
+                            <span class="provider-micro-tag" style="background:#fff;"><i class="fa-brands fa-aws text-warning me-1"></i> AWS Endpoints</span>
+                            <span class="provider-micro-tag" style="background:#fff;"><i class="fa-solid fa-cubes text-secondary me-1"></i> Internal Apps</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-md-1">
+                        <i class="fa-solid fa-arrow-right-long text-muted fa-lg d-none d-md-inline"></i>
+                        <i class="fa-solid fa-arrow-down-long text-muted fa-lg d-inline d-md-none my-2"></i>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div style="background-color: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); padding: 16px; border-radius: 8px;">
+                            <div style="font-family:'JetBrains Mono', monospace; font-weight:700; color:#ef4444; font-size:13px; letter-spacing:0.1em;"><i class="fa-solid fa-triangle-exclamation me-2"></i>API CHAOS EXPONENT</div>
+                            <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle font-monospace" style="font-size:11px;">Security Risks</span>
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle font-monospace" style="font-size:11px;">Duplicate APIs</span>
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle font-monospace" style="font-size:11px;">Version Drift</span>
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle font-monospace" style="font-size:11px;">Poor Visibility</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-1">
+                        <i class="fa-solid fa-arrow-right-long text-muted fa-lg d-none d-md-inline"></i>
+                        <i class="fa-solid fa-arrow-down-long text-muted fa-lg d-inline d-md-none my-2"></i>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div style="background: linear-gradient(135deg, #4998ff 0%, #51cbfd 100%); padding: 20px; border-radius: 10px; color:#fff; box-shadow:0 10px 20px rgba(37,99,235,0.15);">
+                            <div class="logo-icon mx-auto mb-2" style="background:rgba(255,255,255,0.2); color:#fff;"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h4 class="h6 fw-bold mb-1">ApiNexus Core</h4>
+                            <div style="font-size:11px; opacity:0.9; font-family:'JetBrains Mono', monospace;">Unified Governance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-secondary);">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width:650px; margin:0 auto 60px auto;">
+                <span class="badge-pill-micro">Autonomous Mapping</span>
+                <h2>Autonomous Discovery Engine</h2>
+                <p>Continuously sweeps across complex infrastructure networks to detect hidden endpoints, undocumented services, and shadow integrations.</p>
+            </div>
+
+            <div class="row align-items-center g-5">
+                <div class="col-12 col-lg-4">
+                    <div class="d-flex flex-column gap-4">
+                        <div class="service-vector-card" style="margin-bottom:0; background:var(--bg-surface-primary);">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="service-icon-frame" style="flex-shrink:0;"><i class="fa-solid fa-satellite-dish"></i></div>
+                                <div>
+                                    <h3 style="font-size:16px; margin-bottom:4px;">Discovery Scans</h3>
+                                    <p style="font-size:13px; margin-bottom:0;">Automatically scan multi-cloud frameworks, legacy networks, and third-party vendor spaces.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-vector-card" style="margin-bottom:0; background:var(--bg-surface-primary);">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="service-icon-frame" style="flex-shrink:0;"><i class="fa-solid fa-tags"></i></div>
+                                <div>
+                                    <h3 style="font-size:16px; margin-bottom:4px;">Classification Layers</h3>
+                                    <p style="font-size:13px; margin-bottom:0;">Categorize discovered endpoints by department, microservice cluster owner, environment, and relative threat profile risk.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 text-center">
+                    <div class="radar-container">
+                        <div class="radar-sweep"></div>
+                        <div class="radar-ring-inner"></div>
+                        <div class="radar-blip" style="top:40px; left:80px;"></div>
+                        <div class="radar-blip" style="top:120px; right:60px; background:var(--accent-purple); box-shadow:0 0 8px var(--accent-purple);"></div>
+                        <div class="radar-blip" style="bottom:70px; left:110px;"></div>
+                        
+                        <div class="radar-core">
+                            <div class="text-center">
+                             <img src="images/fav.png"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 font-monospace text-muted" style="font-size:11px;">
+                        <i class="fa-solid fa-spinner fa-spin me-1 text-primary"></i> Listening for multi-directional server handshake signatures...
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="d-flex flex-column gap-4">
+                        <div class="service-vector-card" style="margin-bottom:0; background:var(--bg-surface-primary);">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="service-icon-frame" style="flex-shrink:0;"><i class="fa-solid fa-book-bookmark"></i></div>
+                                <div>
+                                    <h3 style="font-size:16px; margin-bottom:4px;">Autonomous Docs</h3>
+                                    <p style="font-size:13px; margin-bottom:0;">Generate real-time, centralized interactive catalog definitions without manual human code updates.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-vector-card" style="margin-bottom:0; background:var(--bg-surface-primary);">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="service-icon-frame" style="flex-shrink:0;"><i class="fa-solid fa-diagram-project"></i></div>
+                                <div>
+                                    <h3 style="font-size:16px; margin-bottom:4px;">Dependency Mapping</h3>
+                                    <p style="font-size:13px; margin-bottom:0;">Intelligently trace traffic connection dependencies between structural API layers and foundational company microservices.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary); position: relative; overflow: hidden; padding: 120px 0;">
+        <div style="position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(37, 99, 235, 0.015) 1px, transparent 1px), linear-gradient(to bottom, rgba(37, 99, 235, 0.015) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 1;"></div>
+        
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="section-header-block text-center" style="max-width:640px; margin: 0 auto 80px auto;">
+                <span class="badge-pill-micro" style="letter-spacing: 0.08em; background: rgba(37, 99, 235, 0.06); color: var(--brand-primary); border-color: rgba(37, 99, 235, 0.15);"><i class="fa-solid fa-arrows-spin me-1"></i> Lifecycle Engine</span>
+                <h2 style="font-weight: 800; letter-spacing: -0.02em; font-size: 38px; margin-top: 14px; color: var(--text-primary);">API Lifecycle Control Matrix</h2>
+                <p style="color: var(--text-secondary); font-size: 15px;">Standardize operational criteria from automatic endpoint ingestion to secure twilight deprecation blocks seamlessly across all cloud layers.</p>
+            </div>
+
+            <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
+                
+                <div class="col">
+                    <div style="border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); border-radius: 14px; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
+                        <div style="padding: 32px 28px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--brand-primary); letter-spacing: 0.05em; background: rgba(37, 99, 235, 0.06); padding: 3px 10px; border-radius: 4px;">PHASE_01</span>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: var(--text-primary); font-size: 18px; letter-spacing: -0.01em;">Discover</h4>
+                            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">Identify ghost routers, third-party hooks, and shadow infrastructure surfaces globally across multiple clusters.</p>
+                            
+                            <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-top: auto; margin-bottom: 24px;">
+                                <div class="d-flex justify-content-between align-items-center mb-2"  style="font-size: 12px; color: var(--text-secondary);">
+                                    <span><i class="fa-solid fa-network-wired me-1" style="color:var(--brand-primary);"></i> Router Scan</span>
+                                    <span style="color: var(--accent-success);">99.2% Sync</span>
+                                </div>
+                                <div style="height: 4px; background: var(--border-color); border-radius: 2px; overflow: hidden;">
+                                    <div style="width: 92%; height: 100%; background: var(--brand-primary); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.01); padding: 16px 28px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 6px; height: 6px; background: var(--accent-success); border-radius: 50%;"></span> CRON_SWEEP // ACTIVE
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div style="border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); border-radius: 14px; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
+                        <div style="padding: 32px 28px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--brand-primary); letter-spacing: 0.05em; background: rgba(37, 99, 235, 0.06); padding: 3px 10px; border-radius: 4px;">PHASE_02</span>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: var(--text-primary); font-size: 18px; letter-spacing: -0.01em;">Document</h4>
+                            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">Generate real-time parameter spec sheets and interactive network routing maps automatically on the fly.</p>
+                            
+                            <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-top: auto; margin-bottom: 24px;">
+                                <div class="d-flex justify-content-between align-items-center" style="font-size: 12px; color: var(--text-secondary);">
+                                    <span><i class="fa-solid fa-file-code me-1" style="color:var(--brand-primary);"></i> OpenAPI Schema v3.1</span>
+                                    <span style="font-weight: 600; color: var(--text-primary);">Autogen</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.01); padding: 16px 28px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 6px; height: 6px; background: var(--brand-primary); border-radius: 50%;"></span> SPEC_ENG // GENERATING
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div style="border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); border-radius: 14px; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
+                        <div style="padding: 32px 28px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent-purple); letter-spacing: 0.05em; background: rgba(168, 85, 247, 0.06); padding: 3px 10px; border-radius: 4px;">PHASE_03</span>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: var(--text-primary); font-size: 18px; letter-spacing: -0.01em;">Secure</h4>
+                            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">Inject highly structured token scopes and zero-trust authentication blocks instantly at line rate.</p>
+                            
+                            <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-top: auto; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+                                <span  style="font-size: 12px; color: var(--text-secondary);"><i class="fa-solid fa-shield-halved me-1" style="color:var(--accent-purple);"></i> mTLS Network Layer</span>
+                                <span class="badge" style="background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); font-size: 10px; font-weight: 600;">ENFORCED</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.01); padding: 16px 28px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 6px; height: 6px; background: var(--accent-purple); border-radius: 50%;"></span> POL_ENG // COMPLIANT
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div style="border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); border-radius: 14px; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
+                        <div style="padding: 32px 28px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent-purple); letter-spacing: 0.05em; background: rgba(168, 85, 247, 0.06); padding: 3px 10px; border-radius: 4px;">PHASE_04</span>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: var(--text-primary); font-size: 18px; letter-spacing: -0.01em;">Monitor</h4>
+                            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">Watch transactional spikes, execution delays, error drops, and deep compute metrics continuously.</p>
+                            
+                            <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-top: auto; margin-bottom: 24px;">
+                                <div class="d-flex justify-content-between align-items-center" style="font-size: 12px; color: var(--text-secondary);">
+                                    <span><i class="fa-solid fa-chart-line me-1" style="color:var(--accent-purple);"></i> Trace Telemetry</span>
+                                    <span style="font-weight: 600; color: var(--text-primary);">14 ms avg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.01); padding: 16px 28px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 6px; height: 6px; background: var(--accent-success); border-radius: 50%;"></span> TELEMETRY // STREAMING
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div style="border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); border-radius: 14px; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
+                        <div style="padding: 32px 28px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; background: var(--bg-surface-secondary); padding: 3px 10px; border-radius: 4px;">PHASE_05</span>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: var(--text-primary); font-size: 18px; letter-spacing: -0.01em;">Optimize</h4>
+                            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">Prune resource sprawl and overlapping code trees by dropping duplicated endpoint targets.</p>
+                            
+                            <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-top: auto; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+                                <span  style="font-size: 12px; color: var(--text-secondary);"><i class="fa-solid fa-compress me-1"></i> Data Overhead Redux</span>
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--accent-success);">+40% Opt</span>
+                            </div>
+                        </div>
+                        <div style="font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.01); padding: 16px 28px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%;"></span> COMPRESSION // IDLE
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div style="border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); border-radius: 14px; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
+                        <div style="padding: 32px 28px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span style="font-family:'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; background: var(--bg-surface-secondary); padding: 3px 10px; border-radius: 4px;">PHASE_06</span>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: var(--text-primary); font-size: 18px; letter-spacing: -0.01em;">Retire</h4>
+                            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">Offboard legacy product targets and sunset old APIs securely without breaking active builds.</p>
+                            
+                            <div style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 16px; margin-top: auto; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+                                <span  style="font-size: 12px; color: var(--text-secondary);"><i class="fa-solid fa-circle-nodes me-1"></i> Sunset Path Lock</span>
+                                <span class="badge" style="background: rgba(71, 85, 105, 0.1); color: var(--text-secondary); font-size: 10px; font-weight: 600;">SAFE_EOL</span>
+                            </div>
+                        </div>
+                        <div style="font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.01); padding: 16px 28px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%;"></span> DECOM // DEACTIVATED
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-secondary);">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-12 col-lg-5">
+                    <div class="d-flex flex-column gap-2 font-monospace" style="font-size:13px;">
+                        <div class="p-3 d-flex justify-content-between align-items-center" style="background:var(--bg-surface-primary); border:1px solid var(--border-color); border-left:3px solid var(--brand-primary); border-radius:6px;">
+                            <span><i class="fa-solid fa-fingerprint me-2 text-primary"></i> AUTHENTICATION</span>
+                            <span class="text-success" style="font-size:11px;"><i class="fa-solid fa-lock me-1"></i> ENFORCED</span>
+                        </div>
+                        <div class="p-3 d-flex justify-content-between align-items-center" style="background:var(--bg-surface-primary); border:1px solid var(--border-color); border-left:3px solid var(--brand-primary); border-radius:6px;">
+                            <span><i class="fa-solid fa-user-shield me-2 text-primary"></i> AUTHORIZATION</span>
+                            <span class="text-success" style="font-size:11px;"><i class="fa-solid fa-lock me-1"></i> ENFORCED</span>
+                        </div>
+                        <div class="p-3 d-flex justify-content-between align-items-center" style="background:var(--bg-surface-primary); border:1px solid var(--border-color); border-left:3px solid var(--accent-purple); border-radius:6px;">
+                            <span><i class="fa-solid fa-key me-2 text-purple"></i> TOKEN CONTROL</span>
+                            <span style="font-size:11px; color:var(--brand-primary);"><i class="fa-solid fa-rotate me-1"></i> DYNAMIC</span>
+                        </div>
+                        <div class="p-3 d-flex justify-content-between align-items-center" style="background:var(--bg-surface-primary); border:1px solid var(--border-color); border-left:3px solid var(--accent-purple); border-radius:6px;">
+                            <span><i class="fa-solid fa-sliders me-2 text-purple"></i> RATE LIMITING</span>
+                            <span style="font-size:11px; color:var(--text-secondary);">10K/MIN MAX</span>
+                        </div>
+                        <div class="p-3 d-flex justify-content-between align-items-center" style="background:var(--bg-surface-primary); border:1px solid var(--border-color); border-left:3px solid var(--accent-success); border-radius:6px;">
+                            <span><i class="fa-solid fa-eye me-2 text-success"></i> THREAT DETECTION</span>
+                            <span class="text-success" style="font-size:11px;"><i class="fa-solid fa-shield-halved me-1"></i> LINE RATE ACTIVE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7 text-start">
+                    <span class="badge-pill-micro" style="margin-bottom:16px;">Zero Trust Integration</span>
+                    <h2 style="font-size:36px; font-weight:800; line-height:1.2; margin-bottom:20px;">Security Embedded Into Every Request</h2>
+                    <p style="color:var(--text-secondary); margin-bottom:32px;">
+                        Inject real-time governance parameters, authorization rules, and strict protocol validation algorithms straight into your gateway layers without introducing execution context latency overhead.
+                    </p>
+                    
+                    <div class="row g-4 text-center">
+                        <div class="col-6 col-sm-3">
+                            <h3 class="h4 fw-extrabold mb-1" style="color:var(--text-primary); font-family:'JetBrains Mono',monospace;">12M+</h3>
+                            <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Threats Blocked</span>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <h3 class="h4 fw-extrabold mb-1" style="color:var(--accent-success); font-family:'JetBrains Mono',monospace;">100%</h3>
+                            <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Encrypted mTLS</span>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <h3 class="h4 fw-extrabold mb-1" style="color:var(--brand-primary); font-family:'JetBrains Mono',monospace;">SOC2</h3>
+                            <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Compliant Ready</span>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <h3 class="h4 fw-extrabold mb-1" style="color:var(--accent-purple); font-family:'JetBrains Mono',monospace;">GDPR</h3>
+                            <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Data Localized</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary);">
+        <div class="container">
+            <div class="section-header-block text-center">
+                <span class="badge-pill-micro">Operational Shift</span>
+                <h2>From API Chaos To Operational Clarity</h2>
+            </div>
+
+            <div class="row g-4 align-items-stretch" style="max-width:1000px; margin: 0 auto;">
+                <div class="col-12 col-md-6">
+                    <div class="chaos-box">
+                        <h4 class="h6 fw-bold mb-3 text-danger" style="font-family:'JetBrains Mono', monospace;"><i class="fa-solid fa-ban me-2"></i> Traditional Management</h4>
+                        <div class="d-flex flex-column gap-2" style="font-size:13.5px; color:var(--text-secondary);">
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-xmark text-danger me-2"></i> 15+ Disconnected Operations Dashboards</div>
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-xmark text-danger me-2"></i> Multiple Scattered Gateway Policies</div>
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-xmark text-danger me-2"></i> Fragmented, Manually Compiled Documents</div>
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-xmark text-danger me-2"></i> High-overhead Manual Architectural Audits</div>
+                            <div class="p-2"><i class="fa-solid fa-circle-xmark text-danger me-2"></i> Unknown Cross-service System Dependencies</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="clarity-box" style="background-color:rgba(37,99,235,0.01);">
+                        <h4 class="h6 fw-bold mb-3 text-primary" style="font-family:'JetBrains Mono', monospace;"><i class="fa-solid fa-circle-check me-2 text-success"></i> APINexus Platform</h4>
+                        <div class="d-flex flex-column gap-2" style="font-size:13.5px; color:var(--text-primary);">
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-check text-success me-2"></i> 1 Consolidated Structural Command Center</div>
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-check text-success me-2"></i> Unified Global Security Policies</div>
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-check text-success me-2"></i> Automated Real-time Documentation Logs</div>
+                            <div class="p-2 border-bottom border-light"><i class="fa-solid fa-circle-check text-success me-2"></i> Continuous Autonomous Compliance Sweeps</div>
+                            <div class="p-2"><i class="fa-solid fa-circle-check text-success me-2"></i> Full Topology Map Observability Graph</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-secondary);">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width:600px; margin: 0 auto 54px auto;">
+                <span class="badge-pill-micro">Value Realization</span>
+                <h2>What Changes After Deployment?</h2>
+                <p>Quantifiable infrastructure optimizations observed across global multi-cluster enterprise deployments.</p>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="service-vector-card text-start" style="background:var(--bg-surface-primary); margin-bottom:0; height:100%;">
+                        <div style="font-size:36px; font-weight:800; color:var(--brand-primary); font-family:'JetBrains Mono', monospace;">80%</div>
+                        <h4 class="h6 fw-bold my-2">Effort Reduction</h4>
+                        <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0;">Drastic decrease in manual structural API orchestration and routing administration task lines.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="service-vector-card text-start" style="background:var(--bg-surface-primary); margin-bottom:0; height:100%;">
+                        <div style="font-size:36px; font-weight:800; color:var(--accent-success); font-family:'JetBrains Mono', monospace;">65%</div>
+                        <h4 class="h6 fw-bold my-2">Faster Onboarding</h4>
+                        <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0;">Accelerated timeline velocity for engineering developers consuming centralized endpoint schemas.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="service-vector-card text-start" style="background:var(--bg-surface-primary); margin-bottom:0; height:100%;">
+                        <div style="font-size:36px; font-weight:800; color:var(--accent-purple); font-family:'JetBrains Mono', monospace;">90%</div>
+                        <h4 class="h6 fw-bold my-2">Visibility Boost</h4>
+                        <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0;">Total eradication of shadow unmonitored deployments through background operational catalog sweeps.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="service-vector-card text-start" style="background:var(--bg-surface-primary); margin-bottom:0; height:100%;">
+                        <div style="font-size:36px; font-weight:800; color:#f59e0b; font-family:'JetBrains Mono', monospace;">40%</div>
+                        <h4 class="h6 fw-bold my-2">Operational Savings</h4>
+                        <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:0;">Consolidated gateway maintenance workflows mitigate compute resource consumption bloat parameters.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background-color: var(--bg-surface-primary);">
+        <div class="container">
+            <div class="section-header-block text-center" style="max-width:650px; margin:0 auto 48px auto;">
+                <span class="badge-pill-micro">Infrastructure Topography</span>
+                <h2>The ApiNexus Fabric</h2>
+                <p>An abstraction topology layout mapping fragmented ingestion systems smoothly onto real-time structural monitoring arrays.</p>
+            </div>
+
+            <div class="compliance-backplate-box p-4" style="background-color: var(--bg-surface-secondary); text-align:center;">
+                <div class="row align-items-center justify-content-center g-3">
+                    <div class="col-12">
+                        <div class="d-flex gap-2 justify-content-center flex-wrap" style="font-size:12px; font-family:'JetBrains Mono', monospace;">
+                            <span class="p-2 border rounded bg-body shadow-sm"><i class="fa-solid fa-users text-muted me-1"></i> CRM Apps</span>
+                            <span class="p-2 border rounded bg-body shadow-sm"><i class="fa-solid fa-warehouse text-muted me-1"></i> ERP Systems</span>
+                            <span class="p-2 border rounded bg-body shadow-sm"><i class="fa-solid fa-credit-card text-muted me-1"></i> Payments APIs</span>
+                            <span class="p-2 border rounded bg-body shadow-sm"><i class="fa-solid fa-comments text-muted me-1"></i> Messaging Nodes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 my-3">
+                        <div class="mx-auto" style="width:2px; height:40px; background:linear-gradient(to bottom, var(--border-color), var(--brand-primary)); position:relative;">
+                            <i class="fa-solid fa-chevron-down text-primary position-absolute" style="bottom:-5px; left:-5px; font-size:12px;"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="p-3 border border-primary rounded shadow-sm mx-auto" style="max-width:320px; background: linear-gradient(to right, rgba(37,99,235,0.05), rgba(37,99,235,0.02));">
+                            <span style="font-weight:700; color:var(--brand-primary); font-family:'JetBrains Mono', monospace; font-size:14px;">APINEXUS CORE ENGINE</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="mx-auto" style="width:2px; height:40px; background:linear-gradient(to bottom, var(--brand-primary), var(--border-color)); position:relative;">
+                            <i class="fa-solid fa-chevron-down text-muted position-absolute" style="bottom:-5px; left:-5px; font-size:12px;"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex gap-2 justify-content-center flex-wrap" style="font-size:11px; font-family:'JetBrains Mono', monospace;">
+                            <span class="badge bg-light text-secondary border border-light-subtle tag-api"><i class="fa-solid fa-shield-halved text-success me-1"></i> Real-time Security</span>
+                            <span class="badge bg-light text-secondary border border-light-subtle tag-api"><i class="fa-solid fa-chart-pie text-primary me-1"></i> Analytics Feed</span>
+                            <span class="badge bg-light text-secondary border border-light-subtle tag-api"><i class="fa-solid fa-scale-balanced text-warning me-1"></i> Policy Controls</span>
+                            <span class="badge bg-light text-secondary border border-light-subtle tag-api"><i class="fa-solid fa-radar text-info me-1"></i> Continuous Discovery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+        <section class="section-spacer text-center position-relative overflow-hidden"
+        style="padding: 100px 0; background: #0f172a; color: white;">
+        <div
+            style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); bottom: -20%; left: 50%; transform: translateX(-50%); pointer-events: none; filter: blur(60px);">
+        </div>
+        <div class="container position-relative" style="z-index: 5;">
+            <h2 class="display-4 fw-extrabold text-white tracking-tight mb-2" style="letter-spacing: -0.03em;">Ready For Enterprise Governance</h2>
+            <p class="text-secondary fs-6 mx-auto mb-4 pb-2" style="max-width: 640px; color: #94a3b8 !important;">
+               Transform fragmented APIs into a governed, observable, and scalable enterprise infrastructure ecosystem with ApiNexus.
+            </p>
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                <a href="login.html" class="btn btn-primary px-4 py-3 shadow-sm"
+                    style="font-weight: 600; border-radius: 10px; background: #2563eb; border: none;"><i
+                        class="fa-solid fa-circle-arrow-right me-2"></i>Get Started Today</a>
+                <a href="quote.html" class="btn btn-outline-light px-4 py-3"
+                    style="font-weight: 600; border-radius: 10px;"><i class="fa-solid fa-headset me-2"></i>Request a
+                    Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--bg-surface-primary); border-top: 1px solid var(--border-color); padding: 32px 0;">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div>
+                <span style="font-weight: 700; color: var(--text-primary); font-size: 14px;"><i class="fa-solid fa-cubes text-primary me-2"></i>ApiNexus Technologies</span>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 0; margin-top: 2px;">Enterprise Mission Control System & Lifecycle Infrastructure Hub.</p>
+            </div>
+            <div style="display: flex; gap: 24px;">
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Security Trust Protocol</a>
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Privacy Matrix</a>
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

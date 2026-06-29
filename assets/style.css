@@ -139,10 +139,7 @@
      border: 1px solid var(--border-color);
  }
 
- .btn-secondary:hover {
-     border-color: var(--border-hover);
-     background-color: var(--bg-surface-tertiary);
- }
+
 
  /* Header Broadcast System Ribbon */
  .broadcast-ribbon {
@@ -701,11 +698,11 @@
  }
 
  .provider-micro-tag {
-     font-family: 'JetBrains Mono', monospace;
-     font-size: 11px;
-     color: var(--text-secondary);
+     font-size: 12px;
+         color: #6b6b6b;
+    font-weight: 600;
      background-color: var(--bg-surface-secondary);
-     padding: 4px 10px;
+     padding: 8px 12px;
      border-radius: 4px;
  }
 

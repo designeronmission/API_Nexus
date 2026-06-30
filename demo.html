@@ -1,591 +1,745 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ApiNexus — Enterprise Integration Orchestrator</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    /* ==========================================================================
-           1. UNIQUE ENTERPRISE LIGHT DESIGN SYSTEM VARIABLES
-       ========================================================================== */
-    :root {
-      --bg-global: #f8fafc;
-      --bg-surface-primary: #ffffff;
-      --bg-surface-secondary: #f1f5f9;
-      --bg-surface-tertiary: #e2e8f0;
-      --border-color: #cbd5e1;
-      --border-hover: #94a3b8;
-
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
-
-      --brand-primary: #1d4ed8;
-      --brand-glow: rgba(29, 78, 216, 0.08);
-      --accent-success: #059669;
-      --accent-purple: #7c3aed;
-
-      --terminal-syntax-keyword: #d91a8f;
-      --terminal-syntax-string: #15803d;
-      --terminal-syntax-function: #0369a1;
-      --terminal-syntax-variable: #b45309;
-
-      --flow-node-bg: #f1f5f9;
-      --flow-center-glow: rgba(124, 58, 237, 0.15);
-
-      /* Section Specific Shifts */
-      --matrix-row-bg: linear-gradient(90deg, rgba(241, 245, 249, 0.6) 0%, rgba(226, 232, 240, 0.4) 100%);
-      --matrix-row-hover: linear-gradient(90deg, rgba(232, 240, 254, 0.8) 0%, rgba(124, 58, 237, 0.04) 100%);
-      --matrix-old-heading: #334155;
-      --matrix-vector-node-bg: #ffffff;
-      --matrix-glow-opacity-1: 0.02;
-      --matrix-glow-opacity-2: 0.03;
-    }
-
-    /* ===== RESET & BASE LINE ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--bg-global);
-      color: var(--text-primary);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-    .section-spacer { padding-top: 80px; padding-bottom: 80px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiNexus — Identity Security Fabric Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-    .badge-pill-micro {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--brand-primary);
-      background: var(--brand-glow);
-      padding: 6px 14px;
-      border-radius: 20px;
-      display: inline-block;
-      letter-spacing: 0.03em;
-      margin-bottom: 10px;
-    }
-    
-    /* ===== COMPONENT BUTTONS ===== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 13.5px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      border: 1px solid transparent;
-    }
-    .btn-primary {
-      background-color: var(--brand-primary);
-      color: #fff;
-      box-shadow: 0 4px 12px var(--brand-glow);
-    }
-    .btn-primary:hover { opacity: 0.95; transform: translateY(-1px); }
-    .btn-secondary {
-      background-color: var(--bg-surface-secondary);
-      color: var(--text-primary);
-      border-color: var(--border-color);
-    }
-    .btn-secondary:hover { border-color: var(--border-hover); background-color: var(--bg-surface-tertiary); }
+    <style>
+        /* ==========================================================================
+           THEME DESIGN SYSTEM PRIMITIVES
+           ========================================================================== */
+        :root {
+            --brand-primary: #2563eb;
+            --brand-accent: #3b82f6;
+            --bg-surface-primary: #ffffff;
+            --bg-surface-secondary: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-emerald: #10b981;
+            --accent-crimson: #ef4444;
+        }
 
-    /* ===== NAVIGATION HEADER WITH MEGA MENU ===== */
-    .broadcast-ribbon {
-      background: linear-gradient(90deg, var(--brand-primary), #4f46e5);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 10px 16px;
-      text-align: center;
-      letter-spacing: 0.03em;
-    }
-    
-    .site-header {
-      background: rgba(248, 250, 252, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    
-    .header-wrapper {
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .logo-block {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-    
-    /* Mega Menu System Architecture Rules */
-    .mega-nav {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .mega-nav-item {
-      position: relative;
-      padding: 6px 12px;
-      font-weight: 600;
-      font-size: 14px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background 0.2s;
-    }
-    .mega-nav-item:hover { background: var(--bg-surface-secondary); color: var(--text-primary); }
-    
-    .mega-dropdown {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      background: var(--bg-surface-primary);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-      min-width: 700px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-      display: none;
-      z-index: 200;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-    }
-    .mega-nav-item:hover .mega-dropdown { display: grid; }
-    .mega-dropdown h4 { font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.05em; }
-    .mega-dropdown a { display: block; padding: 6px 0; font-size: 14px; color: var(--text-secondary); text-decoration: none; }
-    .mega-dropdown a:hover { color: var(--brand-primary); }
-    
-    .mega-featured {
-      grid-column: span 3;
-      background: var(--bg-surface-secondary);
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .mega-featured strong { font-size: 15px; }
-    .mega-featured a { color: var(--brand-primary); font-weight: 600; }
-    
-    @media (max-width: 992px) {
-      .mega-nav { display: none; }
-      .mobile-menu-toggle { display: block; }
-    }
-    .mobile-menu-toggle { display: none; background: none; border: none; font-size: 24px; color: var(--text-primary); }
+        body {
+            background-color: var(--bg-surface-primary);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
 
-    /* ===== HERO WRAPPER WITH CLEAN BLURS ===== */
-    .hero-section {
-      position: relative;
-      text-align: center;
-      padding: 120px 0 80px;
-      overflow: hidden;
-    }
-    .hero-glow {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      width: 700px;
-      height: 450px;
-      background: radial-gradient(circle, var(--brand-primary), var(--accent-purple));
-      opacity: 0.06;
-      filter: blur(140px);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .hero-section h1 {
-      font-size: 52px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
-    .hero-section h1 span {
-      background: linear-gradient(90deg, #1d4ed8, #6d28d9, #0369a1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-section p { font-size: 18px; color: var(--text-secondary); max-width: 700px; margin: 0 auto 32px; }
-    .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .section-spacer {
+            padding: 140px 0;
+            position: relative;
+        }
 
-    /* ===== CAPABILITIES FEATURES MATRIX ===== */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .feature-card {
-      background: var(--bg-surface-primary);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 28px 20px;
-      text-align: center;
-      transition: 0.2s;
-    }
-    .feature-card:hover { border-color: var(--border-hover); transform: translateY(-4px); }
-    .feature-card i { font-size: 28px; color: var(--brand-primary); margin-bottom: 16px; }
-    .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { font-size: 14px; color: var(--text-secondary); }
+        /* Micro Pill */
+        .badge-pill-micro {
+            background: rgba(37, 99, 235, 0.05);
+            color: var(--brand-primary);
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            display: inline-flex;
+            align-items: center;
+            text-transform: uppercase;
+        }
 
-    /* ===== CALL TO ACTION SECTION ===== */
-    .cta-section {
-      background: var(--bg-surface-secondary);
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      padding: 80px 0;
-      text-align: center;
-    }
-    .cta-section h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+        /* Header Navigation Styles */
+        .site-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .nav-links-deck {
+            display: flex;
+            gap: 28px;
+        }
+        .nav-links-deck a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .nav-links-deck a:hover {
+            color: var(--brand-primary);
+        }
 
-    /* ===== CORE MASTER FOOTER SYSTEM ===== */
-    .master-footer {
-      background: var(--bg-surface-tertiary);
-      border-top: 1px solid var(--border-color);
-      padding: 40px 0;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-    }
-    .footer-grid h5 { font-weight: 700; margin-bottom: 16px; }
-    .footer-grid a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 14px; padding: 4px 0; }
-    .footer-grid a:hover { color: var(--brand-primary); }
-    .footer-bottom {
-      border-top: 1px solid var(--border-color);
-      padding-top: 24px;
-      margin-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+        /* ==========================================================================
+           CREATIVE COMPONENT DESIGNS
+           ========================================================================== */
+        
+        /* 1. Hero Dynamic Nodes Animation */
+        @keyframes laser-pulse {
+            0% { stroke-dashoffset: 40; opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0.4; }
+        }
+        .laser-line {
+            stroke-dasharray: 8, 4;
+            animation: laser-pulse 2.5s linear infinite;
+        }
 
+        /* 2. Zero Trust Dual Gate Blueprint Splitting */
+        .gate-system-container {
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            background: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(15, 23, 42, 0.015);
+        }
+        .gate-pane {
+            padding: 48px;
+            height: 100%;
+        }
+        .gate-pane.legacy-dark {
+            background: #fafbfc;
+            border-right: 1px solid var(--border-color);
+        }
+        .gate-pane.fabric-light {
+            background: linear-gradient(135deg, rgba(37,99,235,0.01) 0%, rgba(255,255,255,1) 100%);
+            position: relative;
+        }
 
+        /* 3. Control Center Hexagonal Grid / Isometric Cards */
+        .iso-feature-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 1;
+        }
+        .iso-feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--brand-primary);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.04);
+        }
+        .iso-feature-card .metric-dot {
+            position: absolute;
+            top: -1px;
+            right: 32px;
+            background: var(--brand-primary);
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 0 0 6px 6px;
+        }
 
-    /* ==========================================================================
-       4. ENTERPRISE INTEGRATION LAYOUT COMPONENTS
-   ========================================================================== */
-.max-width-700 {
-  max-width: 700px;
-}
+        /* 4. Real-time Process Stepper Rings */
+        .process-pipeline-rail {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 40px;
+        }
+        .process-pipeline-rail::before {
+            content: '';
+            position: absolute;
+            top: 25px; left: 0; width: 100%; height: 2px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+        .process-ring-node {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            width: 52px;
+            height: 52px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+        .process-block:hover .process-ring-node {
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+            box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.06);
+        }
 
-.integration-vector-card {
-  background-color: var(--bg-surface-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 32px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+        /* 5. Exploded 3D Architectural Blueprint Matrix */
+        .exploded-blueprint-canvas {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.01);
+        }
+        .exploded-layer {
+            border: 1px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            background: #ffffff;
+            margin-bottom: 24px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .exploded-layer:hover {
+            border-style: solid;
+            border-color: var(--brand-primary);
+            background: rgba(37, 99, 235, 0.005);
+            transform: scale(1.01);
+        }
+        .exploded-layer::left-tag {
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-.integration-vector-card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px var(--brand-glow);
-}
-
-.integration-icon-frame {
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
-  background-color: var(--bg-surface-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  color: var(--brand-primary);
-  margin-bottom: 20px;
-}
-
-.integration-vector-card h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
-}
-
-.integration-vector-card p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin-bottom: 0;
-}
-
-/* Custom/Dashed Variation States */
-.action-dashed-card {
-  background-color: var(--bg-surface-secondary);
-  border: 2px dashed var(--border-color);
-}
-
-.action-dashed-card:hover {
-  background-color: var(--bg-surface-primary);
-}
-
-.action-icon {
-  background-color: var(--brand-glow);
-}
-
-.action-dashed-card p {
-  margin-bottom: 16px;
-}
-  </style>
+        /* 6. Asymmetrical Use Cases Blocks */
+        .asym-usecase-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .asym-usecase-tile {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            transition: border-color 0.3s ease;
+        }
+        .asym-usecase-tile:hover {
+            border-color: var(--text-primary);
+        }
+    </style>
 </head>
+
 <body>
 
-  <div class="broadcast-ribbon">
-    <i class="fa-solid fa-bolt me-2"></i> ApiNexus Version 2.4 Enterprise Deployment Engine Active.
-  </div>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrapper">
+                <div>
+                    <span style="font-weight: 800; font-size: 18px; color: var(--text-primary); letter-spacing: -0.02em;"><i class="fa-solid fa-cubes text-primary me-2" style="color: var(--brand-primary);"></i>ApiNexus</span>
+                </div>
+                <nav class="nav-links-deck">
+                    <a href="index.html">Home</a>
+                    <a href="integration-hub.html">Integration Hub</a>
+                    <a href="API-Management.html">API Gateway</a>
+                    <a href="Authentication.html" style="color: var(--brand-primary); font-weight:700;">Identity Security</a>
+                </nav>
+                <div>
+                    <a href="#" class="btn btn-primary" style="padding: 10px 20px; font-size: 13px; font-weight:600; border-radius:8px; background: var(--brand-primary); border:none;">Access Console</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <header class="site-header">
-    <div class="container header-wrapper">
-      <div class="logo-block">
-        <span class="fw-bold fs-4 tracking-tight text-dark"><i class="fa-solid fa-network-wired text-primary me-2"></i>ApiNexus</span>
-      </div>
-      
-      <nav class="mega-nav">
-        <div class="mega-nav-item">
-          Platform <i class="fa-solid fa-chevron-down ms-1 style="font-size: 11px;"></i>
-          <div class="mega-dropdown">
+    <section class="section-spacer" style="background: #ffffff; padding: 120px 0 140px 0;">
+        <div style="position: absolute; inset:0; background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px); background-size: 32px 32px; opacity: 0.4; pointer-events:none;"></div>
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-xl-5 position-relative" style="z-index: 10;">
+                    <span class="badge-pill-micro"><i class="fa-solid fa-fingerprint me-2"></i>Identity Security Fabric</span>
+                    <h1 style="font-weight: 800; font-size: 54px; letter-spacing: -0.03em; line-height: 1.1; margin-top: 24px; color: var(--text-primary);">
+                        Secure Every User, <br>Application <span style="color: transparent; -webkit-text-stroke: 1.5px var(--brand-primary); background: linear-gradient(var(--brand-primary), var(--brand-primary)); -webkit-background-clip: text;">& API</span>
+                    </h1>
+                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.7; margin-top: 24px; margin-bottom: 40px;">
+                        Enterprise-grade access engineering designed for complex ecosystems. Wrap apps, workflows, data channels, and machinery in a single fluid network fabric.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#" class="btn btn-primary px-4 py-3" style="font-weight:600; border-radius:10px; background:var(--brand-primary); border:none; font-size:14px; box-shadow: 0 10px 24px rgba(37,99,235,0.15);">Start Securing Access</a>
+                        <a href="#" class="btn btn-outline-light px-4 py-3" style="font-weight:600; border-radius:10px; border-color: var(--border-color); color: var(--text-primary); background:#fff; font-size:14px;">Request Security Demo</a>
+                    </div>
+                </div>
+
+                <div class="col-xl-7">
+                    <div class="exploded-blueprint-canvas" style="padding: 30px; position: relative;">
+                        <svg style="position: absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+                            <path d="M 60 70 L 260 175 M 500 70 L 340 175 M 300 230 L 300 310" stroke="rgba(37,99,235,0.25)" stroke-width="1.5" fill="none" />
+                            <path d="M 60 70 L 260 175 M 500 70 L 340 175 M 300 230 L 300 310" stroke="var(--brand-primary)" stroke-width="1.5" fill="none" class="laser-line" />
+                        </svg>
+
+                        <div class="d-flex justify-content-between mb-5" style="position: relative; z-index: 5;">
+                            <div style="background:#f8fafc; border:1px solid var(--border-color); padding:12px 20px; border-radius:10px; font-size:12px; font-weight:700;"><i class="fa-solid fa-users text-primary me-2"></i>Users & Devices</div>
+                            <div style="background:#f8fafc; border:1px solid var(--border-color); padding:12px 20px; border-radius:10px; font-size:12px; font-weight:700;"><i class="fa-solid fa-network-wired text-info me-2"></i>Apps & Workflows</div>
+                        </div>
+
+                        <div class="text-center mx-auto mb-5" style="width: 260px; background:#ffffff; border:2px solid var(--brand-primary); padding:24px; border-radius:20px; box-shadow: 0 15px 35px rgba(37,99,235,0.06); position: relative; z-index: 5;">
+                            <div style="width:44px; height:44px; background:rgba(37,99,235,0.06); color:var(--brand-primary); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h6 style="font-weight:800; font-size:14px; margin-bottom:2px;">Centralized Identity Fabric</h6>
+                            <span style="font-family:'JetBrains Mono'; font-size:10px; color:var(--text-muted);">MFA • OIDC • SSO • RBAC</span>
+                        </div>
+
+                        <div class="text-center mx-auto" style="width: 190px; background: rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.25); padding:12px; border-radius:12px; position: relative; z-index: 5;">
+                            <span style="font-size:12px; font-weight:700; color:var(--text-primary);"><i class="fa-solid fa-lock-open text-success me-2"></i>Protected Ecosystem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-5 pt-5 border-top" style="border-color: var(--border-color) !important;">
+                <div class="col-6 col-md-3">
+                    <span style="font-size:12px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono';   margin-bottom:4px;">[ METRIC_01 ]</span>
+                    <h3 style="font-weight:800; font-size:32px; color:var(--text-primary); margin-bottom:0;">99.99%</h3>
+                    <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Authentication Availability</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <span style="font-size:12px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono';   margin-bottom:4px;">[ METRIC_02 ]</span>
+                    <h3 style="font-weight:800; font-size:32px; color:var(--text-primary); margin-bottom:0;">10M+</h3>
+                    <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Tokens Issued Daily</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <span style="font-size:12px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono';   margin-bottom:4px;">[ METRIC_03 ]</span>
+                    <h3 style="font-weight:800; font-size:32px; color:var(--text-primary); margin-bottom:0;">500K+</h3>
+                    <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Protected Ecosystem Users</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <span style="font-size:12px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono';   margin-bottom:4px;">[ METRIC_04 ]</span>
+                    <h3 style="font-weight:800; font-size:32px; color:var(--text-primary); margin-bottom:0;">100%</h3>
+                    <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Encrypted Active Sessions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background: var(--bg-surface-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+        <div class="container">
+            <div class="row mb-5 align-items-end">
+                <div class="col-lg-6">
+                    <span class="badge-pill-micro" style="background:rgba(239,68,68,0.05); color:var(--accent-crimson); border-color:rgba(239,68,68,0.1);"><i class="fa-solid fa-circle-crosshairs me-2"></i>The Identity Challenge</span>
+                    <h2 style="font-weight:800; font-size:40px; letter-spacing:-0.02em; margin-top:16px; color:var(--text-primary);">Access Is the New Security Perimeter</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p style="color:var(--text-secondary); font-size:15px; line-height:1.7; margin-bottom:0;">
+                        Legacy systems rely on walled networks. Modern operations require authenticating human operators, automated background routines, and APIs inside and outside company lines concurrently.
+                    </p>
+                </div>
+            </div>
+
+            <div class="gate-system-container">
+                <div class="row g-0">
+                    <div class="col-lg-6">
+                        <div class="gate-pane legacy-dark">
+                            <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--accent-crimson); font-weight:700; display:block; margin-bottom:28px;">// FRAGMENTED SYSTEM TRADITIONAL</span>
+                            <div style="display:flex; flex-direction:column; gap:20px;">
+                                <div style="display:flex; align-items:start; gap:16px;">
+                                    <span style="color:var(--accent-crimson); font-weight:bold; font-size:16px; margin-top:-2px;">✕</span>
+                                    <div>
+                                        <h6 style="font-weight:700; font-size:14px; margin-bottom:2px; color:var(--text-primary);">Multiple Isolation Ports</h6>
+                                        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Disconnected user catalogs that create constant data repetition gaps.</p>
+                                    </div>
+                                </div>
+                                <div style="display:flex; align-items:start; gap:16px;">
+                                    <span style="color:var(--accent-crimson); font-weight:bold; font-size:16px; margin-top:-2px;">✕</span>
+                                    <div>
+                                        <h6 style="font-weight:700; font-size:14px; margin-bottom:2px; color:var(--text-primary);">Weak Access Architecture</h6>
+                                        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Vulnerable parameters, loose login criteria, and manual script risks.</p>
+                                    </div>
+                                </div>
+                                <div style="display:flex; align-items:start; gap:16px;">
+                                    <span style="color:var(--accent-crimson); font-weight:bold; font-size:16px; margin-top:-2px;">✕</span>
+                                    <div>
+                                        <h6 style="font-weight:700; font-size:14px; margin-bottom:2px; color:var(--text-primary);">Asymmetric Policy Handling</h6>
+                                        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Inconsistent verification processes depending blindly on app-specific profiles.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="gate-pane fabric-light">
+                            <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--accent-emerald); font-weight:700; display:block; margin-bottom:28px;">// REENGINEERED WITH APINEXUS</span>
+                            <div style="display:flex; flex-direction:column; gap:20px;">
+                                <div style="display:flex; align-items:start; gap:16px;">
+                                    <span style="color:var(--accent-emerald); font-weight:bold; font-size:16px; margin-top:-2px;">✓</span>
+                                    <div>
+                                        <h6 style="font-weight:700; font-size:14px; margin-bottom:2px; color:var(--text-primary);">Unified Identity Management</h6>
+                                        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">One comprehensive hub coordinating data verification layers cleanly.</p>
+                                    </div>
+                                </div>
+                                <div style="display:flex; align-items:start; gap:16px;">
+                                    <span style="color:var(--accent-emerald); font-weight:bold; font-size:16px; margin-top:-2px;">✓</span>
+                                    <div>
+                                        <h6 style="font-weight:700; font-size:14px; margin-bottom:2px; color:var(--text-primary);">Global SSO & Adaptable MFA</h6>
+                                        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Zero friction for approved personnel while keeping attackers permanently isolated.</p>
+                                    </div>
+                                </div>
+                                <div style="display:flex; align-items:start; gap:16px;">
+                                    <span style="color:var(--accent-emerald); font-weight:bold; font-size:16px; margin-top:-2px;">✓</span>
+                                    <div>
+                                        <h6 style="font-weight:700; font-size:14px; margin-bottom:2px; color:var(--text-primary);">Centralized Real-Time Policies</h6>
+                                        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0;">Complete administrative supervision across human and programmatic paths alike.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background: #ffffff;">
+        <div class="container">
+            <div class="text-center mb-5 pb-2" style="max-width: 600px; margin:0 auto;">
+                <span class="badge-pill-micro"><i class="fa-solid fa-sliders me-2"></i>Control Architecture</span>
+                <h2 style="font-weight:800; font-size:38px; color:var(--text-primary); margin-top:16px; letter-spacing:-0.02em;">Everything Needed To Secure Access</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="iso-feature-card">
+                        <div class="metric-dot">CORE_01</div>
+                        <div style="font-size:24px; color:var(--brand-primary); margin-bottom:24px;"><i class="fa-solid fa-square-nodes"></i></div>
+                        <h4 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:12px;">OAuth 2.0 Authorization</h4>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:24px;">Enforce absolute system authorization configurations natively via modern programmatic token handshakes.</p>
+                        <div style="border-top:1px dashed var(--border-color); padding-top:16px; display:flex; flex-wrap:gap; gap:12px; font-size:12px; font-weight:600; color:var(--text-muted);">
+                            <span class="me-3"><i class="fa-solid fa-circle-nodes text-primary me-1"></i> Code Flows</span>
+                            <span><i class="fa-solid fa-circle-nodes text-primary me-1"></i> Client Credentials</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="iso-feature-card">
+                        <div class="metric-dot">CORE_02</div>
+                        <div style="font-size:24px; color:var(--brand-primary); margin-bottom:24px;"><i class="fa-solid fa-id-card-clip"></i></div>
+                        <h4 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:12px;">OpenID Connect (OIDC)</h4>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:24px;">Deploy cryptographic dynamic verification records directly across distributed corporate apps safely.</p>
+                        <div style="border-top:1px dashed var(--border-color); padding-top:16px; display:flex; flex-wrap:gap; gap:12px; font-size:12px; font-weight:600; color:var(--text-muted);">
+                            <span class="me-3"><i class="fa-solid fa-shield text-primary me-1"></i> Identity Tokens</span>
+                            <span><i class="fa-solid fa-shield text-primary me-1"></i> Claims Sync</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="iso-feature-card">
+                        <div class="metric-dot">CORE_03</div>
+                        <div style="font-size:24px; color:var(--brand-primary); margin-bottom:24px;"><i class="fa-solid fa-bolt-lightning"></i></div>
+                        <h4 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:12px;">Single Sign-On (SSO)</h4>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:24px;">Allow users to securely log in once to seamlessly access all their approved ecosystem platforms.</p>
+                        <div style="border-top:1px dashed var(--border-color); padding-top:16px; display:flex; flex-wrap:gap; gap:12px; font-size:12px; font-weight:600; color:var(--text-muted);">
+                            <span class="me-3"><i class="fa-solid fa-bolt text-primary me-1"></i> High UX Speed</span>
+                            <span><i class="fa-solid fa-bolt text-primary me-1"></i> Zero Password Fatigue</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="iso-feature-card">
+                        <div class="metric-dot">CORE_04</div>
+                        <div style="font-size:24px; color:var(--brand-primary); margin-bottom:24px;"><i class="fa-solid fa-shield-dots"></i></div>
+                        <h4 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:12px;">Multi-Factor Auth (MFA)</h4>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:24px;">Defend high-value operations using biometric, app authenticator, or security key requirements.</p>
+                        <div style="border-top:1px dashed var(--border-color); padding-top:16px; display:flex; flex-wrap:gap; gap:12px; font-size:12px; font-weight:600; color:var(--text-muted);">
+                            <span class="me-3"><i class="fa-solid fa-key text-primary me-1"></i> Hardware Keys</span>
+                            <span><i class="fa-solid fa-key text-primary me-1"></i> App TOTP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="iso-feature-card">
+                        <div class="metric-dot">CORE_05</div>
+                        <div style="font-size:24px; color:var(--brand-primary); margin-bottom:24px;"><i class="fa-solid fa-users-gear"></i></div>
+                        <h4 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:12px;">Role-Based Control (RBAC)</h4>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:24px;">Implement fine-grained data permissions to enforce strict least-privilege guardrails.</p>
+                        <div style="border-top:1px dashed var(--border-color); padding-top:16px; display:flex; flex-wrap:gap; gap:12px; font-size:12px; font-weight:600; color:var(--text-muted);">
+                            <span class="me-3"><i class="fa-solid fa-lock text-primary me-1"></i> Policy Scope</span>
+                            <span><i class="fa-solid fa-lock text-primary me-1"></i> Group Guard</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="iso-feature-card">
+                        <div class="metric-dot">CORE_06</div>
+                        <div style="font-size:24px; color:var(--brand-primary); margin-bottom:24px;"><i class="fa-solid fa-ticket"></i></div>
+                        <h4 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:12px;">Token Management</h4>
+                        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin-bottom:24px;">Maintain microsecond-level supervision over active tokens with instantaneous rotation policies.</p>
+                        <div style="border-top:1px dashed var(--border-color); padding-top:16px; display:flex; flex-wrap:gap; gap:12px; font-size:12px; font-weight:600; color:var(--text-muted);">
+                            <span class="me-3"><i class="fa-solid fa-rotate text-primary me-1"></i> JWT Controls</span>
+                            <span><i class="fa-solid fa-rotate text-primary me-1"></i> Live Revocation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background: var(--bg-surface-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-xl-4">
+                    <span class="badge-pill-micro" style="background:rgba(124,58,237,0.05); color:#7c3aed; border-color:rgba(124,58,237,0.1);"><i class="fa-solid fa-wave-square me-2"></i>Pipeline Runtime</span>
+                    <h2 style="font-weight:800; font-size:38px; color:var(--text-primary); margin-top:16px; letter-spacing:-0.02em;">Secure Authentication In Real Time</h2>
+                    <p style="color:var(--text-secondary); font-size:15px; line-height:1.7; margin-top:16px; margin-bottom:0;">
+                        Every authentication query passes through an encrypted, inspectable verification pipeline to completely shut down potential vectors before granting downstream access.
+                    </p>
+                </div>
+
+                <div class="col-xl-8">
+                    <div class="process-pipeline-rail flex-column flex-md-row gap-4 gap-md-0">
+                        <div class="process-block text-start text-md-center" style="max-width:130px;">
+                            <div class="process-ring-node mx-md-auto mb-3">01</div>
+                            <h6 style="font-size:13px; font-weight:800; margin-bottom:4px; color:var(--text-primary);">User Login</h6>
+                            <p style="font-size:11px; color:var(--text-muted); line-height:1.4; margin-bottom:0;">Credentials safely submitted.</p>
+                        </div>
+                        <div class="process-block text-start text-md-center" style="max-width:130px;">
+                            <div class="process-ring-node mx-md-auto mb-3">02</div>
+                            <h6 style="font-size:13px; font-weight:800; margin-bottom:4px; color:var(--text-primary);">Identity Verify</h6>
+                            <p style="font-size:11px; color:var(--text-muted); line-height:1.4; margin-bottom:0;">Cryptographic record check.</p>
+                        </div>
+                        <div class="process-block text-start text-md-center" style="max-width:130px;">
+                            <div class="process-ring-node mx-md-auto mb-3">03</div>
+                            <h6 style="font-size:13px; font-weight:800; margin-bottom:4px; color:var(--text-primary);">MFA Validation</h6>
+                            <p style="font-size:11px; color:var(--text-muted); line-height:1.4; margin-bottom:0;">Secondary loop confirmation.</p>
+                        </div>
+                        <div class="process-block text-start text-md-center" style="max-width:130px;">
+                            <div class="process-ring-node mx-md-auto mb-3">04</div>
+                            <h6 style="font-size:13px; font-weight:800; margin-bottom:4px; color:var(--text-primary);">Policy Check</h6>
+                            <p style="font-size:11px; color:var(--text-muted); line-height:1.4; margin-bottom:0;">Least-privilege routing.</p>
+                        </div>
+                        <div class="process-block text-start text-md-center" style="max-width:130px;">
+                            <div class="process-ring-node mx-md-auto mb-3" style="border-color:var(--accent-emerald); color:var(--accent-emerald);">05</div>
+                            <h6 style="font-size:13px; font-weight:800; margin-bottom:4px; color:var(--text-primary);">Token Issued</h6>
+                            <p style="font-size:11px; color:var(--text-muted); line-height:1.4; margin-bottom:0;">Ecosystem access granted.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background:#ffffff;">
+        <div class="container">
+            <div class="row align-items-center g-5 mb-5">
+                <div class="col-lg-6">
+                    <span class="badge-pill-micro"><i class="fa-solid fa-server me-2"></i>Ops Center</span>
+                    <h2 style="font-weight:800; font-size:40px; color:var(--text-primary); margin-top:16px; letter-spacing:-0.03em;">Built For Enterprise Security</h2>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex gap-5 justify-content-lg-end">
+                        <div>
+                            <h3 style="font-weight:800; font-size:28px; color:var(--text-primary); margin-bottom:0;">12M+</h3>
+                            <span style="font-size:12px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono';">THREATS_ANALYZED</span>
+                        </div>
+                        <div style="border-left: 1px solid var(--border-color); padding-left: 40px;">
+                            <h3 style="font-weight:800; font-size:28px; color:var(--text-primary); margin-bottom:0;">SOC 2</h3>
+                            <span style="font-size:12px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono';">SECURITY_READY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div style="border: 1px solid var(--border-color); padding:32px; border-radius:16px; height:100%;">
+                        <span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--brand-primary); font-weight:700; display:block; margin-bottom:12px;">[ GRID_NODE_A ]</span>
+                        <h5 style="font-weight:700; font-size:16px; color:var(--text-primary); margin-bottom:8px;">Identity Protection</h5>
+                        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:0;">Monitor user actions across the fabric to neutralize anomalous data signatures.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div style="border: 1px solid var(--border-color); padding:32px; border-radius:16px; height:100%;">
+                        <span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--brand-primary); font-weight:700; display:block; margin-bottom:12px;">[ GRID_NODE_B ]</span>
+                        <h5 style="font-weight:700; font-size:16px; color:var(--text-primary); margin-bottom:8px;">Session Security</h5>
+                        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:0;">Instantly terminate rogue connections globally to isolate threat actors.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div style="border: 1px solid var(--border-color); padding:32px; border-radius:16px; height:100%;">
+                        <span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--brand-primary); font-weight:700; display:block; margin-bottom:12px;">[ GRID_NODE_C ]</span>
+                        <h5 style="font-weight:700; font-size:16px; color:var(--text-primary); margin-bottom:8px;">Threat Detection</h5>
+                        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:0;">Leverage behavioral analysis to identify and halt credential stuffing attempts instantly.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div style="border: 1px solid var(--border-color); padding:32px; border-radius:16px; height:100%;">
+                        <span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--brand-primary); font-weight:700; display:block; margin-bottom:12px;">[ GRID_NODE_D ]</span>
+                        <h5 style="font-weight:700; font-size:16px; color:var(--text-primary); margin-bottom:8px;">Compliance Controls</h5>
+                        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:0;">Generate unalterable audit trails designed for strict compliance standards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background: var(--bg-surface-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+        <div class="container">
+            <div class="text-center mb-5" style="max-width:600px; margin:0 auto;">
+                <span class="badge-pill-micro"><i class="fa-solid fa-layer-group me-2"></i>Unified Stack</span>
+                <h2 style="font-weight:800; font-size:38px; color:var(--text-primary); margin-top:16px; letter-spacing:-0.03em;">One Identity Layer For Every System</h2>
+            </div>
+
+            <div class="exploded-blueprint-canvas" style="max-width:800px; margin:0 auto;">
+                <div class="exploded-layer">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                        <div>
+                            <span style="font-family:'JetBrains Mono'; font-size:11px; font-weight:600; color:var(--text-muted); display:block;">LAYER_01 // ACCESS ORIGIN POINT</span>
+                            <h5 style="font-weight:700; font-size:15px; color:var(--text-primary); margin-top:2px; margin-bottom:0;">Employees • Customers • Partners • Integrated Ecosystem Devices</h5>
+                        </div>
+                        <span style="font-size:11px; background:#f1f5f9; padding:4px 10px; border-radius:4px; font-family:'JetBrains Mono'; font-weight:500;">INBOUND_TRAFFIC</span>
+                    </div>
+                </div>
+                <div class="exploded-layer" style="border-color:var(--brand-primary); background:rgba(37,99,235,0.005);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                        <div>
+                            <span style="font-family:'JetBrains Mono'; font-size:11px; font-weight:700; color:var(--brand-primary); display:block;">LAYER_02 // APINEXUS CLOUD FABRIC INTERCEPTOR</span>
+                            <h5 style="font-weight:700; font-size:15px; color:var(--text-primary); margin-top:2px; margin-bottom:0;">Authentication Engine • Token Issuance Protocol • Access Gateways</h5>
+                        </div>
+                        <span style="font-size:11px; background:rgba(37,99,235,0.08); color:var(--brand-primary); padding:4px 10px; border-radius:4px; font-family:'JetBrains Mono'; font-weight:700;">SECURITY_CORE</span>
+                    </div>
+                </div>
+                <div class="exploded-layer" style="margin-bottom:0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                        <div>
+                            <span style="font-family:'JetBrains Mono'; font-size:11px; font-weight:600; color:var(--text-muted); display:block;">LAYER_03 // TARGET ECOSYSTEM DATA ENDPOINTS</span>
+                            <h5 style="font-weight:700; font-size:15px; color:var(--text-primary); margin-top:2px; margin-bottom:0;">APIs • Internal Applications • Automations & Cloud Storage Workflows</h5>
+                        </div>
+                        <span style="font-size:11px; background:#f1f5f9; padding:4px 10px; border-radius:4px; font-family:'JetBrains Mono'; font-weight:500;">SECURED_RESOURCES</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background:#ffffff;">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-4">
+                    <span class="badge-pill-micro"><i class="fa-solid fa-briefcase me-2"></i>Value Delivery</span>
+                    <h2 style="font-weight:800; font-size:38px; color:var(--text-primary); margin-top:16px; letter-spacing:-0.03em; line-height:1.2;">Why Organizations Choose ApiNexus Identity</h2>
+                    <p style="color:var(--text-secondary); font-size:15px; line-height:1.6; margin-top:16px;">
+                        ApiNexus unifies security and efficiency, avoiding any trade-off between strict posture compliance and seamless performance.
+                    </p>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="row g-4">
+                        <div class="col-sm-6">
+                            <div style="background:#f8fafc; border:1px solid var(--border-color); padding:28px; border-radius:12px;">
+                                <div style="color:var(--brand-primary); font-size:18px; margin-bottom:14px;"><i class="fa-solid fa-shield"></i></div>
+                                <h6 style="font-weight:700; color:var(--text-primary); font-size:15px; margin-bottom:6px;">Stronger Security</h6>
+                                <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Completely eliminate unauthorized access risks through unified authentication controls.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="background:#f8fafc; border:1px solid var(--border-color); padding:28px; border-radius:12px;">
+                                <div style="color:var(--brand-primary); font-size:18px; margin-bottom:14px;"><i class="fa-solid fa-user-check"></i></div>
+                                <h6 style="font-weight:700; color:var(--text-primary); font-size:15px; margin-bottom:6px;">Better User Experience</h6>
+                                <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Provide frictionless system navigation via intelligent, context-aware SSO validation paths.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="background:#f8fafc; border:1px solid var(--border-color); padding:28px; border-radius:12px;">
+                                <div style="color:var(--brand-primary); font-size:18px; margin-bottom:14px;"><i class="fa-solid fa-bolt"></i></div>
+                                <h6 style="font-weight:700; color:var(--text-primary); font-size:15px; margin-bottom:6px;">Faster Administration</h6>
+                                <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Orchestrate roles, scopes, and cryptographic access parameters from a single dashboard.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="background:#f8fafc; border:1px solid var(--border-color); padding:28px; border-radius:12px;">
+                                <div style="color:var(--brand-primary); font-size:18px; margin-bottom:14px;"><i class="fa-solid fa-gavel"></i></div>
+                                <h6 style="font-weight:700; color:var(--text-primary); font-size:15px; margin-bottom:6px;">Regulatory Compliance</h6>
+                                <p style="font-size:13px; color:var(--text-secondary); margin-bottom:0; line-height:1.5;">Address strict global auditing mandates with unalterable access logging.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer" style="background: var(--bg-surface-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+        <div class="container">
+            <div class="text-center mb-5" style="max-width:550px; margin:0 auto;">
+                <span class="badge-pill-micro"><i class="fa-solid fa-chart-pie me-2"></i>Ecosystem Support</span>
+                <h2 style="font-weight:800; font-size:36px; color:var(--text-primary); margin-top:14px; letter-spacing:-0.02em;">Authentication For Every Vertical</h2>
+            </div>
+
+            <div class="asym-usecase-row">
+                <div class="asym-usecase-tile">
+                    <h6 style="font-weight:800; font-size:15px;"><i class="fa-solid fa-cloud text-primary me-2"></i>SaaS Platforms</h6>
+                    <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-top:12px; margin-bottom:0;">Secure multi-tenant boundaries and user access isolation configurations natively.</p>
+                </div>
+                <div class="asym-usecase-tile">
+                    <h6 style="font-weight:800; font-size:15px;"><i class="fa-solid fa-network-wired text-primary me-2"></i>Enterprise IT</h6>
+                    <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-top:12px; margin-bottom:0;">Centralize workforce directories across distributed organizational branches.</p>
+                </div>
+                <div class="asym-usecase-tile">
+                    <h6 style="font-weight:800; font-size:15px;"><i class="fa-solid fa-building-columns text-primary me-2"></i>Financial Services</h6>
+                    <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-top:12px; margin-bottom:0;">Defend transaction pathways using strict multi-factor verification constraints.</p>
+                </div>
+                <div class="asym-usecase-tile">
+                    <h6 style="font-weight:800; font-size:15px;"><i class="fa-solid fa-heart-pulse text-primary me-2"></i>Healthcare</h6>
+                    <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-top:12px; margin-bottom:0;">Protect health records with fine-grained access criteria and role mapping.</p>
+                </div>
+                <div class="asym-usecase-tile">
+                    <h6 style="font-weight:800; font-size:15px;"><i class="fa-solid fa-basket-shopping text-primary me-2"></i>E-Commerce</h6>
+                    <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-top:12px; margin-bottom:0;">Enable high-speed guest transactions using secure federated social authentication profiles.</p>
+                </div>
+                <div class="asym-usecase-tile">
+                    <h6 style="font-weight:800; font-size:15px;"><i class="fa-solid fa-cubes text-primary me-2"></i>API Platforms</h6>
+                    <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-top:12px; margin-bottom:0;">Protect machine-to-machine integrations with rapid cryptographic JWT token handshakes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacer text-center position-relative overflow-hidden" style="padding: 120px 0; background: #0f172a; color: white;">
+        <div style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 70%); top: -20%; left: 50%; transform: translateX(-50%); pointer-events: none; filter: blur(40px);"></div>
+        <div class="container position-relative" style="z-index: 5;">
+            <span class="badge-pill-micro" style="background:rgba(255,255,255,0.06); color:#fff; border-color:rgba(255,255,255,0.15); margin-bottom:24px;">Identity. Security. Control.</span>
+            <h2 class="display-5 text-white mb-3" style="letter-spacing: -0.03em; font-weight: 800;">Secure Every Access Point With ApiNexus</h2>
+            <p class="fs-6 mx-auto mb-5" style="max-width: 580px; color: #94a3b8; line-height:1.6;">
+                Deploy enterprise-grade authentication, authorization, and identity management from a single centralized platform.
+            </p>
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                <a href="#" class="btn btn-primary px-4 py-3 shadow-sm" style="font-weight: 600; border-radius: 10px; background: #2563eb; border: none; font-size:14px;">Start Protecting Users</a>
+                <a href="#" class="btn btn-outline-light px-4 py-3" style="font-weight: 600; border-radius: 10px; font-size:14px;">Schedule Security Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--bg-surface-primary); border-top: 1px solid var(--border-color); padding: 36px 0;">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
             <div>
-              <h4>Core Engine</h4>
-              <a href="#">Integration Studio</a>
-              <a href="#">Edge Orchestrator</a>
-              <a href="#">Data Matrix Router</a>
+                <span style="font-weight: 700; color: var(--text-primary); font-size: 14px;"><i class="fa-solid fa-cubes text-primary me-2"></i>ApiNexus Technologies</span>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 0; margin-top: 2px;">Identity Fabric Infrastructure & Real-Time Security Operations Desk.</p>
             </div>
-            <div>
-              <h4>Management</h4>
-              <a href="#">Unified Dashboard</a>
-              <a href="#">Compliance Monitor</a>
-              <a href="#">Security Manager</a>
+            <div style="display: flex; gap: 24px;">
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Security Protocols</a>
+                <a href="#" style="font-size: 12px; color: var(--text-secondary); text-decoration: none;">Privacy Policies</a>
             </div>
-            <div>
-              <h4>Extensions</h4>
-              <a href="#">Custom Connectors</a>
-              <a href="#">Serverless Hooks</a>
-            </div>
-            <div class="mega-featured">
-              <span><strong>New Feature:</strong> AI Mapping Catalyst</span>
-              <a href="#">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
-            </div>
-          </div>
         </div>
-        
-        <div class="mega-nav-item">
-          Solutions <i class="fa-solid fa-chevron-down ms-1" style="font-size: 11px;"></i>
-          <div class="mega-dropdown">
-            <div>
-              <h4>By Use Case</h4>
-              <a href="#">Cloud Migration</a>
-              <a href="#">Legacy Pipeline Modernization</a>
-              <a href="#">Real-time Stream Sync</a>
-            </div>
-            <div>
-              <h4>By Industry</h4>
-              <a href="#">Fintech Platforms</a>
-              <a href="#">Healthcare Informatics</a>
-              <a href="#">E-commerce Logistics</a>
-            </div>
-          </div>
-        </div>
-        
-        <a href="#pricing" class="mega-nav-item text-decoration-none">Pricing</a>
-        <a href="#docs" class="mega-nav-item text-decoration-none">Documentation</a>
-      </nav>
+    </footer>
 
-      <div class="header-actions-deck d-none d-lg-flex">
-        <a href="#" class="btn btn-secondary py-2 px-3">Sign In</a>
-        <a href="#" class="btn btn-primary py-2 px-3">Request Demo</a>
-      </div>
-      
-      <button class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></button>
-    </div>
-  </header>
-
-  <section class="hero-section">
-    <div class="hero-glow"></div>
-    <div class="container">
-      <span class="badge-pill-micro">ENTERPRISE INTEGRATION STANDARD</span>
-      <h1>Connect Any System. Orchestrate At <span>Scale</span>.</h1>
-      <p>The definitive engine for distributed systems mapping, high-speed transactional logic processing, and comprehensive multi-cloud schema synchronization.</p>
-      <div class="hero-cta">
-        <a href="#" class="btn btn-primary">Deploy Cluster Free</a>
-        <a href="#" class="btn btn-secondary"><i class="fa-solid fa-book-open me-2"></i>Read Integration Blueprint</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-spacer" id="features">
-    <div class="container">
-      <div class="text-center mb-5">
-        <span class="badge-pill-micro">PLATFORM CAPABILITIES</span>
-        <h2 class="fw-bold text-dark mt-2">Engineered For Ultra-Reliable Workloads</h2>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <i class="fa-solid fa-bolt"></i>
-          <h3>Zero-Copy Pipelines</h3>
-          <p>Transfer multi-gigabyte data payloads across networks with negligible CPU consumption.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-shield-halved"></i>
-          <h3>Sovereign Encryption</h3>
-          <p>Enterprise grade transport level isolation adhering directly to global cryptographic protocols.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-diagram-project"></i>
-          <h3>Visual Topology Maps</h3>
-          <p>Monitor complex distributed node interactions in an administrative structural grid.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-section">
-    <div class="container">
-      <h2>Ready to Orchestrate Your Architecture?</h2>
-      <p class="text-secondary max-width-700 mx-auto mb-4">Join hundreds of global engineering collectives running robust, latency-minimized transactional workflows.</p>
-      <a href="#" class="btn btn-primary px-4 py-3">Get Started Today</a>
-    </div>
-  </section>
-
-  <section class="section-spacer" id="integrations">
-    <div class="container">
-      
-      <div class="text-center mb-5">
-        <span class="badge-pill-micro">Integrations</span>
-        <h2 class="fw-bold text-dark mt-2">Connect the Tools You Already Use</h2>
-        <p class="text-secondary max-width-700 mx-auto mt-2">ApiNexus enables seamless integration with business applications, cloud services, and enterprise platforms.</p>
-      </div>
-      
-      <div class="row g-4 justify-content-center">
-        
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="integration-vector-card">
-            <div class="integration-icon-frame">
-              <i class="fa-solid fa-people-group"></i>
-            </div>
-            <h3>CRM Systems</h3>
-            <p>Connect customer data across sales and support platforms seamlessly.</p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="integration-vector-card">
-            <div class="integration-icon-frame">
-              <i class="fa-solid fa-credit-card"></i>
-            </div>
-            <h3>Payment Platforms</h3>
-            <p>Integrate payment gateways and high-frequency transaction services.</p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="integration-vector-card">
-            <div class="integration-icon-frame">
-              <i class="fa-solid fa-comments"></i>
-            </div>
-            <h3>Communication Tools</h3>
-            <p>Automate alerts, logging notifications, and core team collaboration.</p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="integration-vector-card">
-            <div class="integration-icon-frame">
-              <i class="fa-solid fa-cloud"></i>
-            </div>
-            <h3>Cloud Services</h3>
-            <p>Connect secure object storage, hosting layers, and multi-cloud infrastructure.</p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="integration-vector-card">
-            <div class="integration-icon-frame">
-              <i class="fa-solid fa-building"></i>
-            </div>
-            <h3>Enterprise Applications</h3>
-            <p>Integrate legacy ERP platforms, HR software, and operational databases.</p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="integration-vector-card action-dashed-card">
-            <div class="integration-icon-frame action-icon">
-              <i class="fa-regular fa-pen-to-square"></i>
-            </div>
-            <h3>Build Custom Links</h3>
-            <p>Utilize flexible APIs and SDK tools for creating tailored pipeline connections.</p>
-            <a href="#" class="btn btn-primary w-100 mt-2 py-2">Learn More <i class="fa-solid fa-arrow-right ms-2 small"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <footer class="master-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <h5 class="text-dark"><i class="fa-solid fa-network-wired text-primary me-2"></i>ApiNexus</h5>
-          <p class="text-secondary small mt-2">Next-generation orchestration layers designed to unify enterprise backend data ecosystems seamlessly.</p>
-        </div>
-        <div>
-          <h5>Quick Links</h5>
-          <a href="#">Home</a>
-          <a href="#features">Features</a>
-          <a href="#">Pricing</a>
-          <a href="#">Documentation</a>
-        </div>
-        <div>
-          <h5>Resources</h5>
-          <a href="#">Blog</a>
-          <a href="#">Guides</a>
-          <a href="#">Case Studies</a>
-          <a href="#">About Us</a>
-        </div>
-        <div>
-          <h5>Legal</h5>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 Aparajayah Technologies. All rights reserved.</span>
-        <span>
-          <i class="fa-brands fa-github me-2"></i>
-          <i class="fa-brands fa-twitter me-2"></i>
-          <i class="fa-brands fa-linkedin"></i>
-        </span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

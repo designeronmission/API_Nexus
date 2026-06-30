@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiNexus — API Traffic Intelligence Layer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="assets/style.css">
+    
+    <style>
+        :root {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-surface-secondary: #f1f5f9;
+            --border-color: #e2e8f0;
+            --border-color-bright: #cbd5e1;
+            --brand-primary: #2563eb;
+            --brand-secondary: #4f46e5;
+            --brand-glow: rgba(37, 99, 235, 0.05);
+            --accent-purple: #9333ea;
+            --accent-emerald: #059669;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        /* Nav Header Styling */
+        .site-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .header-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .mega-nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .mega-nav-item {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .mega-nav-item:hover, .mega-nav-item.active {
+            color: var(--brand-primary);
+        }
+
+        /* Micro Badges */
+        .badge-micro {
+            background: rgba(37, 99, 235, 0.06);
+            color: var(--brand-primary);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Hero Area */
+        .hero-section {
+            padding: 180px 0 100px 0;
+            position: relative;
+            background: radial-gradient(circle at 50% 15%, rgba(37, 99, 235, 0.04) 0%, transparent 60%);
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--brand-primary) 30%, var(--brand-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Metric Widgets */
+        .metric-mini-card {
+            border-left: 2px solid var(--brand-primary);
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+        .metric-mini-val {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .metric-mini-lbl {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Premium Buttons */
+        .btn-premium {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            color: white;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: none;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
+            color: white;
+        }
+
+        .btn-premium-outline {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color-bright);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .btn-premium-outline:hover {
+            background: #f8fafc;
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+        }
+
+        /* Interactive Control Cards */
+        .tower-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            height: 100%;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+        }
+
+        .tower-card:hover {
+            border-color: var(--border-color-bright);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Matrix Canvas Compare Frame */
+        .split-matrix-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        .matrix-pane-left {
+            background: #fffdfd;
+            border-right: 1px solid var(--border-color);
+            padding: 48px;
+        }
+        .matrix-pane-right {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.02), transparent);
+            padding: 48px;
+        }
+
+        /* Visual Flows & Node Maps */
+        .flow-node {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+        }
+        .flow-node.active {
+            border-color: var(--brand-primary);
+            background: rgba(37, 99, 235, 0.02);
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.08);
+        }
+        .flow-connector {
+            width: 2px;
+            height: 24px;
+            background: linear-gradient(to bottom, var(--brand-primary), var(--brand-secondary));
+            margin: 0 auto;
+            opacity: 0.4;
+        }
+
+        /* Pill tags */
+        .micro-pill {
+            background: var(--bg-surface-secondary);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Section Global Settings */
+        .section-padding {
+            padding: 100px 0;
+            position: relative;
+        }
+        .section-headline {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        /* Animated Flow Line Graphic effect */
+        @keyframes flowDash {
+            to { stroke-dashoffset: -40; }
+        }
+        .animated-flow-line {
+            stroke-dasharray: 8, 4;
+            animation: flowDash 1.2s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrapper">
+                <a href="#" class="logo-block">
+                    <i class="fa-solid fa-cubes text-primary"></i> ApiNexus
+                </a>
+                <nav class="mega-nav d-none d-lg-flex">
+                    <a href="#" class="mega-nav-item">Overview</a>
+                    <a href="#" class="mega-nav-item">Integration Hub</a>
+                    <a href="#" class="mega-nav-item active">API Gateway</a>
+                    <a href="#" class="mega-nav-item">Identity Fabric</a>
+                    <a href="#" class="mega-nav-item">Analytics Center</a>
+                </nav>
+                <div>
+                    <a href="#" class="btn-premium" style="padding: 10px 20px; font-size: 13px; border-radius: 8px; box-shadow: none;">Launch Console</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-xl-6">
+                    <span class="badge-micro">
+                        <i class="fa-solid fa-bolt-lightning text-warning"></i> API Traffic Intelligence
+                    </span>
+                    <h1 class="hero-title mt-3">
+                        Secure, Control & Scale <br><span class="hero-gradient">Every API Request</span>
+                    </h1>
+                    <p class="text-secondary fs-5 mt-3 mb-4" style="line-height: 1.6; max-width: 550px;">
+                        A high-performance API Gateway that intelligently routes, secures, analyzes, and optimizes traffic across your entire digital ecosystem. Manage millions of requests with enterprise-grade reliability, real-time security enforcement, and complete operational visibility.
+                    </p>
+                    
+                    <div class="d-flex flex-wrap gap-3 mb-5">
+                        <a href="#control-center" class="btn-premium">Deploy API Gateway <i class="fa-solid fa-angle-right"></i></a>
+                        <a href="#" class="btn-premium-outline">Request Technical Demo</a>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-sm-3 col-6">
+                            <div class="metric-mini-card">
+                                <div class="metric-mini-val">10B+</div>
+                                <div class="metric-mini-lbl">Processed Monthly</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="metric-mini-card" style="border-left-color: var(--accent-purple);">
+                                <div class="metric-mini-val">99.99%</div>
+                                <div class="metric-mini-lbl">Gateway Uptime</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="metric-mini-card" style="border-left-color: var(--accent-emerald);">
+                                <div class="metric-mini-val">&lt;50ms</div>
+                                <div class="metric-mini-lbl">Average Latency</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="metric-mini-card" style="border-left-color: var(--brand-secondary);">
+                                <div class="metric-mini-val">500+</div>
+                                <div class="metric-mini-lbl">Connected Services</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 text-center">
+                    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-radius: 28px; padding: 40px; position: relative;">
+                        <svg style="position: absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1;">
+                            <path d="M 90 60 L 250 160" stroke="rgba(37, 99, 235, 0.2)" stroke-width="2" fill="none" class="animated-flow-line" />
+                            <path d="M 410 60 L 250 160" stroke="rgba(37, 99, 235, 0.2)" stroke-width="2" fill="none" class="animated-flow-line" />
+                            <path d="M 250 220 L 250 280" stroke="rgba(147, 51, 234, 0.2)" stroke-width="2" fill="none" class="animated-flow-line" />
+                        </svg>
+
+                        <div class="d-flex justify-content-around mb-5 position-relative" style="z-index:2;">
+                            <span class="micro-pill"><i class="fa-solid fa-mobile-button me-2 text-primary"></i>Mobile Apps</span>
+                            <span class="micro-pill"><i class="fa-solid fa-globe me-2 text-primary"></i>Web Portals</span>
+                            <span class="micro-pill"><i class="fa-solid fa-handshake me-2 text-primary"></i>Partners</span>
+                        </div>
+
+                        <div class="my-5 position-relative" style="z-index: 2; max-width: 320px; margin: 0 auto;">
+                            <div style="background: linear-gradient(135deg, var(--bg-surface-secondary), #ffffff); border: 2px solid var(--brand-primary); border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);">
+                                <div class="fw-bold mb-2 text-dark" style="font-size: 13px; letter-spacing: 0.05em;">
+                                    <i class="fa-solid fa-circle-nodes text-primary me-2"></i>APINEXUS GATEWAY CORE
+                                </div>
+                                <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+                                    <span style="font-size: 11px; background: rgba(37,99,235,0.06); color: var(--brand-primary); padding: 4px 8px; border-radius: 4px; font-weight: 600;">Security</span>
+                                    <span style="font-size: 11px; background: rgba(37,99,235,0.06); color: var(--brand-primary); padding: 4px 8px; border-radius: 4px; font-weight: 600;">Routing</span>
+                                    <span style="font-size: 11px; background: rgba(37,99,235,0.06); color: var(--brand-primary); padding: 4px 8px; border-radius: 4px; font-weight: 600;">Policies</span>
+                                    <span style="font-size: 11px; background: rgba(37,99,235,0.06); color: var(--brand-primary); padding: 4px 8px; border-radius: 4px; font-weight: 600;">Analytics</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3 mt-5 position-relative" style="z-index:2;">
+                            <span class="micro-pill" style="border-color: var(--border-color-bright);"><i class="fa-solid fa-server me-2 text-purple"></i>APIs & Services</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="border-top: 1px solid var(--border-color); background: #ffffff;">
+        <div class="container">
+            <div class="row align-items-center g-5 mb-5">
+                <div class="col-lg-6">
+                    <span class="badge-micro"><i class="fa-solid fa-triangle-exclamation me-2"></i>Operational Friction</span>
+                    <h2 class="section-headline mt-3">Every Request Matters</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-secondary mb-0 fs-6" style="line-height: 1.7;">
+                        Modern businesses rely on APIs to connect applications, customers, partners, and services. Without a centralized gateway, organizations face security vulnerabilities, inconsistent policies, performance bottlenecks, and limited visibility. ApiNexus API Gateway provides a single control layer that governs every request entering your ecosystem.
+                    </p>
+                </div>
+            </div>
+
+            <div class="split-matrix-box">
+                <div class="row g-0">
+                    <div class="col-md-6 matrix-pane-left">
+                        <h4 class="fw-bold fs-5 text-dark mb-4" style="letter-spacing: -0.01em;">Traditional API Traffic Gaps</h4>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div class="d-flex align-items-center gap-3 text-secondary">
+                                <span style="width: 24px; height: 24px; background: rgba(239,68,68,0.08); color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✕</span>
+                                <span class="fs-6">Direct application API exposure points</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-secondary">
+                                <span style="width: 24px; height: 24px; background: rgba(239,68,68,0.08); color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✕</span>
+                                <span class="fs-6">Inconsistent security policy schemas</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-secondary">
+                                <span style="width: 24px; height: 24px; background: rgba(239,68,68,0.08); color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✕</span>
+                                <span class="fs-6">Limited distributed traffic telemetry monitoring</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-secondary">
+                                <span style="width: 24px; height: 24px; background: rgba(239,68,68,0.08); color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✕</span>
+                                <span class="fs-6">Frequent backend server traffic bottlenecks</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-secondary">
+                                <span style="width: 24px; height: 24px; background: rgba(239,68,68,0.08); color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✕</span>
+                                <span class="fs-6">Difficult horizontal scale balancing adjustments</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 matrix-pane-right">
+                        <h4 class="fw-bold fs-5 mb-4" style="letter-spacing: -0.01em; color: var(--brand-primary) !important;">ApiNexus Managed Gateway Core</h4>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div class="d-flex align-items-center gap-3 text-dark">
+                                <span style="width: 24px; height: 24px; background: rgba(5,150,105,0.08); color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✓</span>
+                                <span class="fs-6 fw-medium">Centralized traffic control layer perimeter</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-dark">
+                                <span style="width: 24px; height: 24px; background: rgba(5,150,105,0.08); color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✓</span>
+                                <span class="fs-6 fw-medium">Unified automated security enforcement matrix</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-dark">
+                                <span style="width: 24px; height: 24px; background: rgba(5,150,105,0.08); color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✓</span>
+                                <span class="fs-6 fw-medium">Real-time live transactional endpoint monitoring</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-dark">
+                                <span style="width: 24px; height: 24px; background: rgba(5,150,105,0.08); color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✓</span>
+                                <span class="fs-6 fw-medium">Intelligent elastic load routing topologies</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 text-dark">
+                                <span style="width: 24px; height: 24px; background: rgba(5,150,105,0.08); color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: bold;">✓</span>
+                                <span class="fs-6 fw-medium">Inherent multi-region enterprise scalability bounds</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="control-center" class="section-padding" style="border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-micro"><i class="fa-solid fa-sliders me-2"></i>Feature Architecture Matrix</span>
+                <h2 class="section-headline mt-2">Everything Required To Manage API Traffic</h2>
+            </div>
+
+            <div class="row g-4 text-start">
+                <div class="col-lg-4 col-md-6">
+                    <div class="tower-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div style="width: 42px; height: 42px; background: rgba(37,99,235,0.06); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--brand-primary);"><i class="fa-solid fa-route fs-5"></i></div>
+                            <h3 class="fw-bold fs-5 mb-0 text-dark">Request Routing</h3>
+                        </div>
+                        <p class="text-secondary style-desc fs-6">Direct requests intelligently to the right destination service instance, micro-region, or logical environment pathway variables automatically.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <span class="micro-pill">Dynamic Routing</span>
+                            <span class="micro-pill">Path-Based Routing</span>
+                            <span class="micro-pill">Service Discovery</span>
+                            <span class="micro-pill">Intelligent Failover</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="tower-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div style="width: 42px; height: 42px; background: rgba(147,51,234,0.06); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent-purple);"><i class="fa-solid fa-gauge-high fs-5"></i></div>
+                            <h3 class="fw-bold fs-5 mb-0 text-dark">Rate Limiting</h3>
+                        </div>
+                        <p class="text-secondary style-desc fs-6">Protect underlying backends from high-volume credential abuse, malicious brute force overload, and sudden structural transit volume surges.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <span class="micro-pill">Throttling</span>
+                            <span class="micro-pill">Quotas</span>
+                            <span class="micro-pill">Burst Shield</span>
+                            <span class="micro-pill">Traffic Policies</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="tower-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div style="width: 42px; height: 42px; background: rgba(5,150,105,0.06); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent-emerald);"><i class="fa-solid fa-scale-balanced fs-5"></i></div>
+                            <h3 class="fw-bold fs-5 mb-0 text-dark">Load Balancing</h3>
+                        </div>
+                        <p class="text-secondary style-desc fs-6">Distribute systemic requests evenly across multiple healthy computing nodes to dramatically scale down aggregate response latency.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <span class="micro-pill">High Availability</span>
+                            <span class="micro-pill">Low Latency</span>
+                            <span class="micro-pill">Auto Failover</span>
+                            <span class="micro-pill">Horizontal Scale</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="tower-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div style="width: 42px; height: 42px; background: rgba(79,70,229,0.06); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--brand-secondary);"><i class="fa-solid fa-shield-halved fs-5"></i></div>
+                            <h3 class="fw-bold fs-5 mb-0 text-dark">API Security Policies</h3>
+                        </div>
+                        <p class="text-secondary style-desc fs-6">Apply programmatic network authentication governance boundaries globally across all published endpoint paths from one configuration schema.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <span class="micro-pill">Auth Enforcement</span>
+                            <span class="micro-pill">Access Rules</span>
+                            <span class="micro-pill">IP Restrictions</span>
+                            <span class="micro-pill">Threat Filtering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="tower-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div style="width: 42px; height: 42px; background: rgba(37,99,235,0.06); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--brand-primary);"><i class="fa-solid fa-chart-line fs-5"></i></div>
+                            <h3 class="fw-bold fs-5 mb-0 text-dark">Traffic Analytics</h3>
+                        </div>
+                        <p class="text-secondary style-desc fs-6">Gain absolute runtime visibility regarding request transaction counts, systemic exception rates, and programmatic client calling patterns.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <span class="micro-pill">Volume Tracking</span>
+                            <span class="micro-pill">Latency Graphs</span>
+                            <span class="micro-pill">Error Rates</span>
+                            <span class="micro-pill">Consumer Logs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="tower-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div style="width: 42px; height: 42px; background: rgba(147,51,234,0.06); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent-purple);"><i class="fa-solid fa-code-branch fs-5"></i></div>
+                            <h3 class="fw-bold fs-5 mb-0 text-dark">Request Transformation</h3>
+                        </div>
+                        <p class="text-secondary style-desc fs-6">Dynamically structuralize object headers, query parameters, and transaction payloads on the fly before forwarding parameters onward.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <span class="micro-pill">Header Inject</span>
+                            <span class="micro-pill">Payload Mapping</span>
+                            <span class="micro-pill">Protocol Swap</span>
+                            <span class="micro-pill">Data Enrichment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="border-top: 1px solid var(--border-color); background: #ffffff;">
+        <div class="container text-center">
+            <span class="badge-micro"><i class="fa-solid fa-network-wired me-2"></i>Runtime Pipeline</span>
+            <h2 class="section-headline mt-2 mb-4">Every Request Optimized In Real Time</h2>
+            <p class="text-secondary mx-auto mb-5 fs-6" style="max-width: 650px;">
+                Every API request passes through a centralized intelligence layer where security, routing, optimization, and analytics work together automatically.
+            </p>
+
+            <div class="d-flex flex-column align-items-center mt-4">
+                <div class="flow-node"><i class="fa-solid fa-user-tag text-info"></i> Client Request</div>
+                <div class="flow-connector"></div>
+                <div class="flow-node active"><i class="fa-solid fa-door-open text-primary"></i> Gateway Entry</div>
+                <div class="flow-connector"></div>
+                <div class="flow-node"><i class="fa-solid fa-key text-warning"></i> Authentication</div>
+                <div class="flow-connector"></div>
+                <div class="flow-node"><i class="fa-solid fa-clipboard-check text-success"></i> Policy Validation</div>
+                <div class="flow-connector"></div>
+                <div class="flow-node active"><i class="fa-solid fa-route text-primary"></i> Traffic Routing</div>
+                <div class="flow-connector"></div>
+                <div class="flow-node"><i class="fa-solid fa-shuffle text-purple"></i> Load Balancing</div>
+                <div class="flow-connector"></div>
+                <div class="flow-node"><i class="fa-solid fa-server text-muted"></i> Backend Service</div>
+                <div class="flow-connector"></div>
+                <div class="flow-node active" style="border-color:#059669; background:rgba(5,150,105,0.02);"><i class="fa-solid fa-paper-plane text-success"></i> Response Delivery</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <span class="badge-micro"><i class="fa-solid fa-shield-halved me-2"></i>Perimeter Firewall</span>
+                    <h2 class="section-headline mt-3 text-dark">Security Built Into Every Request</h2>
+                    <p class="text-secondary mt-3 mb-5 fs-6" style="line-height: 1.6;">
+                        Enforce stringent enterprise-grade protection thresholds natively at the edge layer, mitigating infrastructure vulnerabilities before threats reach internal database networks.
+                    </p>
+
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color);">
+                                <div style="font-size: 24px; font-weight:800; color:#dc2626;">250M+</div>
+                                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Threats Blocked</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color);">
+                                <div style="font-size: 24px; font-weight:800; color:var(--accent-emerald);">99.99%</div>
+                                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Gateway Uptime</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color);">
+                                <div style="font-size: 24px; font-weight:800; color:var(--brand-primary);">24/7</div>
+                                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Traffic Monitoring</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color);">
+                                <div style=" font-size: 24px; font-weight:800; color:var(--accent-purple);">100%</div>
+                                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Encrypted Transits</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="row g-4">
+                        <div class="col-sm-6">
+                            <div style="background:var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                                <h4 class="fw-bold fs-6 text-dark mb-2"><i class="fa-solid fa-skull-crossbones text-danger me-2"></i> Threat Detection</h4>
+                                <p class="text-secondary mb-0 style-desc" style="font-size: 14px;">Identify malicious requests, formatting variants, and SQL injection queries instantly before they target backend clusters.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="background:var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                                <h4 class="fw-bold fs-6 text-dark mb-2"><i class="fa-solid fa-user-shield text-primary me-2"></i> Access Control</h4>
+                                <p class="text-secondary mb-0 style-desc" style="font-size: 14px;">Enforce precise client application authorization claims, scopes, and mutual-TLS identity criteria securely.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="background:var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                                <h4 class="fw-bold fs-6 text-dark mb-2"><i class="fa-solid fa-hand-holding-hand text-warning"></i> Rate Protection</h4>
+                                <p class="text-secondary mb-0 style-desc" style="font-size: 14px;">Prevent programmatic token scraping, infrastructure resource exhaustion attacks, and high-frequency data theft attempts.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="background:var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                                <h4 class="fw-bold fs-6 text-dark mb-2"><i class="fa-solid fa-gavel text-purple"></i> Gateway Policies</h4>
+                                <p class="text-secondary mb-0 style-desc" style="font-size: 14px;">Apply system governance constraints, token lifetimes, and traffic routing templates uniformly across structural nodes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="border-top: 1px solid var(--border-color); background: #ffffff;">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <span class="badge-micro"><i class="fa-solid fa-eye me-2"></i>Live Telemetry</span>
+                    <h2 class="section-headline mt-3">Complete Visibility Across Every Endpoint</h2>
+                    <p class="text-secondary mt-3 mb-4 fs-6" style="line-height: 1.6;">
+                        Monitor traffic patterns, service health, consumer behavior, and operational performance through a unified observability dashboard.
+                    </p>
+                </div>
+
+                <div class="col-lg-6">
+                    <div style="background:#0f172a; border: 1px solid var(--border-color-bright); border-radius: 16px;  overflow:hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
+                        <div style="background: #1e293b; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:space-between;">
+                            <span style="font-size: 11px; color: #94a3b8; font-weight:700;"><i class="fa-solid fa-terminal text-primary me-2"></i>TRAFFIC_MONITOR_STREAM // ACTIVE</span>
+                            <div style="display:flex; gap:6px;">
+                                <span style="width:8px; height:8px; background:#ef4444; border-radius:50%;"></span>
+                                <span style="width:8px; height:8px; background:#eab308; border-radius:50%;"></span>
+                                <span style="width:8px; height:8px; background:#10b981; border-radius:50%;"></span>
+                            </div>
+                        </div>
+                        <div style="padding: 28px; display:flex; flex-direction:column; gap:20px;">
+                            <div class="d-flex justify-content-between align-items-center" style="border-bottom:1px dashed rgba(255,255,255,0.08); padding-bottom:12px;">
+                                <span style="color:#94a3b8; font-size:13px;">sys.live_requests</span>
+                                <span style="color:#fff; font-weight:700; font-size:18px;">2.4M <span style="color:#10b981; font-size:11px; font-weight:normal;">[Streaming]</span></span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center" style="border-bottom:1px dashed rgba(255,255,255,0.08); padding-bottom:12px;">
+                                <span style="color:#94a3b8; font-size:13px;">avg.transit_latency</span>
+                                <span style="color:#38bdf8; font-weight:700; font-size:18px;">42ms</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center" style="border-bottom:1px dashed rgba(255,255,255,0.08); padding-bottom:12px;">
+                                <span style="color:#94a3b8; font-size:13px;">transaction.success_rate</span>
+                                <span style="color:#10b981; font-weight:700; font-size:18px;">99.97%</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span style="color:#94a3b8; font-size:13px;">traffic.growth_velocity</span>
+                                <span style="color:#c084fc; font-weight:700; font-size:18px;">+38% <span style="font-size:12px; font-weight:normal; color:#94a3b8;">YoY</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="border-top: 1px solid var(--border-color);">
+        <div class="container text-center">
+            <span class="badge-micro"><i class="fa-solid fa-layer-group me-2"></i>Global Control Plane</span>
+            <h2 class="section-headline mt-2 mb-5">One Gateway. Unlimited Scale.</h2>
+
+            <div style="background:var(--bg-surface); border: 1px solid var(--border-color); border-radius: 24px; padding: 56px; max-width: 920px; margin: 0 auto; position:relative; box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
+                
+                <div class="mb-5">
+                    <span style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:12px; font-weight:700; letter-spacing:0.1em;">CONSUMER INGRESS CHANNELS</span>
+                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                        <span class="flow-node"><i class="fa-solid fa-display text-primary"></i> Web Apps</span>
+                        <span class="flow-node"><i class="fa-solid fa-mobile-screen text-info"></i> Mobile Apps</span>
+                        <span class="flow-node"><i class="fa-solid fa-network-wired text-warning"></i> Partner Systems</span>
+                        <span class="flow-node"><i class="fa-solid fa-microchip text-purple"></i> IoT Devices</span>
+                    </div>
+                </div>
+
+                <div style="width:2px; height:40px; background: linear-gradient(to bottom, var(--brand-primary), transparent); margin: 0 auto 24px auto;"></div>
+
+                <div class="p-4 my-4" style="background: var(--bg-surface-secondary); border: 1px solid var(--border-color-bright); border-radius:16px;">
+                    <div style="font-weight:700; color:var(--text-primary); font-size:13px; letter-spacing:0.05em; margin-bottom:20px;">
+                        <i class="fa-solid fa-server text-primary me-2"></i> APINEXUS TRAFFIC INTELLIGENCE ENGINE LAYER
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <span class="micro-pill" style="background:#fff;">Authentication</span>
+                        <span class="micro-pill" style="background:#fff;">Routing Architecture</span>
+                        <span class="micro-pill" style="background:#fff;">Load Balancing Grid</span>
+                        <span class="micro-pill" style="background:#fff;">Governance Policies</span>
+                        <span class="micro-pill" style="background:#fff;">Telemetry Analytics</span>
+                    </div>
+                </div>
+
+                <div style="width:2px; height:40px; background: linear-gradient(to bottom, transparent, var(--accent-purple)); margin: 24px auto 24px auto;"></div>
+
+                <div class="mt-5">
+                    <span style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:12px; font-weight:700; letter-spacing:0.1em;">BACKEND TARGET ECOSYSTEM</span>
+                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                        <span class="flow-node"><i class="fa-solid fa-cubes-stacked text-purple"></i> Microservices</span>
+                        <span class="flow-node"><i class="fa-solid fa-link text-success"></i> Internal APIs</span>
+                        <span class="flow-node"><i class="fa-solid fa-database text-info"></i> Databases</span>
+                        <span class="flow-node"><i class="fa-solid fa-cloud text-warning"></i> Cloud Services</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="border-top: 1px solid var(--border-color); background: #ffffff;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-micro"><i class="fa-solid fa-gem me-2"></i>Value Delivery</span>
+                <h2 class="section-headline mt-2">Why Organizations Choose ApiNexus Gateway</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="tower-card">
+                        <h4 class="fw-bold fs-5 text-dark mb-3"><i class="fa-solid fa-gauge text-primary me-2"></i> Faster Performance</h4>
+                        <p class="text-secondary mb-0" style="font-size: 14.5px; line-height:1.5;">Reduce aggregate endpoint latency signatures and improve overall user application experiences globally.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="tower-card">
+                        <h4 class="fw-bold fs-5 text-dark mb-3"><i class="fa-solid fa-shield text-success me-2"></i> Better Security</h4>
+                        <p class="text-secondary mb-0" style="font-size: 14.5px; line-height:1.5;">Protect fragile cloud infrastructure surfaces with central perimeter token governance and token enforcement.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="tower-card">
+                        <h4 class="fw-bold fs-5 text-dark mb-3"><i class="fa-solid fa-circle-check text-warning"></i> Greater Reliability</h4>
+                        <p class="text-secondary mb-0" style="font-size: 14.5px; line-height:1.5;">Ensure uninterrupted operational application uptime access parameters through live traffic re-routing metrics.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="tower-card">
+                        <h4 class="fw-bold fs-5 text-dark mb-3"><i class="fa-solid fa-expand text-purple"></i> Scale Invariant</h4>
+                        <p class="text-secondary mb-0" style="font-size: 14.5px; line-height:1.5;">Effortlessly absorb expanding transactional traffic loads without compounding manual infrastructure tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-micro"><i class="fa-solid fa-circle-nodes me-2"></i>Production Scenarios</span>
+                <h2 class="section-headline mt-2">Built For Every API Ecosystem</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div style="background:var(--bg-surface); border: 1px solid var(--border-color); padding: 32px; border-radius: 16px; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                        <div class="fw-bold text-dark fs-5 mb-2">SaaS Platforms</div>
+                        <p class="text-secondary mb-0" style="font-size:14.5px;">Manage downstream client-facing API token consumption securely and predictably at extreme transactional scales.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:var(--bg-surface); border: 1px solid var(--border-color); padding: 32px; border-radius: 16px; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                        <div class="fw-bold text-dark fs-5 mb-2">Enterprise Applications</div>
+                        <p class="text-secondary mb-0" style="font-size:14.5px;">Safely connect internal ledger clusters and external partner cloud systems using a central secure proxy matrix.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:var(--bg-surface); border: 1px solid var(--border-color); padding: 32px; border-radius: 16px; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                        <div class="fw-bold text-dark fs-5 mb-2">Financial Services</div>
+                        <p class="text-secondary mb-0" style="font-size:14.5px;">Enforce absolute mutual-TLS identity protection rules over high-throughput financial data transaction paths.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:var(--bg-surface); border: 1px solid var(--border-color); padding: 32px; border-radius: 16px; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                        <div class="fw-bold text-dark fs-5 mb-2">E-Commerce Networks</div>
+                        <p class="text-secondary mb-0" style="font-size:14.5px;">Survive sudden promotional catalog access spikes smoothly through automatic dynamic node query routing.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:var(--bg-surface); border: 1px solid var(--border-color); padding: 32px; border-radius: 16px; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                        <div class="fw-bold text-dark fs-5 mb-2">Developer Platforms</div>
+                        <p class="text-secondary mb-0" style="font-size:14.5px;">Provide reliable, well-documented, and fully rate-governed sandbox environments to external integrations.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:var(--bg-surface); border: 1px solid var(--border-color); padding: 32px; border-radius: 16px; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                        <div class="fw-bold text-dark fs-5 mb-2">Multi-Cloud Environments</div>
+                        <p class="text-secondary mb-0" style="font-size:14.5px;">Seamlessly path data requests across hybrid on-prem networks and public hyperscaler infrastructures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding text-center overflow-hidden" style="border-top: 1px solid var(--border-color); background: #ffffff;">
+        <div class="container position-relative" style="z-index:10;">
+            <span class="badge-micro" style="border-color: var(--accent-purple); color: var(--accent-purple); background: rgba(147,51,234,0.05);">TRAFFIC. SECURITY. SCALE.</span>
+            <h2 class="fw-extrabold text-dark mt-3 mb-3" style="font-size: 44px; letter-spacing: -0.02em;">Put Every API Request Under Control</h2>
+            <p class="text-secondary fs-6 mx-auto mb-5" style="max-width: 600px;">
+                Deploy a centralized API Gateway that secures traffic, optimizes performance, and provides complete visibility across your digital ecosystem.
+            </p>
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                <a href="#" class="btn-premium"><i class="fa-solid fa-circle-dot me-1"></i> Launch API Gateway</a>
+                <a href="#" class="btn-premium-outline"><i class="fa-solid fa-comments me-1"></i> Schedule Architecture Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--bg-surface); border-top: 1px solid var(--border-color); padding: 48px 0;">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div>
+                <span class="fw-bold text-dark fs-6"><i class="fa-solid fa-cubes text-primary me-2"></i>ApiNexus Technologies</span>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 0; margin-top: 4px;">Global Enterprise Integration Architecture Frameworks & Traffic Management Substrates.</p>
+            </div>
+            <div style="display: flex; gap: 24px;">
+                <a href="#" style="font-size: 13px; color: var(--text-secondary); text-decoration: none;">Security Trust Protocol</a>
+                <a href="#" style="font-size: 13px; color: var(--text-secondary); text-decoration: none;">Privacy Settings</a>
+                <a href="#" style="font-size: 13px; color: var(--text-secondary); text-decoration: none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
